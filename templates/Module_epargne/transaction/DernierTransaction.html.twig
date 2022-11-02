@@ -1,0 +1,80 @@
+{{ include('header.html.twig') }}
+
+{% block body %}
+<h2 style="color:black;">Rapport de dernier transaction :</h2>
+    {% if  affiche_tab_  == false%}
+
+        <div class="row" style="width: 60%; margin-left: 20rem; border: 1px solid #AAA; padding: 50px;" >
+            <h4 class="text-center">Rechercher</h4>
+            {{ form_start(form) }}
+                    <div class="row" style="color:black;">
+                        <div id="one_date">
+                            <div class="row-sm-2">
+                                {{ form_row(form.date1) }}
+                            </div>
+                        </div>
+
+                        <div id="two_date">    
+                            <div class="row-sm-2">
+                                {{ form_row(form.Du) }}
+                            </div>
+
+                            <div class="row-sm-2">
+                                {{ form_row(form.Au) }}
+                            </div>
+                        </div>
+
+                        <div class="col-sm" style="margin-top:24px;">
+                            {{ form_row(form.Filtre) }}
+                        </div>
+                    </div>
+            {{ form_end(form) }}
+                </div>
+        {% else %}
+            <table class="table1 table table-bordered" style="margin-top:25px;">
+                <thead class="alert alert-success">
+                    <tr>
+                        <th>Code transaction</th>
+                        <th>Compte epargne</th>
+                        <th>Nom</th>
+                        <th>Description</th>
+                        <th>Piece Comptable</th>
+                        <th>Produit</th>
+                        <th>Date Transaction</th>
+                        <th>Montant</th>
+                        <th>Solde</th>
+
+                    </tr>
+                </thead>
+                <tbody class="jumbotron jumbotron-fluid" style="color:black;">
+                {% for transaction in transactions %}
+                    <tr>
+                        <td>{{transaction.codetransaction}}</td>
+                        <td>{{ transaction.codeepargneclient }}</td>
+                        <td>{{ transaction.nomclient }} {{ transaction.prenomclient }}</td>
+                        <td>{{ transaction.Description }}</td>
+                        <td>{{ transaction.PieceComptable }}</td>
+                        <td>{{ transaction.nomproduit }}</td>
+                        <td>{{ transaction.DateTransaction ? transaction.DateTransaction|date('Y-m-d') : '' }}</td>
+                        <td>
+                            {% if transaction.Description == 'RETRAIT' %}
+                            <span style="color: red;">{{ transaction.Montant }}</span>
+                            {% else %}
+                                <span style="color: green;">{{ transaction.Montant }}</span>
+                            {% endif %}    
+                        </td>
+                        <td>{{ transaction.solde }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="8">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+
+
+{% endblock %}
+
+{{ include('footer.html.twig') }}

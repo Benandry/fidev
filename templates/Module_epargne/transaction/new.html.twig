@@ -1,0 +1,31 @@
+{{ include('header.html.twig') }}
+
+{% block body %}
+
+        <div>
+            <p> Text ecrit : <span id="text"> </span> </p>
+            {# <p> Text ecrit : <span id="code"> </span> </p> #}
+        </div>
+
+
+    {{ include('Module_epargne/transaction/_form.html.twig') }}
+
+    <table class="table table-bordered">
+    <thead class="alert alert-success"> 
+        <tr>
+            <th>Code Epargne</th>
+            <th>Nom et prenom client</th>
+            <th>Solde</th>
+        </tr>
+    </thead> 
+    <tbody class="jumbotron jumbotron-fluid">
+        <tr>
+            <td><span id="code"> </span> </td>
+            <td><span id="nom"> </span> </td>
+            <td><span id="solde"> </span> </td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}
+{{ include('footer.html.twig') }}

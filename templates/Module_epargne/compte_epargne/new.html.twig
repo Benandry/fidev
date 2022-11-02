@@ -1,0 +1,37 @@
+{{ include('header.html.twig') }}
+
+{% block body %}
+              {{ include('Module_epargne/compte_epargne/_form.html.twig') }}
+            
+        <div id="text-paragraphe">
+            <p> Text ecrit : <span id="text"> </span> </p>
+            <p> Text ecrit : <span id="code"> </span> </p>
+        </div>
+        
+        <table class="table1 table table-bordered" style="margin-top:50px;">
+            <thead class="alert alert-success">
+                <tr>
+                    <th>Code client</th>
+                    <th>Nom et prenom</th>
+                    <th>Produits</th>
+                    <th>Date d'ouverture </th>
+                    <th>Code Epargne</th>
+                </tr>
+            </thead>
+            {% for compte_epargne in comptedujours %}
+            <tbody class="jumbotron jumbotron-fluid" style="color:black;">
+                <tr>
+                    <td>{{ compte_epargne.codeclient }}</td>
+                    <td>{{ compte_epargne.nom_client }} {{ compte_epargne.prenom_client }}</td>
+                    <td>{{ compte_epargne.nomproduit }}</td>
+                    <td>{{ compte_epargne.datedebut | date }}</td>
+                    <td>{{ compte_epargne.codeepargne }}</td>
+                </tr>
+            </tbody>
+            {% endfor %}
+    </table>
+
+{% endblock %}
+
+
+{{ include('footer.html.twig') }}

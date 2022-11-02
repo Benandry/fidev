@@ -1,0 +1,21 @@
+{{ form_start(form) }}
+    <div class="row jumbotron jumbotron-fluid" style="color:black;">
+        <div class="col-sm-5">
+                {{ form_row(form.produit) }}
+        </div>
+         <div class="col-sm-5">
+              {{ form_row(form.typeClient) }}
+        </div>
+        <div class="col-sm-5">
+                    {{ form_row(form.codeep) }}
+        </div>
+        <div class="col-sm-5">
+            {{ form_row(form.datedebut) }}
+        </div>
+        <div class="col-sm" style="margin-top:25px;">
+            {{ form_row(form.Valider) }}
+                {# <a href="{{ path('app_compte_epargne_index') }}" class="btn btn-success"> <i class="fa fa-eye"></i> Voir Liste</a> #}
+
+        </div>
+    </div>
+{{ form_end(form) }}

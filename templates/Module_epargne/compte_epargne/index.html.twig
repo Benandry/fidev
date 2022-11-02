@@ -1,0 +1,41 @@
+{{ include('header.html.twig') }}
+
+{% block body %}
+    {{ form_start(trierEp) }}
+        <div class="row "> 
+            <div class="col-sm-5"> 
+                    {{ form_row(trierEp.Date1) }}
+            </div>
+            <div class="col-sm-5"> 
+                    {{ form_row(trierEp.Date2) }}
+            </div>
+            <div class="col-sm" style="margin-top:25px;"> 
+                    {{ form_row(trierEp.Filtre) }}
+            </div>
+        </div>
+    {{ form_end(trierEp) }}
+
+    <table class="table1 table table-bordered" style="margin-top:50px;">
+        <thead class="alert alert-success">
+            <tr>
+                <th>Code Epargne</th>
+                <th>Nom et prenom</th>
+                <th>Produits</th>
+                <th>Date d'ouverture </th>
+            </tr>
+        </thead>
+        <tbody class="jumbotron jumbotron-fluid" style="color:black;">
+        {% for compte_epargne in compteepargne %}
+            <tr>
+                <td>{{compte_epargne.codeepargne}}</td>
+                <td>{{compte_epargne.nom }} {{compte_epargne.prenom }}</td>
+                <td>{{compte_epargne.nomprod }}</td>
+                <td>{{ compte_epargne.datedebut ? compte_epargne.datedebut|date('Y-m-d') : '' }}</td>
+           
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{{ include('footer.html.twig') }}

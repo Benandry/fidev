@@ -1,0 +1,28 @@
+{{ form_start(form) }}
+    {# {{ form_widget(form) }} #}
+    <div class="row jumbotron jumbotron-fluid">
+             <div class="col-sm-5">
+                {{ form_row(form.produitEpargne) }}
+                {{ form_row(form.IsNegatif) }}
+                {{ form_row(form.deviseutiliser) }}
+                {{ form_row(form.nbrjInactif) }}
+            </div>
+            <div class="col-sm-5">
+                {{ form_row(form.nbMinRet) }}
+                {{ form_row(form.NbrJrMaxDep) }}
+                {{ form_row(form.ageMinCpt) }}
+                {{ form_row(form.fraisTenuCpt) }}
+            </div>        
+        
+            <div class="col-sm-5">
+                {{ form_row(form.commissionRetCash) }}
+                {{ form_row(form.commissionTransf) }}
+            </div>         
+            <div class="col-sm-5">
+                {{ form_row(form.fraisFermCpt) }}
+                {{ form_row(form.soldeouvert) }}
+            </div>        
+        </div>
+    </div>
+    <button class="btn btn-success" style="width:1100px;margin-left:-10px;">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

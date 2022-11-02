@@ -1,0 +1,69 @@
+{{ include('header.html.twig') }}
+
+{% block body %}
+
+    {% if showTable == false %}
+    <div class="row" style="width: 60%; margin-left: 20rem; border: 1px solid #AAA; padding: 50px;" >
+        <h2 class="text-center"> Recherche membre groupes....</h2>
+        {{ form_start(form) }}
+            <h2 style="color:black;">A propos :</h2>
+                    <div class="row" style="color:black;">
+                        <div class="col-sm-4">
+                            {{ form_row((form.Codeclient)) }}
+                        </div>
+                        <div class="col-sm-4">
+                            {{ form_row((form.NomClient)) }}
+                        </div>
+                            <div class="col-sm-4">
+                            {{ form_row((form.PrenomClient)) }}
+                        </div>
+                    </div>
+
+
+
+            <h2 style="color:black;">Releve du :</h2>
+                <div class="row" style="color:black;">
+                    <div class="col-sm-4">
+                        {{ form_row(form.Du) }}
+                    </div>
+                    <div class="col-sm-4">
+                        {{ form_row(form.Au) }}
+                    </div>
+                    <div class="col-sm-4" style="margin-top:25px;">
+                        {{ form_row(form.Filtre) }}
+                    </div>
+                </div>
+                <div class="row">
+                </div>
+        {{ form_end(form) }}
+    </div>
+    {% else %}
+        <table class="table table-bordered" style="margin-top:25px;">
+            <thead class="alert alert-success">
+                <tr>
+                    <th>Code transaction</th>
+                    <th>Description</th>
+                    <th>PieceComptable</th>
+                    <th>DateTransaction</th>
+                    <th>Montant</th>
+                </tr>
+            </thead>
+            <tbody class="jumbotron jumbotron-fluid" style="color:black;">
+            {% for Transaction in releves %}
+                <tr>
+                    <td>{{ Transaction.codetransaction }}</td>
+                    <td>{{ Transaction.Description }}</td>
+                    <td>{{ Transaction.PieceComptable }}</td>
+                    <td>{{ Transaction.DateTransaction ? Transaction.DateTransaction|date('Y-m-d') : '' }}</td>
+                    <td>{{ Transaction.Montant }}</td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+
+    {% endif %}
+
+{% endblock %}
+
+{{ include('footer.html.twig') }}

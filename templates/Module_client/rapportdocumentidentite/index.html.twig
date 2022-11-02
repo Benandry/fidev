@@ -1,0 +1,77 @@
+{{ include('header.html.twig') }}
+
+{% block body %}
+    {% if affiche_table == false %}
+    <div class="row" style="width: 60%; margin-left: 20rem; border: 1px solid #AAA; padding: 50px;" >
+        <h2 class="text-center"> Recherche document CIN ....</h2>
+
+        {{ form_start(trierDocs) }}
+            
+            <div class="text-center" id="one_date">
+                <h4 class="text-center"> Dans une date </h4>
+                {{ form_row(trierDocs.one_date_search) }}
+            </div>
+            
+            <div class="text-center" id="two_date">
+                <h4 class="text-center"> Entrer deux date </h4>
+                {{ form_row(trierDocs.Date1) }}
+            
+                {{ form_row(trierDocs.Date2) }}
+            </div>
+
+            {{ form_row(trierDocs.Filtre) }}
+                        
+        {{ form_end(trierDocs) }}
+        </div>
+    {% else %}
+        <h2 style="color:black;">Liste des CIN :</h2>
+
+        <table class="table1 table" style="margin-top:25px;">
+            <thead class="alert alert-success">
+                <tr>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Date naissance</th>
+                    <th>Lieu de naissance</th>
+                    <th>Numero CIN</th>
+                    <th>Date de livrance</th>
+                    <th>Date expiration</th>
+                    <th>Delivré à</th>
+                </tr>
+            </thead>
+                {% for Individuelclient in documents %}
+            <tbody class="jumbotron jumbotron-fluid" style="color:black;">
+                    <tr>
+                        <td>{{ Individuelclient.getNomclient() }}</td>
+                        <td>{{ Individuelclient.getPrenomclient() }}</td>
+                        <td>{{ Individuelclient.getDatenaissance()| date('d/m/y') }}</td>
+                        <td>{{ Individuelclient.getLieunaissance() }}</td>
+                        <td>{{ Individuelclient.getCin() }}</td>
+                        <td>{{ Individuelclient.getDatecin()| date('d/m/y') }}</td>
+                        <td>{{ Individuelclient.getDateexpiration()| date('d/m/y') }}</td>
+                        <td>{{ Individuelclient.lieudelivrance }}</td>
+                    </tr>
+            </tbody>
+                {% endfor %}
+        </table>
+    {% endif %}
+
+    {% block javascript %}
+        <script>
+            $(document).ready(function(){
+                $('#filtre_rapport_document_identite_one_date_search').on('change',function(){
+                    $('#two_date').hide();
+                });
+
+                $('#filtre_rapport_document_identite_Date1').on('change',function(){
+                    $('#one_date').hide();
+                });
+                $('#filtre_rapport_document_identite_Date2').on('change',function(){
+                    $('#one_date').hide();
+                });
+            });
+        </script>
+    {% endblock  %}
+{% endblock %}
+
+{{ include('footer.html.twig') }}

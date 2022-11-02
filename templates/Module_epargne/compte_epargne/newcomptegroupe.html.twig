@@ -1,0 +1,58 @@
+{{ include('header.html.twig') }}
+
+{% block body %}
+            <p> Text ecrit : <span id="text"> </span> </p>
+            <p> Text ecrit : <span id="code"> </span> </p>
+    {# <a href="{{ path('app_liste_groupe') }}" class="btn btn-success"> <i class="fa fa-eye"></i> Voir Liste</a> #}
+
+{{ form_start(form) }}
+    <div class="row jumbotron jumbotron-fluid">
+       <div class="col-sm-5">
+            {{ form_row(form.typeClient) }}
+        </div>
+       <div class="col-sm-5">
+         {{ form_row(form.codegroupe) }}
+        </div>
+       <div class="col-sm-5">
+             {{ form_row(form.produit) }}
+        </div>
+       <div class="col-sm-5">
+           {{ form_row(form.datedebut) }}
+        </div>
+        <div class="col-sm" style="margin-top:25px;">
+            {{ form_row(form.Valider) }}
+        </div>
+    </div>  
+{{ form_end(form) }}
+
+    <table class="table table-bordered" style="margin-top:30px;">
+        <thead class="alert alert-success">
+            <tr>
+                <th>Code Epargne</th>
+                <th>Nom Groupe</th>
+                <th>Produits</th>
+                <th>Date d'ouverture </th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody class="jumbotron jumbotron-fluid" style="color:black;">
+            <tr>
+                <td>
+                </td>
+                    
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+{% endblock %}
+{% block javascript %}
+    <script src="{{ asset('/api/api_codeepargne_groupe.js') }}"><script>
+{% endblock %}
+
+{{ include('footer.html.twig') }}
+

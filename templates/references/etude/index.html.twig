@@ -1,0 +1,31 @@
+{{ include('header.html.twig') }}
+
+{% block body %}
+    <h1>Etude</h1>
+
+    <table class="table table-bordered">
+        <thead class="alert alert-success">
+            <tr>
+                <th>Niveau</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody class="jumbotron jumbotron-fluid">
+        {% for etude in etudes %}
+            <tr>
+                <td>{{ etude.niveau }}</td>
+                <td>
+                    <a href="{{ path('app_etude_edit', {'id': etude.id}) }}" class="btn btn-success"><i class="fa fa-eye"></i>edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+
+{{ include('footer.html.twig') }}

@@ -1,0 +1,12 @@
+{{ include('header.html.twig') }}
+
+{% block body %}
+
+
+    {{ include('Module_client/agence/_form.html.twig') }}
+
+    <a href="{{ path('app_agence_index') }}" class="btn btn-success" style="margin-left:300px;"><i class="fa fa-eye"></i> Agence existe</a>
+</div>
+{% endblock %}
+
+{{ include('footer.html.twig') }}

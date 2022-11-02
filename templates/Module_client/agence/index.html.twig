@@ -1,0 +1,39 @@
+{{ include('header.html.twig') }}
+
+{% block body %}
+    <a href="{{ path('app_agence_new') }}" class="btn btn-success"><i class="fa fa-plus"></i>Nouveau</a>
+
+    <table class="table1 table">
+        <thead class="alert alert-success">
+            <tr>
+                <th>Code Agence</th>
+                <th>Nom Agence</th>
+                <th>Adresse Agence</th>
+                <th>Commune</th>
+                <th>Code commune</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody class="jumbotron jumbotron-fluid" style="color:black;">
+        {% for agence in agences %}
+            <tr>
+                <td>{{ "%02d" | format(agence.id) }}</td>
+                <td>{{ agence.NomAgence }}</td>
+                <td>{{ agence.AdressAgence }}</td>
+                <td>{{ agence.commune }}</td>
+                <td>{{ agence.codec }}</td>
+                <td>
+                    <a href="{{ path('app_agence_edit', {'id': agence.id}) }}" class="btn btn-success"><i class="fa fa-edit"></i> Editer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+
+{{ include('footer.html.twig') }}

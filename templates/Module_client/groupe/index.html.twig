@@ -1,0 +1,39 @@
+{{ include('header.html.twig') }}
+
+{% block body %}
+
+    <table class="table1 table">
+        <thead class="alert alert-success">
+            <tr>
+                <th>Code groupe</th>
+                <th>Nom Groupe</th>
+                <th>Date Inscription</th>
+                <th>Numero Mobile</th>
+                <th>Email</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody class="jumbotron jumbotron-fluid" style="color:black;">
+        {% for Groupe in groupes %}
+            <tr>
+                <td>{{ Groupe.codegroupe }}</td>
+                <td>{{ Groupe.nomGroupe }}</td>
+                <td>{{ Groupe.dateInscription ? Groupe.dateInscription|date('Y-m-d') : '' }}</td>
+                <td>{{ Groupe.numeroMobile }}</td>
+                <td>{{ Groupe.email }}</td>
+                <td>
+                    <a href="{{ path('app_groupe_show', {'id': Groupe.id}) }}" class="btn btn-success"><i class="fa fa-eye"></i></a>
+                    <a href="{{ path('app_groupe_edit', {'id': Groupe.id}) }}" class="btn btn-success"><i class="fa fa-edit"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+
+{{ include('footer.html.twig') }}

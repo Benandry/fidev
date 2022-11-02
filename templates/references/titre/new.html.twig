@@ -1,0 +1,40 @@
+{{ include('header.html.twig') }}
+
+{% block body %}
+    <h1>Titre</h1>
+
+
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
+         <i class="fa fa-plus"></i> Nouveau
+     </button>
+
+    <a href="{{ path('app_titre_index') }}" class="btn btn-success"><i class="fa fa-eye"></i> Voir Liste</a>
+
+  <!-- The Modal -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Titre</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+              {{ include('references/titre/_form.html.twig') }}
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{{ include('footer.html.twig') }}

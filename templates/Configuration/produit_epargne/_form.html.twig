@@ -1,0 +1,14 @@
+{{ form_start(form) }}
+        <div class="row" style="margin-left:300px;margin-top:50px;">
+            <div class="col-sm-5 jumbotron jumbotron-fluid">
+
+                {{ form_row(form.typeEpargne) }}
+                {{ form_row(form.nomproduit) }}
+                {{ form_row(form.isdesactive) }}
+                
+             <button class="btn btn-success" style="">{{ button_label|default('Save') }}</button>
+                 <a href="{{ path('app_produit_epargne_index') }}" class="btn btn-success"><i class="fa fa-eye"></i> Voir Liste</a>
+
+            </div>
+        </div>
+{{ form_end(form) }}

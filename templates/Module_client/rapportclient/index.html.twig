@@ -1,0 +1,74 @@
+{{ include('header.html.twig') }}
+
+{% block body %}
+    {% if affiche_tab  == false %}
+        <div class="row" style="width: 60%; margin-left: 20rem; border: 1px solid #AAA; padding: 50px;" >
+            <h2 class="text-center"> Recherche client....</h2>
+                {{ form_start(trier) }}
+                    <div class="text-center" id="one_date">
+                        <h4 class="text-center"> Dans une date </h4>
+                        {{ form_row(trier.search_one_date) }}
+                    </div>
+
+                    <div class="text-center" id="two_date">
+                        <h4 class="text-center"> Ou Entre deux dates </h4>
+                        {{ form_row(trier.date1) }}
+                        
+                        {{ form_row(trier.date2) }}
+                    </div>
+                                        
+                    {{ form_row(trier.Chercher) }}
+
+                {{ form_end(trier) }}
+        </div>
+ <p id="test">  <p>
+    {% else %}
+
+        <h2 style="color:black;"> Liste des clients :</h2>
+            <table class="table1 table alert alert-primary" style="margin-top:20px;">
+            <thead class="alert alert-success">
+                <tr>
+                    <th>Code client</th>
+                    <th>Nom client</th>
+                    <th>Prenom client</th>
+                    <th>Cin</th>
+                    <th>Date inscription</th>
+                </tr>
+            </thead>
+            <tbody class="jumbotron jumbotron-fluid" style="color:black;">
+            {% for individuelclient in individuel %}
+                    <tr>
+                        <td> {{ individuelclient.codeclient }}</td>
+                        <td>{{ individuelclient.nomClient }}</td>
+                        <td>{{ individuelclient.prenomClient }}</td>
+                        <td>{{ individuelclient.cin }}</td>
+                        <td>{{ individuelclient.dateInscription ? individuelclient.dateInscription|date('Y-m-d') : '' }}</td>             
+                    </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+    {% block javascript %}
+
+        <script>
+                $(document).ready(function(){
+                    $("#trier_rapport_client_search_one_date").on('change',function(){
+                        
+                        $('#two_date').hide();
+                    });
+
+                    $("#trier_rapport_client_date1").on('change',function(){
+                        $('#one_date').hide(); 
+                    });
+                    
+                    $("#trier_rapport_client_date2").on('change',function(){
+                        $('#one_date').hide(); 
+                    });
+                });
+        </script>
+    {% endblock %}
+
+{% endblock %}
+
+{{ include('footer.html.twig') }}

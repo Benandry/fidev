@@ -1,0 +1,32 @@
+{{ include('header.html.twig') }}
+
+{% block body %}
+    <a href="{{ path('app_type_epargne_new') }}" class="btn btn-success"><i class="fa fa-plus"></i> Nouveau</a>
+    <table class="table table-bordered">
+        <thead class="alert alert-success">
+            <tr>
+                <th>Code type</th>
+                <th>Nom type epargne</th>
+                <th>Abreviation</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody class="jumbotron jumbotron-fluid text-ligth">
+        {% for type_epargne in type_epargnes %}
+            <tr>
+                <td>{{ type_epargne.id }}</td>
+                <td>{{ type_epargne.NomTypeEp }}</td>
+                <td>{{ type_epargne.abreviation }}</td>
+                <td>{{ type_epargne.description }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+
+{{ include('footer.html.twig') }}

@@ -1,0 +1,38 @@
+{{ include('header.html.twig') }}
+
+{% block body %}
+    {# <a class="btn btn-success" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> Nouveau Groupe</a> #}
+   
+    <a href="{{ path('app_groupe_index') }}" class="btn btn-success" ><i class="fa fa-book"></i> Voir liste</a>
+    <div class="container">
+            <div style="display:none;"> <span id="id_groupe">{{ last_id_gropue }}</span> <span id="id_agence">{{ id_agence }}</span></div>
+
+              {{ include('Module_client/groupe/_form.html.twig') }}
+    </div>
+
+{% endblock %}
+{% block javascript %}
+
+        <script>
+                $(document).ready(function(){
+                    
+                    function pad(str, max) {
+                        str = str.toString();
+                       return str.length < max ? pad("0" + str, max) : str;
+                     }
+
+                    {#  Manova an ilay input code Groupe  #}
+                    var id_groupe =parseInt($('#id_groupe').text());
+                    id_groupe++;
+                    {# Agence #}
+                    var id_agence =parseInt($('#id_agence').text());
+                    
+
+                    $('#groupe_codegroupe').val('G'+pad(id_agence.toString(),2)+""+pad(id_groupe.toString(),7));
+                    {# Cacher le champ code client#}
+                    $('#code').attr("style", "display: none");
+                });
+        </script>
+{% endblock %}
+
+{{ include('footer.html.twig') }}

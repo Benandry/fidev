@@ -1,0 +1,34 @@
+{{ include('header.html.twig') }}
+
+{% block body %}
+    <h1>Devise</h1>
+
+    <table class="table1 table table-bordered">
+        <thead class="alert alert-success">
+            <tr>
+                <th>Devise</th>
+                <th>Pays</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody class="junbotron jumbotron-fluid">
+        {% for devise in devises %}
+            <tr>
+                <td>{{ devise.devise }}</td>
+                <td>{{ devise.pays }}</td>
+                <td>
+                    <a href="{{ path('app_devise_edit', {'id': devise.id}) }}" class="btn btn-success"> <i class="fa fa-eye"></i> editer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_devise_new') }}">Create new</a>
+{% endblock %}
+
+{{ include('footer.html.twig') }}

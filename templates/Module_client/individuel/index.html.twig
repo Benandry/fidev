@@ -1,0 +1,71 @@
+{{ include('header.html.twig') }}
+
+{% block body %}
+
+    <a href="{{ path('app_individuel_new') }}" class="btn btn-success"><i class="fa fa-plus"></i> Ajouter</a><br><br>
+    {# Champ pour la recherche #}
+        {{ form_start(formulaire) }}    
+            <div class="row" >
+                <div class="col-sm-5" >
+                    {{ form_row(formulaire.Rechercheclient) }}
+                </div>
+                <div class="col-sm-5" >
+                    {{ form_row(formulaire.Recherche) }}
+                </div>
+            </div>
+        {{ form_end(formulaire) }}
+    <table class="table1 table table-borderd p-5">
+        <thead class="alert alert-success">
+            <tr>
+                <th>Code Client</th>
+                <th>Nom client</th>
+                <th>Prenom client</th>
+                <th>Cin</th>
+                <th>Date inscription</th>
+                <th>Sexe</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody class="jumbotron jumbotron-fluid" style="color:black;">
+        {% for Individuelclient in individuelclients %}
+         
+            <tr>
+                <th> {{ Individuelclient.codeclient }} </th>
+                {# <td>{{ Individuelclient.codeindividuel }}</td> #}
+                <td>{{ Individuelclient.nomClient }}</td>
+                <td>{{ Individuelclient.prenomClient }}</td>
+                <td>{{ Individuelclient.cin }}</td>
+                <td>{{ Individuelclient.dateInscription ? Individuelclient.dateInscription|date('Y-m-d') : '' }}</td>
+                <td>{{ Individuelclient.sexe }}</td>
+                <td>
+                    <a href="{{ path('app_individuel_show', {'id': Individuelclient.id}) }}" class="btn btn-success"><i class="fa fa-eye"> Profile</i></a>
+                    <a href="{{ path('app_individuel_edit', {'id': Individuelclient.id}) }}" class="btn btn-success"><i class="fa fa-edit"> Editer</i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="28">no records found</td>
+            </tr>
+      
+         {% endfor %}
+        </tbody>
+    </table>
+        {# Champ pour la filtre date #}
+        {# {{ form_start(filtre) }}
+        <div class="row" >
+            <div class="col-sm-5" >
+                {{ form_row(filtre.Date1) }}
+            </div>
+            <div class="col-sm-5" >
+                {{ form_row(filtre.Date2) }}<br>
+            </div>
+            <div class="col-sm" style="margin-top:20px;" >
+                {{ form_row(filtre.Filtre ) }}
+            </div>
+        {{ form_end(filtre) }}
+        </div><br> #}
+
+
+{% endblock %}
+
+{{ include('footer.html.twig') }}

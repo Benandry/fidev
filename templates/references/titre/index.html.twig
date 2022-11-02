@@ -1,0 +1,31 @@
+{{ include('header.html.twig') }}
+
+{% block body %}
+    <h1>Titre</h1>
+
+    <table class="container table table-bordered">
+        <thead class="alert alert-success">
+            <tr>
+                <th>Titre</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody class="jumbotron jumbotron-fluif">
+        {% for titre in titres %}
+            <tr>
+                <td>{{ titre.titre }}</td>
+                <td>
+                    <a href="{{ path('app_titre_edit', {'id': titre.id}) }}" class="btn btn-success"><i class="fa fa-edit"></i> Editer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+
+{{ include('footer.html.twig') }}
