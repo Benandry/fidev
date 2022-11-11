@@ -32,12 +32,12 @@ class ApiIndividuelController extends AbstractController
         return new JsonResponse($api);
     }
 
-    #[Route('/api/releve/', name: 'app_api_releve')]
+    #[Route('/api/releve/{codeepargne}', name: 'app_api_releve')]
 
-    public function api_releve(TransactionRepository $transactionRepository): Response
+    public function api_releve(TransactionRepository $transactionRepository,$codeepargne): Response
     {
 
-        $api = $transactionRepository->api_releve_transac(); 
+        $api = $transactionRepository->api_releve_transac($codeepargne); 
 
         return new JsonResponse($api);
     }
@@ -45,7 +45,7 @@ class ApiIndividuelController extends AbstractController
 
     #[Route('/api/transfert/{codeclient}', name: 'app_api_transfert')]
 
-    public function api_transfert(TransactionRepository $transactionRepository,$code): Response
+    public function api_transferts(TransactionRepository $transactionRepository,$code): Response
     {
 
         $api = $transactionRepository->api_transaction($code); 
@@ -95,4 +95,14 @@ class ApiIndividuelController extends AbstractController
         return new JsonResponse($api);
     }
 
+    //Api tranfert
+    #[Route('/api/transfert/{codeepargne}', name: 'app_api_transfert')]
+
+    public function api_transfert(TransactionRepository $transactionRepository,$codeepargne): Response
+    {
+
+        $api = $transactionRepository->api_transfert($codeepargne); 
+
+        return new JsonResponse($api);
+    }
 }

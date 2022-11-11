@@ -97,27 +97,45 @@ class TransactionRepository extends ServiceEntityRepository
    }
 
 
-   // Cette fonction permet d'avoir les releve a chaque client
+    // Cette fonction permet d'avoir les releve a chaque client
 
-   public function ReleveTransaction()
-   {
-        $entityManager=$this->getEntityManager();
-        $query=$entityManager->createQuery(
-            'SELECT 
-            tr.id,
-            tr.Description,
-            tr.PieceComptable ,
-            tr.DateTransaction  ,
-            tr.Montant,
-            tr.codetransaction
-            FROM
-            App\Entity\Transaction tr
-            '
-        );
-
-
-             return $query->getResult();
-   }
+    public function ReleveTransaction()
+    {
+         $entityManager=$this->getEntityManager();
+         $query=$entityManager->createQuery(
+             'SELECT 
+             -- transaction 
+             tr.id,
+             tr.Description,
+             tr.PieceComptable,
+             tr.DateTransaction,
+             tr.Montant,
+             tr.codetransaction,
+             tr.codeepargneclient,
+             tr.solde,
+             -- compte epargne
+             ce.codeep,
+             ce.codeepargne,
+             -- individuel
+             i.codeclient,
+             i.nom_client,
+             i.prenom_client
+             FROM
+             App\Entity\Transaction tr
+             INNER JOIN
+             App\Entity\CompteEpargne ce
+             INNER JOIN 
+             App\Entity\Individuelclient i
+             WITH
+             tr.codeepargneclient = ce.codeepargne
+             AND
+             ce.codeep = i.codeclient
+             '
+         );
+ 
+ 
+              return $query->getResult();
+    }
 
     // Cette fonction permet de filtrer les rapports soldes
 
@@ -238,29 +256,53 @@ class TransactionRepository extends ServiceEntityRepository
                 ->getResult()
                 ;
     }
+ // Cette fonction permet de filtre entre deux date
 
-    // Cette fonction permet de filtre entre deux date
+        public function filtreReleve($Du,$Au,$codeepargne){
 
-    public function filtreReleve($Du,$Au){
+            $entityManager=$this->getEntityManager();
+            $query=$entityManager->createQuery(
+                'SELECT
+                -- transaction 
+                tr.id,
+                tr.Description,
+                tr.PieceComptable,
+                tr.DateTransaction,
+                tr.Montant,
+                tr.codetransaction,
+                tr.codeepargneclient,
+                tr.solde,
+                -- compte epargne
+                ce.codeep,
+                ce.codeepargne,
+                -- individuel
+                i.codeclient,
+                i.nom_client,
+                i.prenom_client
+                FROM
+                App\Entity\Transaction tr
+                INNER JOIN
+                App\Entity\CompteEpargne ce
+                INNER JOIN 
+                App\Entity\Individuelclient i
+                WITH
+                tr.codeepargneclient = ce.codeepargne
+                AND
+                ce.codeep = i.codeclient
+                WHERE
+                tr.DateTransaction BETWEEN :Du AND :Au
+                AND tr.codeepargneclient =:codeepargne
+                ORDER BY tr.id
+                '
+            )
+            ->setParameter(':Du',$Du)
+            ->setParameter(':Au',$Au)
+            ->setParameter(':codeepargne',$codeepargne)
+            ;
 
 
-        $query = "SELECT
-            ---TRANSACTION ------
-            tr
-         FROM
-         App\Entity\Transaction tr
-         INNER JOIN
-            App\Entity\CompteEpargne c  
-         WITH
-         c.id = tr.codeepargneclient
-         WHERE
-         tr.DateTransaction
-        BETWEEN :debut AND :fin";
-
-        $statement = $this->getEntityManager()->createQuery($query)->setParameter(':debut',$Du)->setParameter(':fin',$Au)->execute();
-        return $statement;
-
-    }
+                return $query->getResult();
+        }
 
     // cette fonction est pour l'api
     
@@ -300,32 +342,79 @@ class TransactionRepository extends ServiceEntityRepository
    }
 
 
-// cette fonction permet de recupere le nom
-public function api_releve_transac()
-{
-     $entityManager=$this->getEntityManager();
 
-     $query=$entityManager->createQuery(
-        //  'SELECT 
-        // --  transaction
-        //     tr.codeepargneclient,
-        // -- compte epargne
-        //     ce.codeepargne,
-        //     ce.codeep
-        // FROM
-        //  App\Entity\Transaction tr
-        //  INNER JOIN
-        //  App\Entity\CompteEpargne ce
-        //  WITH
-        //  tr.codeepargneclient  = ce.codeepargne
-        //  GROUP BY 
-        //  tr.codeepargneclient
-        'SELECT
-         tr
-          FROM App\Entity\Transaction tr
-         ');
-          return $query->getResult();
-}
+   // cette fonction permet de recupere le nom
+        public function api_releve_transac($codeepargne)
+        {
+            $entityManager=$this->getEntityManager();
+
+            $query=$entityManager->createQuery(
+                'SELECT
+                -- transation
+                tr.codeepargneclient,
+                -- compte epargne
+                ce.codeepargne,
+                ce.codeep,
+                -- individuel client
+                i.codeclient,
+                i.nom_client,
+                i.prenom_client
+                FROM
+                App\Entity\Transaction tr
+                INNER JOIN
+                App\Entity\CompteEpargne ce
+                INNER JOIN
+                App\Entity\Individuelclient i
+                WITH
+                tr.codeepargneclient=ce.codeepargne
+                AND
+                i.codeclient = ce.codeep
+                WHERE tr.codeepargneclient =:codeepargne 
+                ')
+                ->setParameter(':codeepargne',$codeepargne);
+                return $query->getResult();
+        }
+
+    // api pour les transferts
+    public function api_transfert($codeepargne){
+        $entityManager=$this->getEntityManager();
+
+        $query=$entityManager->createQuery(
+           'SELECT
+            --    transaction
+            MAX(tr.id) AS id,
+            tr.codeepargneclient AS codedestinateur,
+         --   tr.codeenvoyeur AS codeenv,
+            tr.codetransaction AS codetransac,
+            SUM(tr.Montant) AS soldedestinateur,
+            -- compte epargne
+            ce.codeep,
+            ce.codeepargne,
+            -- individuel client
+            i.nom_client,
+            i.prenom_client,
+            i.codeclient
+             FROM 
+             App\Entity\Transaction tr
+             INNER JOIN
+             App\Entity\CompteEpargne ce
+            INNER JOIN
+             App\Entity\Individuelclient i
+             WITH
+             tr.codeepargneclient = ce.codeepargne
+            --  AND
+            --  tr.codeenvoyeur=ce.codeepargne
+             AND
+             ce.codeep=i.codeclient
+             WHERE
+             tr.codeepargneclient =:codeepargne
+            --  OR
+            --  tr.codeenvoyeur =:codeepargne
+            ')
+            ->setParameter(':codeepargne',$codeepargne);
+             return $query->getResult();   
+    }
+
 
 //    public function findOneBySomeField($value): ?Transaction
 //    {

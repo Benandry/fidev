@@ -19,7 +19,7 @@ class FiltreReleveType extends AbstractType
                 'attr'=>[
                     'placeholder'=>'Code client . . .'
                 ],
-                'label'=>'Code Client'
+                'label'=>'Compte epargne '
             ])
             ->add('NomClient',TextType::class,[
                 'attr'=>[

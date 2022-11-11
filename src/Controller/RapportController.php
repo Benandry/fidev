@@ -60,7 +60,7 @@ class RapportController extends AbstractController
         ]);
     }
 
-     // Releve transaction
+    // Releve transaction
     #[Route('/Releve', name: 'app_transaction_releve')]
     public function Releve(Request $request,AgenceRepository $agenceRepository,TransactionRepository $transactionRepository): Response
     {
@@ -69,25 +69,23 @@ class RapportController extends AbstractController
         $form=$this->createForm(FiltreReleveType::class);
         $filtrereleve = $form->handleRequest($request);
 
-        $showTable_ = false;
-
-       // dd($releve);
+        $showTable_=false;
 
         if($form->isSubmitted() && $form->isValid()){
-            $data = $filtrereleve->getData();
-            $debut = $data['Du'];
-            $fin = $data['Au'];
 
-            $showTable = true;
-            $releve=$transactionRepository->filtreReleve($debut,$fin);
-
-           
+            $showTable_=true;
+            $releve=$transactionRepository->filtreReleve(
+                $filtrereleve->getData()['Du'],
+                $filtrereleve->getData()['Au'],
+                $filtrereleve->getData()['Codeclient']
+            );
         }
+
         return $this->renderForm('rapport/relevetransaction.html.twig', [
             'agences' =>$agenceRepository->findAll(),
             'releves'=>$releve,
             'form'=>$form,
-            'showTable' => $showTable_,
+            'showTable'=>$showTable_
         ]);
-    }
-    }
+    }   
+ }

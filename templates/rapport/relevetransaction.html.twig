@@ -1,4 +1,94 @@
+
 {{ include('header.html.twig') }}
+
+{% block body %}
+    <div style="display:none;">
+            <p>Text<span id="text"></span></p>
+            <p>Other<span id="other"></span></p>
+    </div>
+    {% if showTable == false %}
+        <div class="row" style="width: 60%; margin-left: 20rem; border: 1px solid #AAA; padding: 50px;" >
+            <h2 class="text-center"> Rapport transaction . . .</h2>
+            {{ form_start(form) }}
+                <h2 style="color:black;">A propos :</h2>
+                        <div class="row" style="color:black;">
+                            <div class="col-sm-4">
+                                {{ form_row((form.Codeclient)) }}
+                            </div>
+                            <div class="col-sm-4">
+                                {{ form_row((form.NomClient)) }}
+                            </div>
+                                <div class="col-sm-4">
+                                {{ form_row((form.PrenomClient)) }}
+                            </div>
+                        </div>
+
+
+
+                <h2 style="color:black;">Releve du :</h2>
+                    <div class="row" style="color:black;">
+                        <div class="col-sm-4">
+                            {{ form_row(form.Du) }}
+                        </div>
+                        <div class="col-sm-4">
+                            {{ form_row(form.Au) }}
+                        </div>
+                        <div class="col-sm-4" style="margin-top:25px;">
+                            {{ form_row(form.Filtre) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                    </div>
+            {{ form_end(form) }}
+        </div>
+    {% else %}
+               
+        <table class="table1 table table-bordered" style="margin-top:25px;">
+            <thead class="alert alert-success">
+                <tr>
+                    <th>Date Transaction</th>
+                    <th>Code transaction</th>
+                    <th>Code Epargne</th>
+                    <th>Description</th>
+                    <th>Piece Comptable</th>
+                    <th>Montant</th>
+                    <th>Solde</th>
+                </tr>
+            </thead>
+            <tbody class="jumbotron jumbotron-fluid" style="color:black;">
+            {% for Transaction in releves %}
+                <tr>
+                    <td>{{ Transaction.DateTransaction ? Transaction.DateTransaction|date('Y-m-d') : '' }}</td>
+                    <td>{{ Transaction.codetransaction }}</td>
+                    <td>{{ Transaction.codeepargneclient }}</td>
+                    <td>{{ Transaction.Description }}</td>
+                    <td>{{ Transaction.PieceComptable }}</td>
+                    <td>{{ Transaction.Montant }}</td>
+                      <td>
+                            {% if Transaction.Montant < 0 %}
+                                <span style="color: red;">{{ Transaction.solde }}</span>
+                            {% else %}
+                                <span style="color: green;">{{ Transaction.solde }}</span>
+                            {% endif %}
+                        </td>
+                    {# <td>{{ Transaction.solde }}</td> #}
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+
+    {% endif %}
+
+{% endblock %}
+
+{% block javascript %}
+    <script src="{{ asset('/api/api_rapport_releve.js') }}" ></script>
+{% endblock %}
+
+{{ include('footer.html.twig') }}
+
+{# {{ include('header.html.twig') }}
 
 {% block body %}
 
@@ -57,7 +147,7 @@
     </div>
     {# /***********Fin modal *********** #}
 
-    {% else %}
+    {# {% else %}
         <table class="table table-bordered" style="margin-top:25px;">
             <thead class="alert alert-success">
                 <tr>
@@ -96,4 +186,4 @@
 
 {% endblock %}
 
-{{ include('footer.html.twig') }}
+{{ include('footer.html.twig') }} #} #}
