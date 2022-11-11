@@ -1,0 +1,21 @@
+@import './custom/custom';
+@import '~bootstrap/scss/bootstrap';
+
+body{
+    padding-top: 0rem;
+    padding-bottom: 0em;
+    color: #5a5a5a;
+}
+
+#text-paragraphe{
+    display: none;
+}
+
+#inputEmail,#inputPassword,#login,#registration_form_prenom,#registration_form_nom,#registration_form_email,#registration_form_responsabilite,#registration_form_password_first,#registration_form_password_second{
+    font-size: small;
+    height: 30px;
+}
+
+.card{
+    font-size: 13px;
+}
