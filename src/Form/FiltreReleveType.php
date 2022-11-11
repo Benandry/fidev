@@ -44,7 +44,8 @@ class FiltreReleveType extends AbstractType
             ->add('Filtre',SubmitType::class,[
                 'attr'=>[
                     'class'=>'btn btn-success'
-                ]
+                ],
+                'label' => 'Recherche'
             ])
         ;
     }

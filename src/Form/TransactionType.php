@@ -42,15 +42,16 @@ class TransactionType extends AbstractType
             ->add('Montant',IntegerType::class,[
                 'attr'=>[
                     'class'=>'form-control'
-                ],])
-
-            ->add('montant_bruite',IntegerType::class,[
-                'label' => "Montant bruite",
-                'mapped' => false,
-                'attr'=>[
-                    'class'=>'form-control'
-                ],])
-
+                ],
+                'label'=>'Montant'
+                ])
+                    ->add('montant_bruite',IntegerType::class,[
+                    'label' => "Montant bruite",
+                    'mapped' => false,
+                    'attr'=>[
+                        'class'=>'form-control'
+                        ]
+             ])
             ->add('papeterie',IntegerType::class,[
                 'attr'=>[
                     'class'=>'form-control'
@@ -62,8 +63,39 @@ class TransactionType extends AbstractType
                 ],
             ])
             ->add('codeepargneclient',TextType::class,[
-                'label'=>'Compte Epargne'
+                'label'=>'Code client'
             ])
+            ->add('nom',TextType::class,[
+                'mapped'=>false,
+                'attr'=>[
+                    'class'=>'form-control',
+                    'disabled'=>true,
+                ]
+                ])
+                ->add('prenom',TextType::class,[
+                    'mapped'=>false,
+                    'attr'=>[
+                        'class'=>'form-control',
+                        'disabled'=>true,
+                    ]
+                ])
+                ->add('nomgroupe',TextType::class,[
+                    'mapped'=>false,
+                    'attr'=>[
+                        'class'=>'form-control',
+                        'disabled'=>true,
+                    ],
+                    'label'=>'groupe'
+                ])
+                ->add('donneessolde',TextType::class,[
+                    'mapped'=>false,
+                    'attr'=>[
+                        'class'=>'form-control',
+                        'disabled'=>true,
+                    ],
+                    'label'=>'solde'
+                ])
+
             ->add('solde',TextType::class)
         ;
     }

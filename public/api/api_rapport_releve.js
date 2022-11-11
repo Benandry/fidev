@@ -34,5 +34,11 @@ $(document).ready(function(){
 
         });    
     });
+
+    $(document).ready(function(){
+        $(window).on('load',()=>{
+            $('#myModal').modal('show')
+        })
+    });
     
 });

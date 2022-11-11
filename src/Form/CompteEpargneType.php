@@ -31,6 +31,7 @@ class CompteEpargneType extends AbstractType
             ->add('typeClient',ChoiceType::class,[
                 'choices'=>[
                     'INDIVIDUEL'=>'INDIVIDUEL',
+                    'GROUPE'=>'GROUPE',
                 ],
                 'attr'=>[
                     'class'=>'form-control'

@@ -1,4 +1,38 @@
 {{ form_start(form) }}
+     <div class="row" style="color:black;">
+        <div class="col-sm-5">
+            {{ form_row(form.typeClient) }}
+            {{ form_row(form.codeepargneclient) }}
+            <div id="commune_suggest"> </div>
+        </div>
+           <div class="col-sm-5">
+            <span id="ind">{{ form_row(form.nom) }}
+            {{ form_row(form.prenom) }}</span>
+            <span id="grp">{{ form_row(form.nomgroupe) }}</span>
+            {{ form_row(form.donneessolde) }}
+        </div>
+    </div>
+<hr>
+    <div class="row alert alert-secondary" style="color:black;">
+        <div class="col-sm-5">
+            {{ form_row(form.Description) }}
+            {{ form_row(form.PieceComptable) }}
+            {{ form_row(form.DateTransaction) }}
+        </div>
+        <div class="col-sm-5">
+            {{ form_row(form.montant_bruite) }}
+            {{ form_row(form.commission) }}
+            {{ form_row(form.papeterie) }}
+            {{ form_row(form.Montant) }}
+            <div style="display: none;">
+                {{ form_row(form.solde) }}
+            </div>
+        </div>
+    </div><br>
+            <button class="btn btn-success">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+
+{# {{ form_start(form) }}
     <div class="row jumbotron jumbotron-fluid" style="color:black;">
         <div class="col-sm-5">
             {{ form_row(form.typeClient) }}
@@ -19,4 +53,4 @@
         </div>
     </div><br>
             <button class="btn btn-success">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+{{ form_end(form) }} #}

@@ -104,8 +104,8 @@ class IndividuelController extends AbstractController
             $individuelclient->setPhoto($brochureFileName);
         }
         $individuelclientRepository->add($individuelclient,True);
-
-            return $this->redirectToRoute('app_individuel_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', "Ajout de nouveau client:  '".$individuelclient-> getNomClient()."'  reussite!!");
+            //return $this->redirectToRoute('app_individuel_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('Module_client/individuel/new.html.twig', [
