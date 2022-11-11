@@ -1,7 +1,9 @@
 ///Transaction retrait api////
 $(document).ready(() =>{
 
-    alert("Alert bonjou")
+
+    $('#transactionretrait_Montant').attr('disabled', 'disabled'); 
+
     $("#transactionretrait_codeepargneclient").on('keyup',(e) => {
         var numero = e.target.value;
         var url = "/api/transaction/"+numero;
@@ -61,4 +63,42 @@ $(document).ready(() =>{
             $('#myModal').modal('show')
        })
 
+
+       //Suggestion sur less compte epargne depot
+    const code_rechercher = document.getElementById('transactionretrait_codeepargneclient');
+
+    const url_api = '/api/code-epargne'
+    code_rechercher.addEventListener('keyup',()=>{
+        const value_input = code_rechercher.value
+        $.ajax({
+            url: url_api,
+            method: "GET",
+            dataType : "json",
+            contentType: "application/json; charset=utf-8",
+            data : JSON.stringify(),
+            success: function(result){
+
+                const getValue = result.filter(i => i.code.toLocaleLowerCase().includes(value_input.toLocaleLowerCase()))
+                console.log(getValue);
+                var suggestion = ''
+
+                if( value_input != '' ){
+                    getValue.forEach(resultItem =>{
+                    
+                    suggestion += `<div class="suggestion">${resultItem.code}</div>`
+                    })
+                }else{
+                    suggestion = '<div class="suggestion"> Pas de commune</div>'
+                }
+                
+                document.getElementById('commune_suggest').innerHTML = suggestion
+            
+        
+            },
+            error: function (request, status, error) {
+                console.log(request.responseText);
+            }
+
+        })    
+    });    
 })

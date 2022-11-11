@@ -1,4 +1,15 @@
 {{ include('header.html.twig') }}
+{% block stylesheet %}
+  <style>
+    .suggestion{
+      font-size: 14px;
+    }
+    .suggestion:hover{
+      background-color: cornflowerblue;
+      color: #fff;
+    }
+  </style>
+{% endblock %}
 
 {% block body %}
 
@@ -40,6 +51,7 @@
             {{ form_row(form.PieceComptable) }}
             {{ form_row(form.typeClient) }}
             {{ form_row(form.codeepargneclient) }}
+            <div id="commune_suggest"> </div>
         </div>
         <div class="col-sm-5">
             {{ form_row(form.DateTransaction) }}
