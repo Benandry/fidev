@@ -180,7 +180,7 @@ class GroupeRepository extends ServiceEntityRepository
         i.dateadhesion')
         ->innerJoin('g.IndividuelMembre','i')
         ->where('g.id = i.MembreGroupe')
-        ->andWhere('i.dateadhesion = :date')
+        ->andWhere('i.dateadhesion < :date')
         ->setParameter(':date',$date)
         ->getQuery()
         ->getResult()

@@ -57,7 +57,9 @@ class TransactionController extends AbstractController
             'affiche_tab_'=>$afficheTab_,
         ]);
     }
-    // Depot
+
+
+    // Nouveau depot
     #[Route('/new', name: 'app_transaction_new', methods: ['GET', 'POST'])]
     public function new(ManagerRegistry $doctrine,Request $request, TransactionRepository $transactionRepository): Response
     {
@@ -110,8 +112,8 @@ class TransactionController extends AbstractController
             $entityManager->persist($transaction);
             $entityManager->flush();
 
-
-            return $this->redirectToRoute('app_transaction_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', " Transaction depot compte epargne '" .$transaction->getCodeepargneclient()."'réussite!!!");
+            //return $this->redirectToRoute('app_transaction_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('Module_epargne/transaction/new.html.twig', [
@@ -163,10 +165,8 @@ class TransactionController extends AbstractController
 
             $entityManager->persist($transaction);
             $entityManager->flush();
-
-
-
-            return $this->redirectToRoute('app_transaction_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', "Transaction retrait compte epargne '" .$transaction->getCodeepargneclient()."' réussite!!!");
+           // return $this->redirectToRoute('app_transaction_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('Module_epargne/transaction/retrait.html.twig', [

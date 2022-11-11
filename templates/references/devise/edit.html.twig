@@ -3,11 +3,8 @@
 {% block body %}
     <h1>Edit Devise</h1>
 
-    {{ include('references/devise/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('references/devise/_form.html.twig', {'button_label': 'Modifier'}) }}
 
-    <a href="{{ path('app_devise_index') }}">back to list</a>
-
-    {{ include('references/devise/_delete_form.html.twig') }}
 {% endblock %}
 
 {{ include('footer.html.twig') }}

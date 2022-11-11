@@ -1,12 +1,6 @@
 @import './custom/custom';
 @import '~bootstrap/scss/bootstrap';
 
-body{
-    padding-top: 0rem;
-    padding-bottom: 0em;
-    color: #5a5a5a;
-}
-
 #text-paragraphe{
     display: none;
 }
@@ -19,3 +13,9 @@ body{
 .card{
     font-size: 13px;
 }
+
+#age{
+    color: #000;
+    padding: 2px;
+}
+

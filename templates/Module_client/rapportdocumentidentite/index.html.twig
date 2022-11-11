@@ -2,27 +2,47 @@
 
 {% block body %}
     {% if affiche_table == false %}
-    <div class="row" style="width: 60%; margin-left: 20rem; border: 1px solid #AAA; padding: 50px;" >
-        <h2 class="text-center"> Recherche document CIN ....</h2>
 
-        {{ form_start(trierDocs) }}
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
             
-            <div class="text-center" id="one_date">
-                <h4 class="text-center"> Dans une date </h4>
-                {{ form_row(trierDocs.one_date_search) }}
-            </div>
-            
-            <div class="text-center" id="two_date">
-                <h4 class="text-center"> Entrer deux date </h4>
-                {{ form_row(trierDocs.Date1) }}
-            
-                {{ form_row(trierDocs.Date2) }}
-            </div>
+                <!-- Modal Header -->
+                <div class="modal-header bg-primary">
+                    <h4 class="modal-title text-center">Recherche par date</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                {{ form_start(trierDocs) }}
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                    
+                            <div class="text-center" id="one_date">
+                                <h4 class="text-center"> Date arrêtée </h4>
+                                {{ form_row(trierDocs.one_date_search) }}
+                            </div>
 
-            {{ form_row(trierDocs.Filtre) }}
-                        
-        {{ form_end(trierDocs) }}
+                            <div class="text-center" id="two_date">
+                                <h4 class="text-center">Entre deux dates </h4>
+                                {{ form_row(trierDocs.Date1) }}
+            
+                                {{ form_row(trierDocs.Date2) }}
+                            </div>
+                    </div>
+                    
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        {{ form_row(trierDocs.Filtre) }}
+                    </div>
+                    {{ form_end(trierDocs) }}
+            </div>
         </div>
+    </div>
+
+    {# /*********Fin modal ************ #}
+
+           
+               
     {% else %}
         <h2 style="color:black;">Liste des CIN :</h2>
 
@@ -59,6 +79,11 @@
     {% block javascript %}
         <script>
             $(document).ready(function(){
+                $(window).on('load',function(){
+                     
+                    $('#myModal').modal('show')
+                })
+                
                 $('#filtre_rapport_document_identite_one_date_search').on('change',function(){
                     $('#two_date').hide();
                 });

@@ -1,7 +1,27 @@
 {{ include('header.html.twig') }}
 
 {% block body %}
-    <h1>Langue index</h1>
+    <h1>Langue</h1>
+
+      {# /***************Messages succes ******************/#}
+      {% for message in app.flashes('success') %}
+        <!-- The Modal -->
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <strong>{{ message }}</strong>
+                    </div>
+                    
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success btn-sm" data-dismiss="modal">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
 
     <table class="table table-bordered">
         <thead class="alert alert-success">
@@ -17,7 +37,15 @@
                 <td>{{ langue.langue }}</td>
                 <td>{{ langue.pays }}</td>
                 <td>
-                    <a href="{{ path('app_langue_edit', {'id': langue.id}) }}" class="btn btn-success"><i class="fa fa-edit"></i> Editer</a>
+                    <div class="col-sm-2">
+                        <a href="{{ path('app_langue_show', {'id': langue.id}) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Afficher</a>
+                    </div>
+                    <div class="col-sm-2">
+                        <a href="{{ path('app_langue_edit', {'id': langue.id}) }}" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> Editer</a>
+                    </div>
+                    <div class="col-sm-8">
+                        {{ include('references/langue/_delete_form.html.twig') }}
+                    </div>
                 </td>
             </tr>
         {% else %}
@@ -28,7 +56,16 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_langue_new') }}">Create new</a>
+    <a href="{{ path('app_langue_new') }}" class="btn btn-primary btn-sm">Ajouter nouveau</a>
+
+    {% block javascript %}
+        <script>
+            $(window).on('load',() =>{
+                $('#myModal').modal('show')
+            })
+        </script>
+    {% endblock %}
+
 {% endblock %}
 
 {{ include('footer.html.twig') }}

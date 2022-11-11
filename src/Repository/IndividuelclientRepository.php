@@ -128,7 +128,7 @@ class IndividuelclientRepository extends ServiceEntityRepository
          $query=$entityManager->createQuery(
              'SELECT i
               FROM App\Entity\Individuelclient i
-               WHERE i.date_inscription =  :date2')
+              WHERE i.date_inscription <  :date2 ORDER BY i.date_inscription ASC')
              ->setParameter('date2',$date);
  
              return $query->getResult();
@@ -174,7 +174,7 @@ class IndividuelclientRepository extends ServiceEntityRepository
         $query=$entityManager->createQuery(
             'SELECT i
              FROM App\Entity\Individuelclient i
-              WHERE i.date_inscription = :date1')
+              WHERE i.date_inscription < :date1')
             ->setParameter('date1',$date);
 
             return $query->getResult();   

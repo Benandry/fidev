@@ -16,11 +16,10 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_etatcivile_index') }}">back to list</a>
+    <a href="{{ path('app_etatcivile_index') }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Voir liste</a>
+    <a href="{{ path('app_etatcivile_edit', {'id': etatcivile.id}) }}" class="btn btn-success"><i class="fa fa-eye"></i>editer</a>
 
-    <a href="{{ path('app_etatcivile_edit', {'id': etatcivile.id}) }}">edit</a>
 
-    {{ include('references/etatcivile/_delete_form.html.twig') }}
 {% endblock %}
 
 {{ include('footer.html.twig') }}

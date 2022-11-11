@@ -50,22 +50,38 @@ class CompteEpargneType extends AbstractType
 
             ->add('codeep',TextType::class,[
                 'mapped'=>true,
-                'label'=>'Client',
+                'label'=>'Code client',
                 'attr'=>[
                     'class'=>'form-control'
                 ],
                 
             ])
+
+            ->add('nom',TextType::class,[
+                'mapped'=>false,
+                'disabled' => true,
+                'label'=>'Nom client',
+                'attr'=>[
+                    'class'=>'form-control'
+                ],
+                
+            ])
+
+            ->add('prenom',TextType::class,[
+                'mapped'=>false,
+                'disabled' => true,
+                'label'=>'prenom client',
+                'attr'=>[
+                    'class'=>'form-control'
+                ],
+                
+            ])
+
             ->add('codeepargne',TextType::class,[
                 'attr'=>[
                     'class'=>'hidden',
                 ],
                 'label'=>false
-            ])
-            ->add('Valider',SubmitType::class,[
-                'attr'=>[
-                    'class'=>'btn btn-success'
-                ]
             ])
         ;
     }

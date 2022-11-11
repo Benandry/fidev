@@ -6,12 +6,12 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>Type produit </th>
                 <td>{{ produit_epargne.id }}</td>
             </tr>
             <tr>
-                <th>Type produit</th>
-                <td>{{ produit_epargne.typeEpargne }}</td>
+                <th>Code produit</th>
+                <td>{{ "%03d" | format(produit_epargne.id) }}</td>
             </tr>
             <tr>
                 <th>Nom Produit</th>
@@ -19,16 +19,15 @@
             </tr>
             <tr>
                 <th>Desactive</th>
-                <td>{{ produit_epargne.isdesactive ? 'Yes' : 'No' }}</td>
+                <td>{{ produit_epargne.isdesactive ? 'Activer' : 'Desactiver' }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_produit_epargne_index') }}">back to list</a>
 
-    <a href="{{ path('app_produit_epargne_edit', {'id': produit_epargne.id}) }}">edit</a>
+    <a href="{{ path('app_produit_epargne_index') }}" class="btn btn-primary btn-sm">Voir  listes </a>
 
-    {{ include('Configuration/produit_epargne/_delete_form.html.twig') }}
+    <a href="{{ path('app_produit_epargne_edit', {'id': produit_epargne.id}) }}" class="btn btn-warning btn-sm" >Modifier</a>
 {% endblock %}
 
 {{ include('footer.html.twig') }}

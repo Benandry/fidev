@@ -2,59 +2,80 @@
 
 {% block body %}
         <h2 style="color:black;">Rapport solde :</h2>
-
-        
-
         {% if showTable == false %}
-            <div class="row" style="width: 60%; margin-left: 20rem; border: 1px solid #AAA; padding: 50px;" >
-                <h2 class="text-center"> Recherche membre groupes....</h2>
-                {{ form_start(form1) }}
-                        <div class="row p-2">
-                            <div class="col-sm-12" id="one_date">
-                                {{ form_row(form1.date1) }}
-                            </div>
+        
+            <!-- The Modal -->
+            <div class="modal fade" id="myModal">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                    
+                        <!-- Modal Header -->
+                        <div class="modal-header bg-primary">
+                            <h4 class="modal-title text-center">Recherche par date</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
-
+                        {{ form_start(form1) }}
+                            <!-- Modal body -->
+                            <div class="modal-body">
                             
-                        <div class="row text-center" id="two_date">
-                            <div class="col-sm-6">
-                                {{ form_row(form1.Du) }}
+                                    <div class="text-center" id="one_date">
+                                        <h4 class="text-center"> Date arrêtée </h4>
+                                        {{ form_row(form1.date1) }}
+                                    </div>
+
+                                    <div class="text-center" id="two_date">
+                                        <h4 class="text-center">Entre deux dates </h4>
+                                        {{ form_row(form1.Du) }}
+                                        {{ form_row(form1.Au) }}
+                                    </div>
                             </div>
-                            <div class="col-sm-6">
-                                {{ form_row(form1.Au) }}
+                            
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                {{ form_row(form1.Filtre) }}
                             </div>
-                        </div>
-                        <div class="row m-2">
-                            {{ form_row(form1.Filtre) }}
-                        </div>
-                {{ form_end(form1) }}
+                            {{ form_end(form1) }}
+                        
+                    </div>
+                </div>
             </div>
+            {# /***********Fin modal *********** #}
+
         {% else %}
             <table class="table1 table table-bordered" style="margin-top:25px;">
                 <thead class="alert alert-success">
                     <tr>
+                        <th>Date transaction</th>
                         <th>Compte Epargne</th>
                         <th>Description</th> 
                         <th>Nom et prenom</th>
                         <th>Nom Produit</th>
-                        <th>Date transaction</th>
                         <th>Solde</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody class="jumbotron jumbotron-fluid" style="color:black;">
                 {% for CompteEpargne in compte_epargnes %}
                     <tr>
+                        <td>{{ CompteEpargne.DateTransaction | date('Y-m-d') }}</td>
                         <td>{{ CompteEpargne.codeepargne }}</td>
                         <td>{{ CompteEpargne.Description }}</td> 
                         <td>{{ CompteEpargne.nomclient }} {{ CompteEpargne.prenomclient }}</td>
-                        <td>{{ CompteEpargne.codetypeepargne }} {{ "%03d" | format(CompteEpargne.codeproduit) }} | {{ CompteEpargne.nomproduit }}</td>
-                        <td>{{ CompteEpargne.DateTransaction | date('y-m-d') }}</td>
+                        <td> {{ CompteEpargne.nomproduit }}</td>
                         <td>
                             {% if CompteEpargne.Description == 'RETRAIT' %}
-                                <span style="color: red;">{{ CompteEpargne.soldes }}</span>
+                                <span style="color: red;"> <i class="fa fa-long-arrow-up"></i> {{ CompteEpargne.soldes }}</span>
                             {% else %}
-                                <span style="color: green;">{{ CompteEpargne.soldes }}</span>
+                                <span style="color: green;"> <i class="fa fa-long-arrow-down"></i> {{ CompteEpargne.soldes }}</span>
                             {% endif %}
+                        </td>
+                        <td> 
+                            {# <div class="col-sm-2">
+                                <a href="{{ path('app_devise_show', {'id': devise.id}) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Afficher</a>
+                            </div>
+                            <div class="col-sm-2">
+                                <a href="{{ path('app_devise_edit', {'id': devise.id}) }}" class="btn btn-success"> <i class="fa fa-eye"></i> editer</a>
+                            </div> #}
                         </td>
                     </tr>
                 {%  endfor %}
@@ -66,6 +87,9 @@
 
         <script>
                 $(document).ready(function(){
+                    $(window).on('load',()=>{
+                        $('#myModal').modal('show')
+                    })
                     $("#filtre_rapport_solde_date1").on('change',function(){
                         
                         $('#two_date').hide();

@@ -3,11 +3,8 @@
 {% block body %}
     <h1>Edit Titre</h1>
 
-    {{ include('titre/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_titre_index') }}">back to list</a>
-
-    {{ include('titre/_delete_form.html.twig') }}
+    {{ include('references/titre/_form.html.twig', {'button_label': 'Update'}) }}
+    
 {% endblock %}
 
 {{ include('footer.html.twig') }}

@@ -34,6 +34,7 @@ class ConfigEpController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $configEpRepository->add($configEp, true);
 
+            $this->addFlash('success', "Ajout de configuration epargne : reussite!!");
             return $this->redirectToRoute('app_config_ep_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -63,6 +64,7 @@ class ConfigEpController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $configEpRepository->add($configEp, true);
 
+            $this->addFlash('success', "Modification de configuration epargne : reussite!!");
             return $this->redirectToRoute('app_config_ep_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -79,6 +81,7 @@ class ConfigEpController extends AbstractController
             $configEpRepository->remove($configEp, true);
         }
 
+        $this->addFlash('success', "Suppression de configuration epargne : reussite!!");
         return $this->redirectToRoute('app_config_ep_index', [], Response::HTTP_SEE_OTHER);
     }
 }

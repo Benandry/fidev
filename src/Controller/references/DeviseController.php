@@ -31,6 +31,7 @@ class DeviseController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $deviseRepository->add($devise, true);
 
+            $this->addFlash('success', "Ajout devise:  '".$devise->getDevise()."'  reussite!!");
             return $this->redirectToRoute('app_devise_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -57,6 +58,7 @@ class DeviseController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $deviseRepository->add($devise, true);
 
+            $this->addFlash('success', "Modification du devise:  '".$devise->getDevise()."'  reussite!!");
             return $this->redirectToRoute('app_devise_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -73,6 +75,7 @@ class DeviseController extends AbstractController
             $deviseRepository->remove($devise, true);
         }
 
+        $this->addFlash('success', "Suppression de devise:  '".$devise->getDevise()."'  reussite!!");
         return $this->redirectToRoute('app_devise_index', [], Response::HTTP_SEE_OTHER);
     }
 }

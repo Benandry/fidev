@@ -2,34 +2,55 @@
 
 
 {% block body %}
+
     {% if affiche_tab == false %}
-        <div class="row" style="width: 60%; margin-left: 20rem; border: 1px solid #AAA; padding: 50px;" >
-            <h2 class="text-center"> Recherche membre groupes....</h2>
-            {{ form_start(form) }}
-                <div class="text-center" id="one_date">
-                    {{ form_row(form.search_on_date) }}
-                </div>
-                <div id="two_date">
-                    <h4 class="form-label text-center"> Entrer deux dates </h4>
-                    
-                        {{ form_row(form.Du) }}
-                    
-                        {{ form_row(form.Au) }}
-                </div>
+        <!-- The Modal -->
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                
+                    <!-- Modal Header -->
+                    <div class="modal-header bg-primary">
+                        <h4 class="modal-title text-center">Recherche par date</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    {{ form_start(form) }}
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                        
+                                <div class="text-center" id="one_date">
+                                    <h4 class="text-center"> Date arrêtée </h4>
+                                    {{ form_row(form.search_on_date) }}
+                                </div>
 
-                 {{ form_row(form.Filtre) }}
-            {{ form_end(form) }}
+                                <div class="text-center" id="two_date">
+                                    <h4 class="text-center">Entre deux dates </h4>
+                                    {{ form_row(form.Du) }}
+                                
+                                    {{ form_row(form.Au) }}
+                                </div>
+                        </div>
+                        
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            {{ form_row(form.Filtre) }}
+                        </div>
+                        {{ form_end(form) }}
+                    
+                </div>
+            </div>
         </div>
-    {% else %}
+        {# /////Fin modal #}
 
+    {% else %}
         <h2 style="color:black;">Liste des Membres :</h2>
             <table class="table1 table alert alert-primary" style="margin-top:20px;">
             <thead class="alert alert-success">
                 <tr>
+                    <th>Date d'adhesion</th>
                     <th>Code Client</th>
                     <th>Code Groupe</th>
                     <th>Nom Client</th>
-                    <th>Date d'adhesion</th>
                     <th>Nom Groupe</th>
                     <th>Adresse Email</th>
                     <th>Date de creation du groupe</th>
@@ -38,10 +59,10 @@
             <tbody class="jumbotron jumbotron-fluid" style="color:black;">
             {% for Groupe in rapportMembre %}
                     <tr>
+                        <td>{{ Groupe.dateadhesion | date('d-m-y') }}</td>
                         <td> {{ Groupe.codeclient}}</td>
                         <td> {{ Groupe.codegroupe }}</td>
                         <td>{{ Groupe.nom_client }} {{ Groupe.prenom_client }}</td>
-                        <td>{{ Groupe.dateadhesion | date('d-m-y') }}</td>
                         <td>{{ Groupe.nomGroupe }}</td>
                         <td>{{ Groupe.email }}</td>
                         <td>{{ Groupe.dateInscription | date('d-m-y') }}</td>
@@ -55,6 +76,12 @@
 
             <script>
                     $(document).ready(function(){
+
+                        $(window).on('load',function(){
+                     
+                            $('#myModal').modal('show')
+                        })
+
                         $("#filtre_rapport_membre_search_on_date").on('change',function(){
                             
                             $('#two_date').hide();

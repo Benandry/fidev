@@ -3,14 +3,16 @@
         <div class="col-sm-5">
             {{ form_row(form.typeClient) }}
             {{ form_row(form.codeepargneclient) }}
+            <div id="commune_suggest"> </div>
             {{ form_row(form.Description) }}
             {{ form_row(form.PieceComptable) }}
         </div>
         <div class="col-sm-5">
             {{ form_row(form.DateTransaction) }}
-            {{ form_row(form.Montant) }}
+            {{ form_row(form.montant_bruite) }}
             {{ form_row(form.commission) }}
             {{ form_row(form.papeterie) }}
+            {{ form_row(form.Montant) }}
             <div style="display: none;">
                 {{ form_row(form.solde) }}
             </div>

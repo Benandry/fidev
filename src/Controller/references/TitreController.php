@@ -30,7 +30,7 @@ class TitreController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $titreRepository->add($titre, true);
-
+            $this->addFlash('success', "Ajout nouveau titre ".$titre->getTitre()."  reussite!!");
             return $this->redirectToRoute('app_titre_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -56,7 +56,7 @@ class TitreController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $titreRepository->add($titre, true);
-
+            $this->addFlash('success', "Modification titre ".$titre->getTitre()." reussite!!");
             return $this->redirectToRoute('app_titre_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -72,7 +72,7 @@ class TitreController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$titre->getId(), $request->request->get('_token'))) {
             $titreRepository->remove($titre, true);
         }
-
+        $this->addFlash('success', "Suppression titre ".$titre->getTitre()." reussite!!");
         return $this->redirectToRoute('app_titre_index', [], Response::HTTP_SEE_OTHER);
     }
 }

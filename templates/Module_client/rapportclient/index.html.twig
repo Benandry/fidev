@@ -2,25 +2,46 @@
 
 {% block body %}
     {% if affiche_tab  == false %}
-        <div class="row" style="width: 60%; margin-left: 20rem; border: 1px solid #AAA; padding: 50px;" >
-            <h2 class="text-center"> Recherche client....</h2>
+
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+            
+                <!-- Modal Header -->
+                <div class="modal-header bg-primary">
+                <h4 class="modal-title text-center">Recherche par date</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
                 {{ form_start(trier) }}
-                    <div class="text-center" id="one_date">
-                        <h4 class="text-center"> Dans une date </h4>
-                        {{ form_row(trier.search_one_date) }}
-                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                    
+                            <div class="text-center" id="one_date">
+                                <h4 class="text-center"> Dans une date arrêtée </h4>
+                                {{ form_row(trier.search_one_date) }}
+                            </div>
 
-                    <div class="text-center" id="two_date">
-                        <h4 class="text-center"> Ou Entre deux dates </h4>
-                        {{ form_row(trier.date1) }}
-                        
-                        {{ form_row(trier.date2) }}
+                            <div class="text-center" id="two_date">
+                                <h4 class="text-center">Entre deux dates </h4>
+                                {{ form_row(trier.date1) }}
+                                
+                                {{ form_row(trier.date2) }}
+                            </div>
                     </div>
-                                        
-                    {{ form_row(trier.Chercher) }}
-
+                    
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        {{ form_row(trier.Chercher) }}
+                    </div>
                 {{ form_end(trier) }}
+                
+            </div>
         </div>
+    </div>
+
+    <!--Fin  Modal -->
+
  <p id="test">  <p>
     {% else %}
 
@@ -53,6 +74,12 @@
 
         <script>
                 $(document).ready(function(){
+
+                    $(window).on('load',function(){
+                     
+                        $('#myModal').modal('show')
+                    })
+
                     $("#trier_rapport_client_search_one_date").on('change',function(){
                         
                         $('#two_date').hide();

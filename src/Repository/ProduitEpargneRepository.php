@@ -88,4 +88,39 @@ class ProduitEpargneRepository extends ServiceEntityRepository
 
         return $stmt;
     }
+
+    //Fonction api code client 
+    public function code_client_api($code)
+    {
+        $query = " SELECT client.codeclient ,client.nom_client nom, client.prenom_client prenom 
+        FROM App\Entity\Individuelclient client
+        WHERE client.codeclient = '$code'";
+        
+        $stmt = $this->getEntityManager()->createQuery($query)->getResult();
+
+        return $stmt;
+    }
+
+    //Code client
+    public function code_client(){
+        $query = " SELECT client.codeclient code
+        FROM App\Entity\Individuelclient client ";
+        
+        $stmt = $this->getEntityManager()->createQuery($query)->getResult();
+
+        return $stmt;
+    }
+
+    
+
+    //Code epargne
+    public function code_epargne(){
+        $query = " SELECT DISTINCT epargne.codeepargneclient code
+        FROM App\Entity\Transaction epargne ";
+        
+        $stmt = $this->getEntityManager()->createQuery($query)->getResult();
+
+        return $stmt;
+    }
+
 }

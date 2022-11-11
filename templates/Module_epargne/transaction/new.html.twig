@@ -1,4 +1,15 @@
 {{ include('header.html.twig') }}
+{% block stylesheet %}
+  <style>
+    .suggestion{
+      font-size: 14px;
+    }
+    .suggestion:hover{
+      background-color: cornflowerblue;
+      color: #fff;
+    }
+  </style>
+{% endblock %}
 
 {% block body %}
 
@@ -6,6 +17,37 @@
             <p> Text ecrit : <span id="text"> </span> </p>
             {# <p> Text ecrit : <span id="code"> </span> </p> #}
         </div>
+
+
+            {# /***************Messages succes ******************/#}
+            {% for message in app.flashes('success') %}
+                <div class="alert text-center alert-success">
+                    <!-- The Modal -->
+                    <div class="modal fade" id="myModal">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                        <p class="alert alert-success text-center">
+                                            {{ message }}
+                                        </p>
+                                    </div>
+                                    
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+                                    </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+
+          
+
+            {# *************************************#}
 
 
     {{ include('Module_epargne/transaction/_form.html.twig') }}
@@ -27,5 +69,8 @@
     </tbody>
 </table>
 
+    {% block javascript %}
+        <script src="{{ asset('/api/depot.js')}}"></script>
+    {% endblock %}
 {% endblock %}
 {{ include('footer.html.twig') }}

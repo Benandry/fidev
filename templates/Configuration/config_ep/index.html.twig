@@ -1,7 +1,25 @@
 {{ include('header.html.twig') }}
 
 {% block body %}
-        <a href="{{ path('app_config_ep_new') }}" class="btn btn-success"><i class="fa fa-plus"></i> Nouveau</a>
+  {# /***************Messages succes ******************/#}
+  {% for message in app.flashes('success') %}
+  <!-- The Modal -->
+  <div class="modal fade" id="myModal">
+      <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+              <!-- Modal body -->
+              <div class="modal-body">
+                  <strong>{{ message }}</strong>
+              </div>
+              
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-success btn-sm" data-dismiss="modal">OK</button>
+              </div>
+          </div>
+      </div>
+  </div>
+{% endfor %}
 
     <table class="table table-bordered">
         <thead class="alert alert-success">
@@ -35,6 +53,17 @@
         {% endfor %}
         </tbody>
     </table>
+    <div>
+        <a href="{{ path('app_config_ep_new') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i>Ajouter nouveau</a>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        $(window).on('load',() =>{
+            $('#myModal').modal('show')
+        })
+    </script>
 
 {% endblock %}
 

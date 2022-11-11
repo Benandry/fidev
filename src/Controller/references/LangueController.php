@@ -31,6 +31,7 @@ class LangueController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $langueRepository->add($langue, true);
 
+            $this->addFlash('success', "Ajout du langue ".$langue->getLangue()."  reuissite !");
             return $this->redirectToRoute('app_langue_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -40,7 +41,7 @@ class LangueController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_langue_show', methods: ['GET'])]
+    #[Route('/show/{id}', name: 'app_langue_show', methods: ['GET'])]
     public function show(Langue $langue): Response
     {
         return $this->render('references/langue/show.html.twig', [
@@ -56,7 +57,7 @@ class LangueController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $langueRepository->add($langue, true);
-
+            $this->addFlash('success', "Modification du langue ".$langue->getLangue()."  reussite!!");
             return $this->redirectToRoute('app_langue_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -66,13 +67,13 @@ class LangueController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_langue_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_langue_delete', methods: ['GET', 'POST'])]
     public function delete(Request $request, Langue $langue, LangueRepository $langueRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$langue->getId(), $request->request->get('_token'))) {
             $langueRepository->remove($langue, true);
         }
-
+        $this->addFlash('success', "Suppression  ".$langue->getLangue()." reuissite !!!");
         return $this->redirectToRoute('app_langue_index', [], Response::HTTP_SEE_OTHER);
     }
 }

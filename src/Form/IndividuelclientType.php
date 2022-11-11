@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Agence;
 use App\Entity\Commune;
+use App\Entity\User;
 use App\Entity\Etatcivile;
 use App\Entity\Etude;
 use App\Entity\Groupe;
@@ -69,12 +70,8 @@ class IndividuelclientType extends AbstractType
             ->add('adressephysique',TextType::class,[
                 'label'=>'Adresse physique',
             ])
-            ->add('Idadresse',EntityType::class,[
-                'class'=>Commune::class,
-                'mapped'=>true,
+            ->add('commune',TextType::class,[
                 'label'=>'Commune',
-                'multiple'=>false,
-                'choice_label'=>'NomCommune',
                 'by_reference'=>true,
                 'attr'=>['class'=>'form-control']
             ])
@@ -176,6 +173,18 @@ class IndividuelclientType extends AbstractType
                     'class'=>'form-control'
                 ],
                 'label' => "Nom Agence"
+            ])
+
+            ->add('user',EntityType::class,[
+                'class'=>User::class,
+                'choice_label'=>'nom ',
+                'multiple' => false,
+                
+                'mapped'=>true,
+                'attr'=>[
+                    'class'=>'form-control'
+                ],
+                'label' => "Utilisateur"
             ])  
             
             ->add('Sauvegarder',SubmitType::class,[

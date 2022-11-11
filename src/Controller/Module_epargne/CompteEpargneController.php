@@ -38,7 +38,7 @@ class CompteEpargneController extends AbstractController
 
     // Liste individuel
 
-    #[Route('/', name: 'app_compte_epargne_index', methods: ['GET'])]
+    #[Route('/', name: 'app_compte_epargne_index', methods: ['GET','POST'])]
     public function index(Request $request,CompteEpargneRepository $compteEpargneRepository,ProduitEpargneRepository $produitEpargneRepository,AgenceRepository $agence,IndividuelclientRepository $codecompteepargne,ManagerRegistry $doctrine): Response
     {
         // Agence 
@@ -47,9 +47,11 @@ class CompteEpargneController extends AbstractController
         //    $trierGroupe=$groupeRepository->FiltreGroupe($date1,$date2);
        $trierEp=$this->createForm(FiltreCompteEpargneIndividuelType::class);
        $filtrerapportdate=$trierEp->handleRequest($request);
-
+        
+       $afiche_tab = false;
        if($trierEp->isSubmitted() && $trierEp->isValid()){
-        $groupeRapport=$compteEpargneRepository->FiltreRappport(
+        $afiche_tab = true;
+        $groupeRapport=$compteEpargneRepository->CompteEpargne(
             $filtrerapportdate->getData(),
             $filtrerapportdate->getData()
         );
@@ -57,14 +59,15 @@ class CompteEpargneController extends AbstractController
 
         // Appel des fonction CompteEpargne qui recupere tous les info sur le compte epargnes
         
-        $compteepargne=$compteEpargneRepository->CompteEpargne();
+       // $compteepargne=$compteEpargneRepository->CompteEpargne();
         
         // Solde
 
         return $this->renderForm('Module_epargne/compte_epargne/index.html.twig', [
             'agenceRepos' =>$agenceRepo,
-            'compteepargne'=>$compteepargne,
-            'trierEp'=>$trierEp
+            'compteepargne'=>$groupeRapport,
+            'trierEp'=>$trierEp,
+            'afficher' =>$afiche_tab
         ]);
     }
 
@@ -100,6 +103,8 @@ class CompteEpargneController extends AbstractController
         // affichage du client du jour
         $comptedujour=$compteEpargneRepository->ClientNow();
 
+        //dd($comptedujour);
+
         $compteEpargne = new CompteEpargne();
         $form = $this->createForm(CompteEpargneType::class, $compteEpargne);
         $form->handleRequest($request);
@@ -109,7 +114,8 @@ class CompteEpargneController extends AbstractController
            # dd($data);
             $compteEpargneRepository->add($compteEpargne, true);
 
-            return $this->redirectToRoute('app_compte_epargne_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', "Ajout de nouveau compte epargne '".$compteEpargne->getCodeepargne()."' reussite!!");
+            //return $this->redirectToRoute('app_compte_epargne_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('Module_epargne/compte_epargne/new.html.twig', [
@@ -201,7 +207,8 @@ class CompteEpargneController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $compteEpargneRepository->add($compteEpargne, true);
 
-            return $this->redirectToRoute('app_compte_epargne_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', "Modification compte epargne '".$compteEpargne->getCodeepargne()."' reussite!!");
+            //return $this->redirectToRoute('app_compte_epargne_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('Module_epargne/compte_epargne/edit.html.twig', [

@@ -54,13 +54,10 @@ class CommuneRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Commune
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+   public function api_commune()
+   {
+        $statement = $this->getEntityManager()->createQuery('SELECT c.CodeCommune Code,c.NomCommune Commune FROM App\Entity\Commune c')->execute();        
+        return $statement;
+     
+   }
 }

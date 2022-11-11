@@ -1,13 +1,8 @@
 {{ include('header.html.twig') }}
 
 {% block body %}
-    <h1>Etat civile</h1>
+    {{ include('references/etatcivile/_form.html.twig', {'button_label': 'Modifier'}) }}
 
-    {{ include('references/etatcivile/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_etatcivile_index') }}">back to list</a>
-
-    {{ include('references/etatcivile/_delete_form.html.twig') }}
 {% endblock %}
 
 {{ include('footer.html.twig') }}

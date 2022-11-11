@@ -24,9 +24,13 @@ import './api/api_compte_epargne'
 import $ from 'jquery';
 
 import jsZip from 'jszip'; 
+import 'pdfmake';
 import 'datatables.net-buttons-dt';
+import 'datatables.net-dt';
 import 'datatables.net-buttons/js/buttons.html5';
 import 'datatables.net-buttons/js/buttons.print';
+import 'datatables.net-buttons/js/buttons.html5.js';
+
 
 
 window.JSZip = jsZip;
@@ -39,7 +43,7 @@ $(document).ready(function(){
     $(".table1").DataTable({
         dom: 'Bftp',
         buttons: [
-            'copy', 'excel', 'csv'
+            'excel','pdf','csv','print'
         ],
       
     });
@@ -54,5 +58,27 @@ $(document).ready(function(){
     $('#filtre_rapport_transaction_Du').on('change',()=>{
         $('#one_date').hide()
     })
+
+    $('#individuelclient_date_naissance').on('change',(e)=>{
+        var birth_ = e.target.value
+        var year_birth =parseInt(birth_.slice(0,4))
+        var year_now = parseInt(new Date().getFullYear())
+
+        var age = year_now - year_birth
+        $('#age').html(age+' ans  ')
+       
+    })
+
+        /**********Utilisateur sur indivuduelle client******************** */
+        var user_log_ = parseInt($('#user').text())
+    
+        $('#individuelclient_user option').each(() => {
+            // alert($(this).val())
+            if (user_log_ === parseInt($(this).val())) {
+                $(this).attr('selected','selected')
+                $(this).val(user_log_)
+            }
+            
+        });
 });
 

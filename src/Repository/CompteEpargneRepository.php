@@ -82,7 +82,7 @@ class CompteEpargneRepository extends ServiceEntityRepository
         return $query->getResult();
    }
 
-    public function CompteEpargne()
+    public function CompteEpargne($date1,$date2)
     {
         $entityManager=$this->getEntityManager();
         $query=$entityManager->createQuery(
@@ -105,7 +105,12 @@ class CompteEpargneRepository extends ServiceEntityRepository
             WHERE
              c.codeep = i.codeclient
              AND c.produit = pe.id
-             AND pe.typeEpargne = te.id');
+             AND pe.typeEpargne = te.id
+             AND c.datedebut BETWEEN :date1 AND :date2
+           '
+        )
+        ->setParameter('date1',$date1)
+        ->setParameter('date2',$date2);
 
             return $query->getResult();
     }
@@ -333,10 +338,14 @@ class CompteEpargneRepository extends ServiceEntityRepository
 
     // Cette fonction est pour les client epargne d'aujjourd'hui
     public function ClientNow(){
+
+        $dateNow = date("Y/m/d");
+        
         $entityManager=$this->getEntityManager();
 
         $query=$entityManager->createQuery(
-        'SELECT
+        "SELECT
+        ce.id,
         -- Compte epargne 
         ce.datedebut,
         ---Code client -----
@@ -357,7 +366,8 @@ class CompteEpargneRepository extends ServiceEntityRepository
         App\Entity\Individuelclient i
         WITH ce.produit=p.id
         AND ce.codeep = i.codeclient
-        ORDER BY ce.id DESC');
+        WHERE ce.datedebut = '$dateNow'
+        ORDER BY ce.id DESC");
         return $query->getResult();
 
     }

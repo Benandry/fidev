@@ -2,45 +2,57 @@
 
 {% block body %}
 <h2 style="color:black;">Rapport de dernier transaction :</h2>
+   
     {% if  affiche_tab_  == false%}
 
-        <div class="row" style="width: 60%; margin-left: 20rem; border: 1px solid #AAA; padding: 50px;" >
-            <h4 class="text-center">Rechercher</h4>
-            {{ form_start(form) }}
-                    <div class="row" style="color:black;">
-                        <div id="one_date">
-                            <div class="row-sm-2">
-                                {{ form_row(form.date1) }}
-                            </div>
+            <!-- The Modal -->
+            <div class="modal fade" id="myModal">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                    
+                        <!-- Modal Header -->
+                        <div class="modal-header bg-primary">
+                            <h4 class="modal-title text-center">Recherche par date</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
+                        {{ form_start(form) }}
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                            
+                                    <div class="text-center" id="one_date">
+                                        <h4 class="text-center"> Date arrêtée </h4>
+                                        {{ form_row(form.date1) }}
+                                    </div>
 
-                        <div id="two_date">    
-                            <div class="row-sm-2">
-                                {{ form_row(form.Du) }}
+                                    <div class="text-center" id="two_date">
+                                        <h4 class="text-center">Entre deux dates </h4>
+                                        {{ form_row(form.Du) }}
+                                
+                                        {{ form_row(form.Au) }}
+                                    </div>
                             </div>
-
-                            <div class="row-sm-2">
-                                {{ form_row(form.Au) }}
+                            
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                {{ form_row(form.Filtre) }}
                             </div>
-                        </div>
-
-                        <div class="col-sm" style="margin-top:24px;">
-                            {{ form_row(form.Filtre) }}
-                        </div>
+                            {{ form_end(form) }}
+                        
                     </div>
-            {{ form_end(form) }}
                 </div>
-        {% else %}
+            </div>
+            {# /***********Fin modal *********** #}
+    {% else %}
             <table class="table1 table table-bordered" style="margin-top:25px;">
                 <thead class="alert alert-success">
                     <tr>
+                        <th>Date Transaction</th>
                         <th>Code transaction</th>
                         <th>Compte epargne</th>
                         <th>Nom</th>
                         <th>Description</th>
                         <th>Piece Comptable</th>
                         <th>Produit</th>
-                        <th>Date Transaction</th>
                         <th>Montant</th>
                         <th>Solde</th>
 
@@ -49,13 +61,13 @@
                 <tbody class="jumbotron jumbotron-fluid" style="color:black;">
                 {% for transaction in transactions %}
                     <tr>
+                        <td>{{ transaction.DateTransaction ? transaction.DateTransaction|date('Y-m-d') : '' }}</td>
                         <td>{{transaction.codetransaction}}</td>
                         <td>{{ transaction.codeepargneclient }}</td>
                         <td>{{ transaction.nomclient }} {{ transaction.prenomclient }}</td>
                         <td>{{ transaction.Description }}</td>
                         <td>{{ transaction.PieceComptable }}</td>
                         <td>{{ transaction.nomproduit }}</td>
-                        <td>{{ transaction.DateTransaction ? transaction.DateTransaction|date('Y-m-d') : '' }}</td>
                         <td>
                             {% if transaction.Description == 'RETRAIT' %}
                             <span style="color: red;">{{ transaction.Montant }}</span>
@@ -74,7 +86,13 @@
             </table>
         {% endif %}
 
-
+        {% block javascript %}
+            <script> 
+                $(window).on('load',() =>{
+                    $('#myModal').modal('show')
+                })
+            </script>
+        {% endblock %}
 {% endblock %}
 
 {{ include('footer.html.twig') }}

@@ -50,9 +50,18 @@ class TransactionretraitType extends AbstractType
                     'class'=>'form-control'
                     ]
                 ])
+
+                ->add('montant_bruite',IntegerType::class,[
+                    'label' => "Montant bruite",
+                    'mapped' => false,
+                    'attr'=>[
+                        'class'=>'form-control'
+                    ],])
+                    
             ->add('papeterie',IntegerType::class)
             ->add('commission',IntegerType::class)        
             ->add('codeepargneclient',TextType::class,[
+                'label' => "Compte Epargne",
                 'attr'=>[
                     'class'=>'form-control',
                     'placeholder'=>'Code client . . .'

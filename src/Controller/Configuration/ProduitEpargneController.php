@@ -32,6 +32,7 @@ class ProduitEpargneController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $produitEpargneRepository->add($produitEpargne, true);
 
+            $this->addFlash('success', "Ajout de produit epargne :  ' ".$produitEpargne->getNomproduit()." ' reussite!!");
             return $this->redirectToRoute('app_produit_epargne_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -58,6 +59,7 @@ class ProduitEpargneController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $produitEpargneRepository->add($produitEpargne, true);
 
+            $this->addFlash('success', "Modification produit epargne :  ' ".$produitEpargne->getNomproduit()." ' reussite!!");
             return $this->redirectToRoute('app_produit_epargne_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -74,6 +76,7 @@ class ProduitEpargneController extends AbstractController
             $produitEpargneRepository->remove($produitEpargne, true);
         }
 
+        $this->addFlash('success', "Suppression de produit epargne :  ' ".$produitEpargne->getNomproduit()." ' reussite!!");
         return $this->redirectToRoute('app_produit_epargne_index', [], Response::HTTP_SEE_OTHER);
     }
 }

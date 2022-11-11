@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -37,6 +39,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $responsabilite = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Individuelclient::class)]
+    private Collection $individuelclients;
+
+    public function __construct()
+    {
+        $this->individuelclients = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->nom;
+    }
 
     public function getId(): ?int
     {
@@ -162,4 +177,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Individuelclient>
+     */
+    public function getIndividuelclients(): Collection
+    {
+        return $this->individuelclients;
+    }
+
+    public function addIndividuelclient(Individuelclient $individuelclient): self
+    {
+        if (!$this->individuelclients->contains($individuelclient)) {
+            $this->individuelclients[] = $individuelclient;
+            $individuelclient->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIndividuelclient(Individuelclient $individuelclient): self
+    {
+        if ($this->individuelclients->removeElement($individuelclient)) {
+            // set the owning side to null (unless already changed)
+            if ($individuelclient->getUser() === $this) {
+                $individuelclient->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

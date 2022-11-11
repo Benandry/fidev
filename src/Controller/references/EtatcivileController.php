@@ -31,6 +31,7 @@ class EtatcivileController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $etatcivileRepository->add($etatcivile, true);
 
+            $this->addFlash('success', "Ajout d'etat civil ".$etatcivile->getEtatcivile()."  reussite!!");
             return $this->redirectToRoute('app_etatcivile_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -57,6 +58,7 @@ class EtatcivileController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $etatcivileRepository->add($etatcivile, true);
 
+            $this->addFlash('success', "Modification d'etat civil ".$etatcivile->getEtatcivile()."  reussite!!");
             return $this->redirectToRoute('app_etatcivile_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -72,7 +74,7 @@ class EtatcivileController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$etatcivile->getId(), $request->request->get('_token'))) {
             $etatcivileRepository->remove($etatcivile, true);
         }
-
+        $this->addFlash('success', "Suppression d'etat civil  ".$etatcivile->getEtatcivile()."  reussite!!");
         return $this->redirectToRoute('app_etatcivile_index', [], Response::HTTP_SEE_OTHER);
     }
 }

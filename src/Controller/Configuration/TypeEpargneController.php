@@ -31,6 +31,7 @@ class TypeEpargneController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $typeEpargneRepository->add($typeEpargne, true);
 
+            $this->addFlash('success', "Ajout de type epargne :  ".$typeEpargne->getNomTypeEp()."  reussite!!");
             return $this->redirectToRoute('app_type_epargne_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -57,6 +58,7 @@ class TypeEpargneController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $typeEpargneRepository->add($typeEpargne, true);
 
+            $this->addFlash('success', "Modification de type :  ' ".$typeEpargne->getNomTypeEp()." ' reussite!!");
             return $this->redirectToRoute('app_type_epargne_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -73,6 +75,7 @@ class TypeEpargneController extends AbstractController
             $typeEpargneRepository->remove($typeEpargne, true);
         }
 
+        $this->addFlash('success', "Suppression de type epargne : ' ".$typeEpargne->getNomTypeEp()." ' reussite!!");
         return $this->redirectToRoute('app_type_epargne_index', [], Response::HTTP_SEE_OTHER);
     }
 }

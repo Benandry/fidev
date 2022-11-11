@@ -42,8 +42,15 @@ class TransactionType extends AbstractType
             ->add('Montant',IntegerType::class,[
                 'attr'=>[
                     'class'=>'form-control'
-                ],
-                ])
+                ],])
+
+            ->add('montant_bruite',IntegerType::class,[
+                'label' => "Montant bruite",
+                'mapped' => false,
+                'attr'=>[
+                    'class'=>'form-control'
+                ],])
+
             ->add('papeterie',IntegerType::class,[
                 'attr'=>[
                     'class'=>'form-control'
@@ -55,7 +62,7 @@ class TransactionType extends AbstractType
                 ],
             ])
             ->add('codeepargneclient',TextType::class,[
-                'label'=>'Code client'
+                'label'=>'Compte Epargne'
             ])
             ->add('solde',TextType::class)
         ;

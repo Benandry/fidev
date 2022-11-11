@@ -3,6 +3,27 @@
 {% block body %}
     <h1>Titre</h1>
 
+    
+        {# /***************Messages succes ******************/#}
+        {% for message in app.flashes('success') %}
+        <!-- The Modal -->
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <strong> {{ message }} </strong> 
+                    </div>
+                    
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success btn-sm" data-dismiss="modal">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
     <table class="container table table-bordered">
         <thead class="alert alert-success">
             <tr>
@@ -15,7 +36,15 @@
             <tr>
                 <td>{{ titre.titre }}</td>
                 <td>
-                    <a href="{{ path('app_titre_edit', {'id': titre.id}) }}" class="btn btn-success"><i class="fa fa-edit"></i> Editer</a>
+                    <div class="col-sm-2">
+                        <a href="{{ path('app_titre_show', {'id': titre.id}) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Afficher</a>
+                    </div>
+                    <div class="col-sm-2">    
+                        <a href="{{ path('app_titre_edit', {'id': titre.id}) }}" class="btn btn-success btn-sm"><i class="fa fa-edit"></i> Editer</a>
+                    </div>
+                    <div class="col-sm-8">
+                        {{ include('references/titre/_delete_form.html.twig') }}
+                    </div>
                 </td>
             </tr>
         {% else %}
@@ -25,7 +54,17 @@
         {% endfor %}
         </tbody>
     </table>
+    <div>
+        <a href="{{ path('app_titre_new') }}" class="btn btn-primary btn-sm">Ajouter nouveau</a>
+    </div>
 
+    {% block javascript %}
+        <script>
+            $(window).on('load',() =>{
+                $('#myModal').modal('show')
+            })
+        </script>
+    {% endblock %}
 {% endblock %}
 
 {{ include('footer.html.twig') }}

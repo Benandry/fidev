@@ -31,6 +31,7 @@ class EtudeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $etudeRepository->add($etude, true);
 
+            $this->addFlash('success', "Ajout de niveau d'etude :  ".$etude->getNiveau()."  reussite!!");
             return $this->redirectToRoute('app_etude_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -57,6 +58,7 @@ class EtudeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $etudeRepository->add($etude, true);
 
+            $this->addFlash('success', "Modification de niveau :  ".$etude->getNiveau()."  reussite!!");
             return $this->redirectToRoute('app_etude_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -73,6 +75,7 @@ class EtudeController extends AbstractController
             $etudeRepository->remove($etude, true);
         }
 
+        $this->addFlash('success', "Suprression de niveau :  ".$etude->getNiveau()."  reussite!!");
         return $this->redirectToRoute('app_etude_index', [], Response::HTTP_SEE_OTHER);
     }
 }

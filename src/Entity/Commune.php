@@ -22,13 +22,9 @@ class Commune
     private ?string $CodeCommune = null;
 
 
-    #[ORM\OneToMany(mappedBy: 'Idadresse', targetEntity: Individuelclient::class)]
-    private Collection $Idadresse;
-
     public function __construct()
     {
         $this->Codecomm = new ArrayCollection();
-        $this->Idadresse = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -64,35 +60,4 @@ class Commune
     {
         return (string) $this->getId();
     }
-
-        /**
-         * @return Collection<int, Individuelclient>
-         */
-        public function getIdadresse(): Collection
-        {
-            return $this->Idadresse;
-        }
-
-        public function addIdadresse(Individuelclient $idadresse): self
-        {
-            if (!$this->Idadresse->contains($idadresse)) {
-                $this->Idadresse[] = $idadresse;
-                $idadresse->setIdadresse($this);
-            }
-
-            return $this;
-        }
-
-        public function removeIdadresse(Individuelclient $idadresse): self
-        {
-            if ($this->Idadresse->removeElement($idadresse)) {
-                // set the owning side to null (unless already changed)
-                if ($idadresse->getIdadresse() === $this) {
-                    $idadresse->setIdadresse(null);
-                }
-            }
-
-            return $this;
-        }
-
 }

@@ -68,9 +68,6 @@ class Individuelclient
     #[ORM\OneToMany(mappedBy: 'compte', targetEntity: DepotAterme::class)]
     private Collection $NumCompte;
 
-    #[ORM\ManyToOne(inversedBy: 'Idadresse')]
-    private ?Commune $Idadresse = null;
-
     #[ORM\OneToMany(mappedBy: 'codeclient', targetEntity: CompteEpargne::class)]
     private Collection $codecompteepargne;
 
@@ -121,6 +118,13 @@ class Individuelclient
 
     #[ORM\Column(length: 30, nullable: true)]
     private ?string $codeclient = null;
+
+    #[ORM\ManyToOne(inversedBy: 'individuelclients')]
+    private ?User $user = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $commune = null;
+
     
     public function __construct()
     {
@@ -384,17 +388,6 @@ class Individuelclient
         return $this;
     }
 
-    public function getIdadresse(): ?Commune
-    {
-        return $this->Idadresse;
-    }
-
-    public function setIdadresse(?Commune $Idadresse): self
-    {
-        $this->Idadresse = $Idadresse;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, CompteEpargne>
@@ -669,6 +662,30 @@ class Individuelclient
     public function setCodeclient(?string $codeclient): self
     {
         $this->codeclient = $codeclient;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getCommune(): ?string
+    {
+        return $this->commune;
+    }
+
+    public function setCommune(string $commune): self
+    {
+        $this->commune = $commune;
 
         return $this;
     }
