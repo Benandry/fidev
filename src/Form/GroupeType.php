@@ -38,8 +38,9 @@ class GroupeType extends AbstractType
             ])
             ->add('Ajouter',SubmitType::class,[
                 'attr'=>[
-                    'class'=>'btn-lg btn-success',
-                ]
+                    'class'=>'btn btn-primary btn-sm',
+                ],
+                'label' => 'Enregistrer'
             ])
         ;
     }

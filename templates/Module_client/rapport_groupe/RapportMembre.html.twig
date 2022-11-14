@@ -25,9 +25,13 @@
 
                                 <div class="text-center" id="two_date">
                                     <h4 class="text-center">Entre deux dates </h4>
-                                    {{ form_row(form.Du) }}
-                                
-                                    {{ form_row(form.Au) }}
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            {{ form_row(form.Du) }}
+                                        </div>
+                                        <div class="col-sm-6">
+                                            {{ form_row(form.Au) }}
+                                        </div>
                                 </div>
                         </div>
                         
@@ -43,29 +47,37 @@
         {# /////Fin modal #}
 
     {% else %}
-        <h2 style="color:black;">Liste des Membres :</h2>
+
+        
+        <h4 class="text-primary text-center">Liste des Membres 
+            {% if date_1 == true %} jusq'a {{ one_date| date('d-m-Y') }} {% else %} du {{ du| date('d-m-Y') }} au {{ au| date('d-m-Y')  }}{% endif %}   :
+        </h4>
             <table class="table1 table alert alert-primary" style="margin-top:20px;">
             <thead class="alert alert-success">
                 <tr>
-                    <th>Date d'adhesion</th>
-                    <th>Code Client</th>
                     <th>Code Groupe</th>
+                    <th>Code Client</th>
+                    <th>Date d'adhesion</th>
                     <th>Nom Client</th>
                     <th>Nom Groupe</th>
                     <th>Adresse Email</th>
-                    <th>Date de creation du groupe</th>
+                    <th>Date de creation </th>
                 </tr>
             </thead>
             <tbody class="jumbotron jumbotron-fluid" style="color:black;">
             {% for Groupe in rapportMembre %}
                     <tr>
-                        <td>{{ Groupe.dateadhesion | date('d-m-y') }}</td>
-                        <td> {{ Groupe.codeclient}}</td>
                         <td> {{ Groupe.codegroupe }}</td>
+                        <td> {{ Groupe.codeclient}}</td>
+                        <td>{{ Groupe.dateadhesion | date('d-m-Y') }}</td>
                         <td>{{ Groupe.nom_client }} {{ Groupe.prenom_client }}</td>
                         <td>{{ Groupe.nomGroupe }}</td>
                         <td>{{ Groupe.email }}</td>
-                        <td>{{ Groupe.dateInscription | date('d-m-y') }}</td>
+                        <td>{{ Groupe.dateInscription | date('d-m-Y') }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="7" class="text-center">Pas de resultats</td>
                     </tr>
             {% endfor %} 
             </tbody>

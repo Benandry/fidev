@@ -167,23 +167,12 @@ class GroupeRepository extends ServiceEntityRepository
         return $statement;
      }
      public function filtreByOneDate($date){
-        return $this->createQueryBuilder('g')
-        ->select( 'g.id,
-        i.codeclient,
-        g.codegroupe,
-        g.nomGroupe,
-        g.email,
-        g.dateInscription,
-        i.id as client,
-        i.nom_client,
-        i.prenom_client,
-        i.dateadhesion')
-        ->innerJoin('g.IndividuelMembre','i')
-        ->where('g.id = i.MembreGroupe')
-        ->andWhere('i.dateadhesion < :date')
-        ->setParameter(':date',$date)
-        ->getQuery()
-        ->getResult()
-        ;
-     }
+
+        $query = "SELECT  g.codegroupe, client.codeclient,client.dateadhesion , client.nom_client ,client.prenom_client,g.email ,g.nomGroupe ,g.dateInscription FROM App\Entity\Groupe g
+                  LEFT JOIN App\Entity\Individuelclient client WITH g.id = client.MembreGroupe
+                  WHERE client.dateadhesion <=  :one_date ";
+                $statement = $this->getEntityManager()->createQuery($query)->setParameter(':one_date',$date)->execute();
+
+            return $statement;
+      }
 }

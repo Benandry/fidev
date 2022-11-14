@@ -49,25 +49,49 @@ class CompteEpargneController extends AbstractController
        $filtrerapportdate=$trierEp->handleRequest($request);
         
        $afiche_tab = false;
-       if($trierEp->isSubmitted() && $trierEp->isValid()){
-        $afiche_tab = true;
-        $groupeRapport=$compteEpargneRepository->CompteEpargne(
-            $filtrerapportdate->getData(),
-            $filtrerapportdate->getData()
-        );
-       }
+       $groupeRapport = 0;
 
+       /*********Afficher les titre du tableau selon le date de recherche */
+        $date_1 = false;
+        $date_2 = false;
+        $data['Du'] = 0;
+        $data['Au'] = 0;
+        $data['date1'] = 0;
+
+       if($trierEp->isSubmitted() && $trierEp->isValid()){
+
+            $data = $trierEp->getData();
+
+            $afiche_tab = true;
+
+            if ($data['date1'] != null ) {
+                $date_1 = true;
+                $groupeRapport=$compteEpargneRepository->CompteEpargne_one_date($data['date1']);
+                //dd($groupeRapport);
+            }else {
+                $date_2 = true;
+                $groupeRapport=$compteEpargneRepository->CompteEpargne($data['Du'],$data['Au']);
+            // dd($groupeRapport);
+            }
+        
+
+        // dd($groupeRapport);
+       }
         // Appel des fonction CompteEpargne qui recupere tous les info sur le compte epargnes
         
-       // $compteepargne=$compteEpargneRepository->CompteEpargne();
-        
-        // Solde
+        //$groupeRapport=$compteEpargneRepository->CompteEpargneAll();
+    
 
         return $this->renderForm('Module_epargne/compte_epargne/index.html.twig', [
             'agenceRepos' =>$agenceRepo,
             'compteepargne'=>$groupeRapport,
             'trierEp'=>$trierEp,
-            'afficher' =>$afiche_tab
+            'afficher' =>$afiche_tab,
+            'date_1' => $date_1,
+            'date_2' => $date_2,
+            'one_date' => $data['date1'],
+            'du'=>$data['Du'],
+            'au' =>$data['Du'],
         ]);
     }
 
@@ -221,37 +245,38 @@ class CompteEpargneController extends AbstractController
     public function delete(Request $request, CompteEpargne $compteEpargne, CompteEpargneRepository $compteEpargneRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$compteEpargne->getId(), $request->request->get('_token'))) {
+          //  dd($compteEpargne);
             $compteEpargneRepository->remove($compteEpargne, true);
         }
 
         return $this->redirectToRoute('app_compte_epargne_index', [], Response::HTTP_SEE_OTHER);
     }
 
-              // Solde
-              #[Route('/solde/{id}', name: 'app_solde')]
-              public function Solde(ManagerRegistry $doctrine,$id,AgenceRepository $agence): Response
-              { 
-                  $compte=$doctrine->getRepository(CompteEpargne::class)->find($id);
-                  $client=$compte->getCodeclient();
-                  $produit=$compte->getProduit();
-          
-                          // Agence
-                          $agenceRepos=$agence->findAll();
-          
-                          // type produit
-                          $produits=$doctrine->getRepository(ProduitEpargne::class)->find($id);
-                          $type=$produit->getTypeEpargne();        
-          
-                  return $this->render('Module_epargne/compte_epargne/solde.html.twig',[
-                      'comptes'=>$compte,
-                      'clients'=>$client,
-                      'produits'=>$produit,
-                      'types'=>$type,
-                      'agences'=>$agenceRepos
-                      ]
-                      );
-          
-              }
+    // Solde
+    #[Route('/solde/{id}', name: 'app_solde')]
+    public function Solde(ManagerRegistry $doctrine,$id,AgenceRepository $agence): Response
+    { 
+        $compte=$doctrine->getRepository(CompteEpargne::class)->find($id);
+        $client=$compte->getCodeclient();
+        $produit=$compte->getProduit();
+
+                // Agence
+                $agenceRepos=$agence->findAll();
+
+                // type produit
+                $produits=$doctrine->getRepository(ProduitEpargne::class)->find($id);
+                $type=$produit->getTypeEpargne();        
+
+        return $this->render('Module_epargne/compte_epargne/solde.html.twig',[
+            'comptes'=>$compte,
+            'clients'=>$client,
+            'produits'=>$produit,
+            'types'=>$type,
+            'agences'=>$agenceRepos
+            ]
+            );
+
+    }
 
         // // Cette fonction est pour le rapport
         

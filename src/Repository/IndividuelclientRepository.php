@@ -96,7 +96,6 @@ class IndividuelclientRepository extends ServiceEntityRepository
             i 
             FROM
             App\Entity\Individuelclient i
-            WHERE i.MembreGroupe IS NULL
             ORDER BY i.id DESC'
        )
        ->setMaxResults(5);
@@ -128,7 +127,7 @@ class IndividuelclientRepository extends ServiceEntityRepository
          $query=$entityManager->createQuery(
              'SELECT i
               FROM App\Entity\Individuelclient i
-              WHERE i.date_inscription <  :date2 ORDER BY i.date_inscription ASC')
+              WHERE i.date_inscription <=  :date2 ORDER BY i.date_inscription ASC')
              ->setParameter('date2',$date);
  
              return $query->getResult();
@@ -174,7 +173,7 @@ class IndividuelclientRepository extends ServiceEntityRepository
         $query=$entityManager->createQuery(
             'SELECT i
              FROM App\Entity\Individuelclient i
-              WHERE i.date_inscription < :date1')
+              WHERE i.date_inscription <= :date1')
             ->setParameter('date1',$date);
 
             return $query->getResult();   

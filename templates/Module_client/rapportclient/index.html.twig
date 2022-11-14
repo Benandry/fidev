@@ -10,7 +10,7 @@
             
                 <!-- Modal Header -->
                 <div class="modal-header bg-primary">
-                <h4 class="modal-title text-center">Recherche par date</h4>
+                <h4 class="modal-title text-center">Recherche client par date</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 {{ form_start(trier) }}
@@ -24,9 +24,14 @@
 
                             <div class="text-center" id="two_date">
                                 <h4 class="text-center">Entre deux dates </h4>
-                                {{ form_row(trier.date1) }}
-                                
-                                {{ form_row(trier.date2) }}
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        {{ form_row(trier.date1) }}
+                                    </div>
+                                    <div class="col-sm-6">
+                                        {{ form_row(trier.date2) }}
+                                    </div>
+                                </div>
                             </div>
                     </div>
                     
@@ -45,7 +50,7 @@
  <p id="test">  <p>
     {% else %}
 
-        <h2 style="color:black;"> Liste des clients :</h2>
+        <h2 class="text-primary text-center"> Liste des clients {% if date_1 == true %} jusq'a {{ one_date| date('d-m-Y') }} {% else %} du {{ du| date('d-m-Y') }} au {{ au| date('d-m-Y')  }}{% endif %}  </h2>
             <table class="table1 table alert alert-primary" style="margin-top:20px;">
             <thead class="alert alert-success">
                 <tr>
@@ -63,8 +68,12 @@
                         <td>{{ individuelclient.nomClient }}</td>
                         <td>{{ individuelclient.prenomClient }}</td>
                         <td>{{ individuelclient.cin }}</td>
-                        <td>{{ individuelclient.dateInscription ? individuelclient.dateInscription|date('Y-m-d') : '' }}</td>             
+                        <td>{{ individuelclient.dateInscription ? individuelclient.dateInscription|date('Y-m-d') : '' }}</td>           
                     </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5" class="text-center">Pas de resultats</td>
+                </tr>
             {% endfor %}
             </tbody>
         </table>

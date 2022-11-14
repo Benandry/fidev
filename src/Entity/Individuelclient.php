@@ -113,8 +113,6 @@ class Individuelclient
     #[ORM\ManyToMany(targetEntity: CompteEpargne::class, inversedBy: 'codeindcl')]
     private Collection $codeclientind;
 
-    #[ORM\Column(length: 255)]
-    private ?string $Agence = null;
 
     #[ORM\Column(length: 30, nullable: true)]
     private ?string $codeclient = null;
@@ -124,6 +122,9 @@ class Individuelclient
 
     #[ORM\Column(length: 255)]
     private ?string $commune = null;
+
+    #[ORM\ManyToOne(inversedBy: 'individuelclients')]
+    private ?Agence $Agence = null;
 
     
     public function __construct()
@@ -642,17 +643,7 @@ class Individuelclient
         return $this;
     }
 
-    public function getAgence(): ?string
-    {
-        return $this->Agence;
-    }
 
-    public function setAgence(string $Agence): self
-    {
-        $this->Agence = $Agence;
-
-        return $this;
-    }
 
     public function getCodeclient(): ?string
     {
@@ -686,6 +677,18 @@ class Individuelclient
     public function setCommune(string $commune): self
     {
         $this->commune = $commune;
+
+        return $this;
+    }
+
+    public function getAgence(): ?Agence
+    {
+        return $this->Agence;
+    }
+
+    public function setAgence(?Agence $Agence): self
+    {
+        $this->Agence = $Agence;
 
         return $this;
     }

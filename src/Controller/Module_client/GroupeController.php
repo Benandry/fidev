@@ -61,9 +61,13 @@ class GroupeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $groupeRepository->add($groupe, true);
 
-            return $this->redirectToRoute('app_groupe_index', [], Response::HTTP_SEE_OTHER);
+          //  dd($form->getData());
+
+            $groupeRepository->add($groupe, true);
+            
+            $this->addFlash('success', "Ajout du nouveau ' ".$groupe-> getNomGroupe()." ' avec code ".$groupe->getCodegroupe()."  reussite!!");
+            //return $this->redirectToRoute('app_groupe_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('Module_client/groupe/new.html.twig', [
@@ -74,7 +78,7 @@ class GroupeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_groupe_show')]
+    #[Route('/show/{id}', name: 'app_groupe_show')]
     public function show(ManagerRegistry $doctrine,$id): Response
     {        
         $groupes=$doctrine->getRepository(Groupe::class)->find($id);
@@ -100,11 +104,13 @@ class GroupeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $groupeRepository->add($groupe, true);
 
+           // dd($form->getData());
+            $this->addFlash('success', "Modification du ' ".$groupe-> getNomGroupe()." ' avec code ' ".$groupe->getCodegroupe()." ' reussite!!");
             return $this->redirectToRoute('app_groupe_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('Module_client/groupe/edit.html.twig', [
-            'groupe' => $groupe,
+            'Groupe' => $groupe,
             'form' => $form,
         ]);
     }
@@ -116,6 +122,7 @@ class GroupeController extends AbstractController
             $groupeRepository->remove($groupe, true);
         }
 
+        $this->addFlash('success', "Suppression du ' ".$groupe-> getNomGroupe()." ' avec code ' ".$groupe->getCodegroupe()." ' reussite!!");
         return $this->redirectToRoute('app_groupe_index', [], Response::HTTP_SEE_OTHER);
     }
 }

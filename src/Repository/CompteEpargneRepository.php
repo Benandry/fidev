@@ -25,11 +25,13 @@ class CompteEpargneRepository extends ServiceEntityRepository
     {
         $this->getEntityManager()->persist($entity);
 
+        //dd($entity);
         if ($flush) {
             $this->getEntityManager()->flush();
         }
     }
 
+   
     public function remove(CompteEpargne $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
@@ -38,6 +40,7 @@ class CompteEpargneRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
 
     // Filtre entre deux date des comptes epargnes pour les individuels
 
@@ -82,38 +85,64 @@ class CompteEpargneRepository extends ServiceEntityRepository
         return $query->getResult();
    }
 
+   //Entre deux date
     public function CompteEpargne($date1,$date2)
     {
-        $entityManager=$this->getEntityManager();
-        $query=$entityManager->createQuery(
-            'SELECT 
+
+        $query = "SELECT 
                 c.datedebut,
                 c.id as idepc,
                 c.typeClient,
                 c.codeepargne,
-                i.id AS codecl,
+                -- i.id AS codecl,
                 i.nom_client as nom,
                 i.prenom_client as prenom,
-                (pe.id) AS codeprod,
-                (pe.nomproduit) AS nomprod,
-                (te.id) as codeep
+                -- (pe.id) AS codeprod,
+                 (pe.nomproduit) AS nomprod
+                -- (te.id) as codeep
             FROM App\Entity\CompteEpargne c 
-            INNER JOIN
-            App\Entity\Individuelclient i,
-            App\Entity\ProduitEpargne pe,
-            App\Entity\TypeEpargne te
-            WHERE
-             c.codeep = i.codeclient
-             AND c.produit = pe.id
-             AND pe.typeEpargne = te.id
-             AND c.datedebut BETWEEN :date1 AND :date2
-           '
-        )
-        ->setParameter('date1',$date1)
-        ->setParameter('date2',$date2);
+            INNER JOIN App\Entity\Individuelclient i
+            WITH c.codeep = i.codeclient
+            INNER JOIN App\Entity\ProduitEpargne pe
+            WITH c.produit = pe.id
+            WHERE c.datedebut BETWEEN :date1 AND :date2
+           ";
 
-            return $query->getResult();
+
+           $statement = $this->getEntityManager()->createQuery($query)->setParameter('date1',$date1)->setParameter('date2',$date2)->execute();
+   
+           return $statement;
     }
+
+       //Dans une date
+       public function CompteEpargne_one_date($date)
+       {
+           $query = "SELECT 
+                   c.datedebut,
+                   c.id as idepc,
+                   c.typeClient,
+                   c.codeepargne,
+                   -- i.id AS codecl,
+                   i.nom_client as nom,
+                   i.prenom_client as prenom,
+                   -- (pe.id) AS codeprod,
+                    (pe.nomproduit) AS nomprod
+                   -- (te.id) as codeep
+               FROM App\Entity\CompteEpargne c 
+               INNER JOIN App\Entity\Individuelclient i
+               WITH c.codeep = i.codeclient
+               INNER JOIN App\Entity\ProduitEpargne pe
+               WITH c.produit = pe.id
+               WHERE c.datedebut <= :date1
+              ";
+              $statement = $this->getEntityManager()->createQuery($query)->setParameter('date1',$date)->execute();
+      
+              return $statement;
+       }
+
+
+ 
+
 // Cette fonction permet d'avoir les rapports de tous les solde du clients
    public function rapportsolde()
    {

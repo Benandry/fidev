@@ -11,10 +11,9 @@
 {% endblock %}
 {{ form_start(form) }}
 <div class="container" style="color:black;">
-  <h2>Individuel</h2>
-  <span id="user">{{ app.user.id }}</span>
+  <span id="user"  style="display: none;">{{ app.user.id }}</span>
   <br>
-  <h1><a href="{{ path('app_individuel_index') }}" class="btn btn-success"><i class="fa fa-list"></i> Listes des clients </a></h1>
+  <h1><a href="{{ path('app_individuel_index') }}" class="btn btn-success btn-sm"><i class="fa fa-list"></i> Listes des clients </a></h1>
   <!-- Nav tabs -->
   <ul class="nav nav-pills" role="tablist">
     <li class="nav-item">
@@ -50,7 +49,7 @@
       </div>
       <div class="col-sm-5">
           {{ form_row(form.date_naissance) }}
-          <span class="alert alert-info " id="age"> </span>
+          <span id="age"> </span>
           {{ form_row(form.lieu_naissance) }}
           {{ form_row(form.numero_mobile) }}
       </div>
@@ -137,49 +136,6 @@
 
 </div>
 {% block javascript  %}
-    <script>
-      const url_api ='/api/commune-madagascar';
-
-      const search_input = document.getElementById('individuelclient_commune')
-
-      search_input.addEventListener('keyup',()=>{
-        const value_input = search_input.value
-        
-        $.ajax({
-              url: url_api,
-              method: "GET",
-              dataType : "json",
-              contentType: "application/json; charset=utf-8",
-              data : JSON.stringify(),
-              success: function(result){
-
-                    const getValue = result.filter(i => i.Commune.toLocaleLowerCase().includes(value_input.toLocaleLowerCase()))
-                    console.log(getValue)
-
-                    var suggestion = ''
-
-                    if( value_input != ''){
-                        getValue.forEach(resultItem =>{
-                        
-                          suggestion += `<div class="suggestion">${resultItem.Commune}</div>`
-                        })
-                    }else{
-                      suggestion = '<div class="suggestion"> Pas de commune</div>'
-                    }
-
-                    document.getElementById('commune_suggest').innerHTML = suggestion
-                  
-          
-              },
-              error: function (request, status, error) {
-                  console.log(request.responseText);
-              }
-
-          });  
-          
-          
-          
-      })
-    </script>
+    <script src="{{ asset('api/api_individuel_client.js')}}"></script>
 {% endblock %}
 {{ form_end(form) }}

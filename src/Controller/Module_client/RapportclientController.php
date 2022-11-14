@@ -26,6 +26,13 @@ class RapportclientController extends AbstractController
 
        $affiche_tab = false ;
 
+          #--------------Date afficher ---------------------------#
+          $date_1 = false;
+          $date_2 = false;
+          $date_debut = 0;
+          $date_fin = 0;
+          $one_date = 0;
+
        if($trier->isSubmitted() && $trier->isValid()){
             $affiche_tab = true;
             $data = $filtrerapportdate->getData();
@@ -33,9 +40,11 @@ class RapportclientController extends AbstractController
             $one_date = $data['search_one_date'];
 
             if ($one_date != null) {
+                $date_1 = true;
                 $clientRapport = $individuelclients->trierRapportClientPar_une_date($one_date);
                # dd($clientRapport);
             }else {
+                $date_2 = true;
                 $date_debut = $data['date1'];
                 $date_fin = $data['date2'];
                 $clientRapport=$individuelclients->trierRapportClient($date_debut,$date_fin);
@@ -48,7 +57,12 @@ class RapportclientController extends AbstractController
             'individuel' => $clientRapport,
             'agences'=>$agence->findAll(),
             'trier'=>$trier,
-            'affiche_tab' => $affiche_tab
+            'affiche_tab' => $affiche_tab,
+            'date_1' => $date_1,
+            'date_2' => $date_2,
+            'one_date' => $one_date,
+            'du'=>$date_debut,
+            'au' =>$date_fin,
         ]);
     }
 
@@ -61,18 +75,32 @@ class RapportclientController extends AbstractController
          $form=$this->createForm(FiltreRapportMembreType::class);
          $rapportmembregroupe=$form->handleRequest($request);
          $affiche_tab = false;
+
+             #--------------Date afficher ---------------------------#
+             $date_1 = false;
+             $date_2 = false;
+             $du = 0;
+             $au = 0;
+             $one_date = 0;
+
          if($form->isSubmitted() && $form->isValid()){
              $data = $rapportmembregroupe->getData();
              $affiche_tab = true;
              $one_date = $data['search_on_date'];
+
+
+             #------------------Afficher ---------------------------------#
+
              if ($one_date != null) {
+                $date_1 = true;
                 $rapportMembre = $groupeRepository->filtreByOneDate($one_date);
-                #dd($rappport_groupe_par_un_date);
+                //dd($rapportMembre);
              } else {
-                $rapportMembre=$groupeRepository->FiltreMembre(
-                    $rapportmembregroupe->get('Du')->getData(),
-                    $rapportmembregroupe->get('Du')->getData()
-                );
+                $date_2 = true;
+                $du = $rapportmembregroupe->get('Du')->getData();
+                $au = $rapportmembregroupe->get('Au')->getData();
+
+                $rapportMembre=$groupeRepository->FiltreMembre($du,$au);
              }
              
          }
@@ -82,6 +110,11 @@ class RapportclientController extends AbstractController
          'agence'=>$agenceRepository->findAll(),
          'form'=>$form,
          'affiche_tab' => $affiche_tab,
+         'date_1' => $date_1,
+         'date_2' => $date_2,
+         'one_date' => $one_date,
+         'du'=>$du,
+         'au' =>$au,
          ]
      );
      }
@@ -99,16 +132,26 @@ class RapportclientController extends AbstractController
        $trierGroupe=$this->createForm(FiltreRapportGroupeType::class);
        $filtrerapportdate=$trierGroupe->handleRequest($request); 
 
+         #--------------Date afficher ---------------------------#
+         $date_1 = false;
+         $date_2 = false;
+         $date_debut = 0;
+         $date_fin = 0;
+         $one_date = 0;
+
        if($trierGroupe->isSubmitted() && $trierGroupe->isValid()){
             $affiche_tab = true ;
             $data = $filtrerapportdate->getData();
 
             $one_date = $data['one_date_search'];
             if ($one_date != null) {
+                $date_1 = true;
                 $groupeRapport = $groupeRepository->filtre_groupe_one_date($one_date);
-                #dd($groupeRapport);
+                //dd($one_date);
             }
-            else {
+            else 
+            {
+                $date_2 = true;
                 $date_debut = $data['Date1'];
                 $date_fin = $data['Date2'];
     
@@ -118,12 +161,17 @@ class RapportclientController extends AbstractController
         #dd($groupeRapport);
         
        }
-      # dd($affiche_tab);
+      // dd($date_debut);
         return $this->renderForm('Module_client/rapport_groupe/index.html.twig', [
             'groupe' => $groupeRapport,
             'agences'=>$agence->findAll(),
             'trierGroupe'=>$trierGroupe,
             'affiche_tab' => $affiche_tab,
+            'date_1' => $date_1,
+            'date_2' => $date_2,
+            'one_date' => $one_date,
+            'du'=>$date_debut,
+            'au' =>$date_fin,
         ]);
     }
 }

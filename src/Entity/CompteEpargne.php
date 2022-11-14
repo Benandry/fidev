@@ -43,7 +43,7 @@ class CompteEpargne
     #[ORM\Column(length: 50)]
     private ?string $typeClient = null;
 
-    #[ORM\ManyToMany(targetEntity: Individuelclient::class, mappedBy: 'codeindividuel')]
+    #[ORM\ManyToMany(targetEntity: Individuelclient::class, mappedBy: 'CodeIndividuel')]
     private Collection $individuelclients;
 
     #[ORM\ManyToMany(targetEntity: Individuelclient::class, mappedBy: 'codeclientindividuel')]

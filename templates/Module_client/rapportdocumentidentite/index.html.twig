@@ -24,9 +24,13 @@
 
                             <div class="text-center" id="two_date">
                                 <h4 class="text-center">Entre deux dates </h4>
-                                {{ form_row(trierDocs.Date1) }}
-            
-                                {{ form_row(trierDocs.Date2) }}
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        {{ form_row(trierDocs.Date1) }}
+                                    </div>
+                                    <div class="col-sm-6">
+                                        {{ form_row(trierDocs.Date2) }}
+                                    </div>
                             </div>
                     </div>
                     
@@ -44,16 +48,16 @@
            
                
     {% else %}
-        <h2 style="color:black;">Liste des CIN :</h2>
+        <h2 class="text-primary text-center">Liste des CIN {% if date_1 == true %} jusq'a {{ one_date| date('d-m-Y') }} {% else %} du {{ du| date('d-m-Y') }} au {{ au| date('d-m-Y')  }}{% endif %} </h2>
 
         <table class="table1 table" style="margin-top:25px;">
             <thead class="alert alert-success">
                 <tr>
                     <th>Nom</th>
                     <th>Prenom</th>
+                    <th>Numero CIN</th>
                     <th>Date naissance</th>
                     <th>Lieu de naissance</th>
-                    <th>Numero CIN</th>
                     <th>Date de livrance</th>
                     <th>Date expiration</th>
                     <th>Delivré à</th>
@@ -64,12 +68,16 @@
                     <tr>
                         <td>{{ Individuelclient.getNomclient() }}</td>
                         <td>{{ Individuelclient.getPrenomclient() }}</td>
-                        <td>{{ Individuelclient.getDatenaissance()| date('d/m/y') }}</td>
-                        <td>{{ Individuelclient.getLieunaissance() }}</td>
                         <td>{{ Individuelclient.getCin() }}</td>
-                        <td>{{ Individuelclient.getDatecin()| date('d/m/y') }}</td>
-                        <td>{{ Individuelclient.getDateexpiration()| date('d/m/y') }}</td>
+                        <td>{{ Individuelclient.getDatenaissance()| date('d/m/Y') }}</td>
+                        <td>{{ Individuelclient.getLieunaissance() }}</td>
+                        <td>{{ Individuelclient.getDatecin()| date('d/m/Y') }}</td>
+                        <td>{{ Individuelclient.getDateexpiration()| date('d/m/Y') }}</td>
                         <td>{{ Individuelclient.lieudelivrance }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                    <td colspan="8" class="text-center">Pas de resultats</td>
                     </tr>
             </tbody>
                 {% endfor %}

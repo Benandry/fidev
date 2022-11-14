@@ -10,7 +10,8 @@
           <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item"><a href="#"></a></li>
             <li class="breadcrumb-item"><a href="#"></a></li>
-            <li class="breadcrumb-item active" aria-current="page"></li>
+  <a href="{{ path('app_individuel_index') }}" class="btn btn-primary btn-sm"><i class="fa fa-list"></i> Voir liste </a><br><br>
+  <li class="breadcrumb-item active" aria-current="page"> </li>
           </ol>
         </nav>
       </div>
@@ -107,12 +108,12 @@
                 </p>
                 <p class="mb-1" style="color:black;">Commune :</p>
                 <div class="progress rounded">
-                <p class="mb-1">{{Commune.Nomcommune}}</p>
+                <p class="mb-1">{{Commune}}</p>
                 </div>
                 <p class="mt-4 mb-1" style="color:black;">Code Commune :</p>
-                 <div class="progress rounded" >
+                 {# <div class="progress rounded" >
                         <p class="mt-4 mb-1">{{Commune.CodeCommune}}</p>
-                </div>
+                </div> #}
                  <p class="mt-4 mb-1" style="color:black;">Adresse Physique :</p>
                 <div class="progress rounded">
                  <p class="mt-4 mb-1">{{individuelclients.adressePhysique}}</p>

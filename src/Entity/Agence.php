@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AgenceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AgenceRepository::class)]
@@ -21,6 +23,14 @@ class Agence
 
     #[ORM\Column(length: 200, nullable: true)]
     private ?string $commune = null;
+
+    #[ORM\OneToMany(mappedBy: 'Agence', targetEntity: Individuelclient::class)]
+    private Collection $individuelclients;
+
+    public function __construct()
+    {
+        $this->individuelclients = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -64,6 +74,36 @@ class Agence
     public function setCommune(?string $commune): self
     {
         $this->commune = $commune;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Individuelclient>
+     */
+    public function getIndividuelclients(): Collection
+    {
+        return $this->individuelclients;
+    }
+
+    public function addIndividuelclient(Individuelclient $individuelclient): self
+    {
+        if (!$this->individuelclients->contains($individuelclient)) {
+            $this->individuelclients[] = $individuelclient;
+            $individuelclient->setAgence($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIndividuelclient(Individuelclient $individuelclient): self
+    {
+        if ($this->individuelclients->removeElement($individuelclient)) {
+            // set the owning side to null (unless already changed)
+            if ($individuelclient->getAgence() === $this) {
+                $individuelclient->setAgence(null);
+            }
+        }
 
         return $this;
     }

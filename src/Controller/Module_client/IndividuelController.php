@@ -104,8 +104,8 @@ class IndividuelController extends AbstractController
             $individuelclient->setPhoto($brochureFileName);
         }
         $individuelclientRepository->add($individuelclient,True);
-            $this->addFlash('success', "Ajout de nouveau client:  '".$individuelclient-> getNomClient()."'  reussite!!");
-            //return $this->redirectToRoute('app_individuel_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', "Ajout de nouveau client:  ' ".$individuelclient-> getNomClient()."  " . $individuelclient->getPrenomClient()." ' avec code ".$individuelclient->getCodeclient()."  reussite!!");
+            return $this->redirectToRoute('app_individuel_new', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('Module_client/individuel/new.html.twig', [
@@ -121,7 +121,9 @@ class IndividuelController extends AbstractController
     public function show(ManagerRegistry $docrtine,Individuelclient $individuelclient,AgenceRepository $agenceRepository,int $id): Response
     {
         $individuelclient=$docrtine->getRepository(Individuelclient::class)->find($id);
-        $Commune=$individuelclient->getIdadresse();
+        $Commune=$individuelclient->getCommune();
+
+        //dd($Commune);
         $etude=$individuelclient->getEtude();
         $titre=$individuelclient->getTitre();
         $etatcivile=$individuelclient->getEtatcivile();
@@ -137,12 +139,16 @@ class IndividuelController extends AbstractController
             'etatciviles' => $etatcivile,
         ]);
     }
-#[Route('/{id}/edit', name: 'app_individuel_edit', methods: ['GET'])]
+
+#[Route('/{id}/edit', name: 'app_individuel_edit', methods: ['GET','POST'])]
     public function edit(Request $request, Individuelclient $individuelclient, IndividuelclientRepository $individuelclientRepository,FileUploader $fileUploader,EntityManagerInterface $entityManagerInterface,$id): Response
     {
-        $client = new Individuelclient();
+       // $client = new Individuelclient();
+       // dd($client);
         $form = $this->createForm(IndividuelclientType::class, $individuelclient);
         $form->handleRequest($request);
+        
+       // dd($form);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $brochureFile = $form->get('photo')->getData();
@@ -152,19 +158,21 @@ class IndividuelController extends AbstractController
             }
     
             $individuelclientRepository->add($individuelclient, true);
-
+            $this->addFlash('success', "Modification du client ' ".$individuelclient-> getNomClient()."  " . $individuelclient->getPrenomClient()."  ' avec code ".$individuelclient->getCodeclient()."  reussite!!");
             return $this->redirectToRoute('app_individuel_index', [], Response::HTTP_SEE_OTHER);
         }
 
         /// Maka an ilay client ho modifierna ///
         $clientToModify = $individuelclientRepository->FindByClientToModify($id);
-
+        $nom = $clientToModify[0]['nom_client'];
+       // dd($nom);
        ######## dd($clientToModify);
 
         return $this->renderForm('Module_client/individuel/edit.html.twig', [
             'individuelclient' => $individuelclient,
             'form' => $form,
             'clientToModify' => $clientToModify[0]['id'],
+            'nom_client' => $nom,
         ]);
     }
 
@@ -174,7 +182,7 @@ class IndividuelController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$individuelclient->getId(), $request->request->get('_token'))) {
             $individuelclientRepository->remove($individuelclient, true);
         }
-
+        $this->addFlash('success', "Suppression du client ' ".$individuelclient-> getNomClient()." " . $individuelclient->getPrenomClient()."  ' avec code ".$individuelclient->getCodeclient()."  reussite!!");
         return $this->redirectToRoute('app_individuel_index', [], Response::HTTP_SEE_OTHER);
     }
 

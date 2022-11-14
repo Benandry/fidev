@@ -10,19 +10,30 @@
                 
                     <!-- Modal Header -->
                     <div class="modal-header bg-primary">
-                        <h4 class="modal-title text-center"> Rechercher entre deux dates </h4>
+                        <h4 class="modal-title text-center"> Compte Epargne </h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                         {{ form_start(trierEp) }}
                         <!-- Modal body -->
                         <div class="modal-body">
-                                {{ form_row(trierEp.Date1) }}
-                                {{ form_row(trierEp.Date2) }}
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        {{ form_row(trierEp.date1) }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        {{ form_row(trierEp.Au) }}
+                                    </div>
+                                    <div class="col-sm-6">
+                                        {{ form_row(trierEp.Du) }}
+                                    </div>
+                                </div>
                         </div>
                         
                         <!-- Modal footer -->
                         <div class="modal-footer">
-                                {{ form_row(trierEp.Filtre) }}
+                            {{ form_row(trierEp.Filtre) }}
                             </div>
                         {{ form_end(trierEp) }}
                     
@@ -31,10 +42,11 @@
         </div>
     {% else %}
         <table class="table1 table table-bordered" style="margin-top:50px;">
+            <caption class="text-center text-primary"> Compte Epargne {% if date_1 == true %} jusq'a {{ one_date| date('d-m-Y') }} {% else %} du {{ du| date('d-m-Y') }} au {{ au| date('d-m-Y')  }}{% endif %} </caption>
             <thead class="alert alert-success">
                 <tr>
                     <th>Date d'ouverture </th>
-                    <th>Code Epargne</th>
+                    <th>Compte Epargne</th>
                     <th>Nom et prenom</th>
                     <th>Produits</th>
                 </tr>

@@ -2,6 +2,8 @@
 
 {% block body %}
 
+{{ include('modal.html.twig') }}
+
     <table class="table1 table">
         <thead class="alert alert-success">
             <tr>
@@ -22,8 +24,16 @@
                 <td>{{ Groupe.numeroMobile }}</td>
                 <td>{{ Groupe.email }}</td>
                 <td>
-                    <a href="{{ path('app_groupe_show', {'id': Groupe.id}) }}" class="btn btn-success"><i class="fa fa-eye"></i></a>
-                    <a href="{{ path('app_groupe_edit', {'id': Groupe.id}) }}" class="btn btn-success"><i class="fa fa-edit"></i></a>
+                    <div class="col-sm-4">
+                        <a href="{{ path('app_groupe_show', {'id': Groupe.id}) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"> Afficher </i></a>
+                    </div>
+                    <div class="col-sm-4">
+                        <a href="{{ path('app_groupe_edit', {'id': Groupe.id}) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Editer </a>
+                    </div>
+                    <div class="col-sm-4">
+                        {{ include('Module_client/groupe/_delete_form.html.twig') }}
+                    </div>
+
                 </td>
             </tr>
         {% else %}
@@ -33,6 +43,7 @@
         {% endfor %}
         </tbody>
     </table>
+    <a href="{{ path('app_groupe_new') }}" class="btn btn-primary btn-sm" ><i class="fa fa-book"></i>Ajouter nouveau </a>
 
 {% endblock %}
 

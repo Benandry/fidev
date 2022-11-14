@@ -13,19 +13,31 @@ class FiltreCompteEpargneIndividuelType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Date1',DateType::class,[
-                'widget'=>'single_text',
-                'label'=>'Du',
-                'mapped'=>false
+                ->add('Du',DateType::class,[
+                    'widget'=>'single_text',
+                    'label'=>'Du',
+                    'mapped'=>true,
+                    'by_reference'=>true,
+                    'required' => false
                 ])
-                ->add('Date2',DateType::class,[
+                ->add('Au',DateType::class,[
                     'widget'=>'single_text',
                     'label'=>'Au',
-                    'mapped'=>false
-            ])
+                    'mapped'=>true,
+                    'by_reference'=>true,
+                    'required' => false
+
+                ])
+                ->add('date1',DateType::class,[
+                    'widget'=>'single_text',
+                    'label'=>'Date arretes :',
+                    'mapped'=>true,
+                    'by_reference'=>true,
+                    'required' => false
+                ])
             ->add('Filtre',SubmitType::class,[
                 'attr'=>[
-                    'class'=>'btn-success'
+                    'class'=>'btn btn-success btn-sm'
                 ]
             ])
         ;
