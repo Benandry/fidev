@@ -437,4 +437,119 @@ class CompteEpargneRepository extends ServiceEntityRepository
 
         return  $query->getResult();
     }
+
+
+        // cette fonction est pour le rapport des compte epargne
+        public function rapport_compte_epargne()
+        {
+            $entityManager =$this->getEntityManager();
+    
+            $query=$entityManager->createQuery(
+                'SELECT 
+                -- COMPTE EPARGNE
+                ce.datedebut,
+                ce.codeepargne,
+                -- -- INDIVIDUEL CLIENT
+                i.nom_client,
+                i.prenom_client,
+                -- -- PRODUIT EPARGNE
+                p.nomproduit
+                -- -- TYPE EPARGNE
+                
+                FROM
+                App\Entity\CompteEpargne ce
+                INNER JOIN
+                App\Entity\Individuelclient i
+                INNER JOIN
+                App\Entity\ProduitEpargne p
+                WHERE
+                ce.codeep = i.codeclient
+                AND
+                ce.produit = p.id
+                '
+            );
+    
+            return $query->getResult();
+    
+    
+        }
+            // cette fonction est pour trier les compte epargne
+            public function rapport_compte_epargne_triedate($datedebut,$datefin)
+            {
+                $entityManager =$this->getEntityManager();
+        
+                $query=$entityManager->createQuery(
+                    'SELECT 
+                -- COMPTE EPARGNE
+                ce.datedebut,
+                ce.codeepargne,
+                -- -- INDIVIDUEL CLIENT
+                i.nom_client,
+                i.prenom_client,
+                -- -- PRODUIT EPARGNE
+                p.nomproduit
+                FROM
+                App\Entity\CompteEpargne ce
+                INNER JOIN
+                App\Entity\Individuelclient i
+                INNER JOIN
+                App\Entity\ProduitEpargne p
+                WHERE
+                ce.codeep = i.codeclient
+                AND
+                ce.produit = p.id
+                AND
+                ce.datedebut BETWEEN :datedebut AND :datefin
+                    '
+                )
+                ->setParameter(':datedebut',$datedebut)
+                ->setParameter(':datefin',$datefin)
+                ;
+        
+                return $query->getResult();
+        
+        
+            }
+    
+             // cette fonction est pour la date arrete du rapport compte epargne
+             public function rapport_compte_epargne_arrete($datearrete)
+             {
+                 $entityManager =$this->getEntityManager();
+         
+                 $query=$entityManager->createQuery(
+                     'SELECT 
+                 -- COMPTE EPARGNE
+                 ce.datedebut,
+                 ce.codeepargne,
+                 -- -- INDIVIDUEL CLIENT
+                 i.nom_client,
+                 i.prenom_client,
+                 -- -- PRODUIT EPARGNE
+                 p.nomproduit
+                 -- -- TYPE EPARGNE
+                 -- te
+                 FROM
+                 App\Entity\CompteEpargne ce
+                 INNER JOIN
+                 App\Entity\Individuelclient i
+                 INNER JOIN
+                 App\Entity\ProduitEpargne p
+                 WHERE
+                 ce.codeep = i.codeclient
+                 AND
+                 ce.produit = p.id
+                 AND
+                 ce.datedebut <= :datearrete 
+                 -- AND
+                 -- ce.datedebut <=:datearrete
+                     '
+                 )
+                 ->setParameter(':datearrete',$datearrete)
+                 ;
+         
+                 return $query->getResult();
+         
+         
+             }
+    
 }
