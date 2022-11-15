@@ -96,6 +96,7 @@ class IndividuelclientRepository extends ServiceEntityRepository
             i 
             FROM
             App\Entity\Individuelclient i
+            WHERE i.MembreGroupe IS NULL
             ORDER BY i.id DESC'
        )
        ->setMaxResults(5);

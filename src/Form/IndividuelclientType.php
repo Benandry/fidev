@@ -172,9 +172,9 @@ class IndividuelclientType extends AbstractType
                 'by_reference'=>true,
                 'mapped'=>true,
                 'attr'=>[
-                    'class'=>'form-control'
+                    'class'=>'hidden'
                 ],
-                'label' => "Nom Agence"
+                'label' => false
             ])
 
             ->add('user',EntityType::class,[

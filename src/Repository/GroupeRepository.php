@@ -74,10 +74,10 @@ class GroupeRepository extends ServiceEntityRepository
    public function FiltreGroupe($date1,$date2)
    { 
 
-        $query = "SELECT COUNT(client.id) nombre_par_membre, g.codegroupe,g.nomGroupe,g.email,g.dateInscription FROM App\Entity\Groupe g
+        $query = 'SELECT COUNT(client.id) nombre_par_membre, g.codegroupe,g.nomGroupe,g.email,g.dateInscription FROM App\Entity\Groupe g
                 LEFT JOIN App\Entity\Individuelclient client WITH g.id = client.MembreGroupe
                 WHERE g.dateInscription BETWEEN :date1 AND :date2
-                GROUP BY g.id";
+                GROUP BY g.id';
         $statement =
         $this->getEntityManager()
         ->createQuery($query)
@@ -88,7 +88,7 @@ class GroupeRepository extends ServiceEntityRepository
         return $statement;
     }
 
-    ///Filtre par une date 
+    //Filtre par une date 
 
     public function filtre_groupe_one_date($one_date){
 
@@ -174,5 +174,30 @@ class GroupeRepository extends ServiceEntityRepository
                 $statement = $this->getEntityManager()->createQuery($query)->setParameter(':one_date',$date)->execute();
 
             return $statement;
+      }
+
+      // cette fonction permet de selectionner les personnes membre du groupe
+      public function listeMembreGroupe(){
+        
+        $entityManager=$this->getEntityManager();
+
+        $query=$entityManager->createQuery(
+          'SELECT 
+          g.id,
+          i.MembreGroupe,
+          i.codeclient,
+          i.nom_client,
+          i.prenom_client,
+          i.TitreGroupe
+          FROM
+          App\Entity\Groupe g
+          INNER JOIN 
+          App\Entity\Individuelclient i
+          WHERE
+          i.MembreGroupe = g.id
+          '
+        );
+
+        return $query->getResult();
       }
 }
