@@ -50,7 +50,7 @@
     {% else %}
         <h2 class="text-primary text-center">Liste des CIN {% if date_1 == true %} jusq'a {{ one_date| date('d-m-Y') }} {% else %} du {{ du| date('d-m-Y') }} au {{ au| date('d-m-Y')  }}{% endif %} </h2>
 
-        <table class="table1 table" style="margin-top:25px;">
+        <table id='datatable-buttons' class="table1 table" style="margin-top:25px;">
             <thead class="alert alert-success">
                 <tr>
                     <th>Nom</th>
