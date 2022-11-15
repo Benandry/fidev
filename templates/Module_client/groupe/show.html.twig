@@ -118,12 +118,10 @@
                                 <table class="table1 table">
         <thead class="alert alert-success">
             <tr>
-                <th>Profil<th>
-                <th>Code Client</th>
+                <th>Profil et code client<th>
                 <th>Nom</th>
                 <th>Date adhesion</th>
-                <th>Numero Mobile</th>
-                {# <th>Email</th> #}
+                <th>Numero mobile</th>
             </tr>
         </thead>
         <tbody class="jumbotron jumbotron-fluid" style="color:black;">
@@ -131,34 +129,17 @@
           {% if Individuelclient.TitreGroupe == 'Membre' %}  
             <tr>
                 <td>
-                <div class="col-sm-1">
-                  <p class="text-muted">   
-                          <a href="{{ path('app_individuel_show',{'id':Individuelclient.id }) }}"><li class="list-group-item"><img src="{{ asset('uploads/photo/' ~ Individuelclient.getPhoto()  ) }}" alt="avatar"class="" style="width: 50px;border-radius:100%;"> </li></a>
-                  </p>
-              </div>   
-                           </td>
+                    <a href="{{ path('app_individuel_show',{'id':Individuelclient.id }) }}"><img src="{{ asset('uploads/photo/' ~ Individuelclient.getPhoto()) }}" style="width: 20px;border-radius:100%;"></a>
+                </td>
                 <td>{{ Individuelclient.codeclient }}</td>
                 <td>{{ Individuelclient.nomClient }}</td>
                 <td>{{ Individuelclient.dateadhesion ? Individuelclient.dateadhesion|date('Y-m-d') : '' }}</td>
                 <td>{{ Individuelclient.numeroMobile }}</td>
-                {# <td>{{ Individuelclient.email }}</td> #}
-                {# <td>
-                    <div class="col-sm-4">
-                        <a href="{{ path('app_groupe_show', {'id': Groupe.id}) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"> Afficher </i></a>
-                    </div>
-                    <div class="col-sm-4">
-                        <a href="{{ path('app_groupe_edit', {'id': Groupe.id}) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Editer </a>
-                    </div>
-                    <div class="col-sm-4">
-                        {{ include('Module_client/groupe/_delete_form.html.twig') }}
-                    </div>
-
-                </td> #}
             </tr>
           {% endif %}
         {% else %}
             <tr>
-                <td colspan="12">no records found</td>
+                <td colspan="12">Pas de membre</td>
             </tr>
         {% endfor %}
         </tbody>
