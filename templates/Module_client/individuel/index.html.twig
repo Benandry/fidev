@@ -15,7 +15,7 @@
                 </div>
             </div>
         {{ form_end(formulaire) }}
-    <table class="table1 table table-borderd p-5">
+    <table class=" table table-borderd p-5" id="datatable-buttons">
         <thead class="alert alert-success">
             <tr>
                 <th>Code Client</th>
@@ -60,7 +60,7 @@
     </table>
 
         {# Champ pour la filtre date #}
-        {# {{ form_start(filtre) }}
+        {# {{ form_art(filtre) }}
         <div class="row" >
             <div class="col-sm-5" >
                 {{ form_row(filtre.Date1) }}

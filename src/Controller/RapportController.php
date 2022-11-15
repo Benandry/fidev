@@ -6,6 +6,7 @@ use App\Entity\CompteEpargne;
 use App\Entity\ProduitEpargne;
 use App\Form\FiltreRapportSoldeType;
 use App\Form\FiltreReleveType;
+use App\Form\RapportcompteepargnetrieType;
 use App\Form\RapportSoldeDuJourType;
 use App\Repository\AgenceRepository;
 use App\Repository\CompteEpargneRepository;
@@ -87,5 +88,48 @@ class RapportController extends AbstractController
             'form'=>$form,
             'showTable'=>$showTable_
         ]);
-    }   
+    }  
+
+        // rapport compte epargne
+    #[Route('/CompteEpargne',name:'app_rapport_compte')]
+    public function rapport_compteepargne(Request $request,CompteEpargneRepository $compteEpargneRepository):Response
+    {
+
+        $rapport_compteepargne=$compteEpargneRepository->rapport_compte_epargne();
+        
+        $compteepargne = new CompteEpargne();
+        $form=$this->createForm(RapportcompteepargnetrieType::class);
+        $filtrecompteep=$form->handleRequest($request);
+
+        $showTable_=false;
+
+        if($form->isSubmitted() && $form->isValid()){
+            $showTable_=true;
+
+            if($filtrecompteep->getData()['datearrete']){
+
+                $rapport_compteepargne=$compteEpargneRepository->rapport_compte_epargne_arrete(
+                    $filtrecompteep->getData()['datearrete']
+                );
+
+            }
+            else{
+
+                $rapport_compteepargne=$compteEpargneRepository->rapport_compte_epargne_triedate(
+                    $filtrecompteep->getData()['datedebut'],
+                    $filtrecompteep->getData()['datefin'],
+                );
+                
+            }
+
+        }
+
+        return  $this->renderForm('rapport/rapport_compte_epargne.html.twig',[
+            'rapportcompteep'=>$rapport_compteepargne,
+            'showTable'=>$showTable_,
+            'form'=>$form,
+            'compteepargne'=>$compteepargne
+        ]);
+    }
+ 
  }
