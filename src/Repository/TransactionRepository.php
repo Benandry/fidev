@@ -130,6 +130,7 @@ class TransactionRepository extends ServiceEntityRepository
              tr.codeepargneclient = ce.codeepargne
              AND
              ce.codeep = i.codeclient
+             ORDER BY tr.id
              '
          );
  
@@ -183,6 +184,8 @@ class TransactionRepository extends ServiceEntityRepository
              c.produit = p.id AND
              p.typeEpargne = te.id AND
              tr.DateTransaction BETWEEN :Du AND :Au
+             ORDER BY tr.id
+
             ')
             ->setParameter(':Du',$Du)
             ->setParameter(':Au',$Au)

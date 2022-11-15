@@ -129,7 +129,7 @@ $(document).ready(()=>{
 
 $(document).ready(()=>{
 
-    alert("ready")
+    // alert("ready")
 
         /******Transction Depot GetApi  */
         $("#transaction_codeepargneclient").on('keyup',function(){
@@ -152,8 +152,8 @@ $(document).ready(()=>{
                         document.getElementById('nom').innerHTML = element.nom+" "+element.prenom;
                         document.getElementById('solde').innerHTML = element.somme_solde;
                         document.getElementById('code').innerHTML = element.code;
-                        $('#transaction_nom').val(element.nom)
-                        $('#transaction_prenom').val(element.prenom)
+                        $('#transaction_nom').val(element.nom+'  '+element.prenom)
+                        // $('#transaction_prenom').val(element.prenom)
                         $('#transaction_donneessolde').val(element.somme_solde)
                     }
             

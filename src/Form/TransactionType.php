@@ -75,17 +75,18 @@ class TransactionType extends AbstractType
                 ->add('prenom',TextType::class,[
                     'mapped'=>false,
                     'attr'=>[
-                        'class'=>'form-control',
+                        'class'=>'hidden',
                         'disabled'=>true,
-                    ]
+                    ],
+                    'label'=>false
                 ])
                 ->add('nomgroupe',TextType::class,[
                     'mapped'=>false,
                     'attr'=>[
-                        'class'=>'form-control',
+                        'class'=>'hidden',
                         'disabled'=>true,
                     ],
-                    'label'=>'groupe'
+                    'label'=>false
                 ])
                 ->add('donneessolde',TextType::class,[
                     'mapped'=>false,

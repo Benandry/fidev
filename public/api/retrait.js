@@ -2,8 +2,6 @@
 $(document).ready(() =>{
 
 
-    $('#transactionretrait_Montant').attr('disabled', 'disabled'); 
-
     $("#transactionretrait_codeepargneclient").on('keyup',(e) => {
         var numero = e.target.value;
         var url = "/api/transaction/"+numero;

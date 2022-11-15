@@ -107,7 +107,7 @@ class Individuelclient
     #[ORM\OneToMany(mappedBy: 'codeclient', targetEntity: ListeRouge::class)]
     private Collection $listeRouges;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateadhesion=null;
 
     #[ORM\ManyToMany(targetEntity: CompteEpargne::class, inversedBy: 'codeindcl')]

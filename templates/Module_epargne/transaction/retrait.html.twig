@@ -41,6 +41,11 @@
             {{ form_row(form.codeepargneclient) }}
             <div id="commune_suggest"> </div>
         </div>
+           <div class="col-sm-5">
+            <h3 style="display:none;">Code epargne</h3><span id="code"  style="display:none;"> </span>
+            <h4>Nom </h4> : <span id="nom"> </span>
+            <h4>Solde </h4> : <span id="solde"> </span>
+        </div>
     </div>
     <hr>
     <div class="row jumbotron jumbotron-fluid" style="color:black;">
@@ -59,7 +64,7 @@
             <button class="btn btn-success">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
 
-<table class="table table-bordered">
+{# <table class="table table-bordered">
     <thead class="alert alert-success"> 
         <tr>
             <th>Compte Epargne</th>
@@ -74,7 +79,7 @@
             <td><span id="solde"> </span> </td>
         </tr>
     </tbody>
-</table>
+</table> #}
 
 {% endblock %}
       <script src="{{ asset('/api/retrait.js')}}"></script>

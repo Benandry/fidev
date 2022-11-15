@@ -44,9 +44,6 @@ class Transaction
     #[ORM\Column(length: 30,nullable:true)]
     private ?string $codeepargneclient = null;
 
-    #[ORM\Column(length: 30,nullable:true)]
-    private ?string $codeepargnegroupe = null;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -172,15 +169,4 @@ class Transaction
         return $this;
     }
 
-    public function getCodeepargnegroupe(): ?string
-    {
-        return $this->codeepargnegroupe;
-    }
-
-    public function setCodeepargnegroupe(string $codeepargnegroupe): self
-    {
-        $this->codeepargnegroupe = $codeepargnegroupe;
-
-        return $this;
-    }
 }

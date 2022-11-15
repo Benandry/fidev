@@ -138,6 +138,7 @@ class IndividuelclientType extends AbstractType
                 'widget'=>'single_text',
                 'label'=>'Date d\'adhesion ',
                 'mapped'=>true,
+                'by_reference'=>true,
                 'required'=>false,
             ])
             ->add('lieudelivrance',TextType::class,[

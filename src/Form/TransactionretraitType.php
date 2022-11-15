@@ -48,7 +48,8 @@ class TransactionretraitType extends AbstractType
                 'required'=>false,
                 'attr'=>[
                     'class'=>'form-control'
-                    ]
+                ],
+                'disabled'=>false
                 ])
 
                 ->add('montant_bruite',IntegerType::class,[
