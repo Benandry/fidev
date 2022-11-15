@@ -51,7 +51,7 @@
     {% else %}
 
         <h2 class="text-primary text-center"> Liste des clients {% if date_1 == true %} jusq'a {{ one_date| date('d-m-Y') }} {% else %} du {{ du| date('d-m-Y') }} au {{ au| date('d-m-Y')  }}{% endif %}  </h2>
-            <table class="table1 table alert alert-primary" style="margin-top:20px;">
+            <table id='datatable-buttons' class="table1 table alert alert-primary" style="margin-top:20px;">
             <thead class="alert alert-success">
                 <tr>
                     <th>Code client</th>
