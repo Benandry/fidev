@@ -13,13 +13,13 @@ import './bootstrap';
 import { Tooltip, Toast, Popover } from 'bootstrap';
 
 //Impport les dossier depot
-import './api/depot'
+//import './api/depot'
 
 //Import les api retrait ////
-import './api/retrait'
+//import './api/retrait'
 
 //import les api pour les compte epargne
-import './api/api_compte_epargne'
+//import './api/api_compte_epargne'
 
 import $ from 'jquery';
 
@@ -30,7 +30,7 @@ import 'datatables.net-dt';
 import 'datatables.net-buttons/js/buttons.html5';
 import 'datatables.net-buttons/js/buttons.print';
 import 'datatables.net-buttons/js/buttons.html5.js';
-
+require('@fortawesome/fontawesome-free/js/all.js');
 
 
 window.JSZip = jsZip;
