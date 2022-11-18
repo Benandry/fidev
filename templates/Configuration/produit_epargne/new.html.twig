@@ -1,8 +1,11 @@
-{{ include('header.html.twig') }}
+{% extends "base.html.twig" %}
+
+{% block title %} Nouveau produit epargne {% endblock %}
+{% block head %}
+    Nouveau produit epargne
+{% endblock %}
+
 
 {% block body %}
             {{ include('Configuration/produit_epargne/_form.html.twig') }}
-
 {% endblock %}
-
-{{ include('footer.html.twig') }}

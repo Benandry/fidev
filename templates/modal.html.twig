@@ -1,23 +1,9 @@
       {# /***************Messages succes ******************/#}
-      {% for message in app.flashes('success') %}
-      <!-- The Modal -->
-      <div class="modal fade" id="myModal">
-          <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                  <!-- Modal body -->
-                  <div class="modal-body">
-                      <strong>{{ message }}</strong>
-                  </div>
-                  
-                  <!-- Modal footer -->
-                  <div class="modal-footer">
-                      <button type="button" class="btn btn-success btn-sm" data-dismiss="modal">OK</button>
-                  </div>
-              </div>
-          </div>
-      </div>
-  {% endfor %}
-  {% block javascript %}
+         {% for message in app.flashes('success') %}
+        <!-- The Modal -->
+                <strong class="alert alert-success">{{ message }}</strong>
+        {% endfor %}
+  {# {% block javascript %}
     <script>
         $(document).ready(function(){
             $(window).on('load',()=>{
@@ -25,4 +11,4 @@
             })
         });
     </script>
-  {% endblock  %}
+  {% endblock  %} #}

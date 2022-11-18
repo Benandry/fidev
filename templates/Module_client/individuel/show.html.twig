@@ -1,5 +1,7 @@
-{{ include('header.html.twig') }}
-
+{% extends "base.html.twig" %}
+{% block head %}
+   Profile de client {{ individuelclients.nomClient }}
+{% endblock %}
 {% block body %}
 
 <section style="background-color: #eee;" style="color:black;">
@@ -8,8 +10,6 @@
       <div class="col">
         <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
           <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="#"></a></li>
-            <li class="breadcrumb-item"><a href="#"></a></li>
   <a href="{{ path('app_individuel_index') }}" class="btn btn-primary btn-sm"><i class="fa fa-list"></i> Voir liste </a><br><br>
   <li class="breadcrumb-item active" aria-current="page"> </li>
           </ol>
@@ -134,5 +134,3 @@
 
    
 {% endblock %}
-
-{{ include('footer.html.twig') }}

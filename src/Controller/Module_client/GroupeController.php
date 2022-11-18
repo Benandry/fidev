@@ -37,6 +37,7 @@ class GroupeController extends AbstractController
     {
         // ========= Maka code groupe
         $get_id_groupe = $groupeRepository->findByGroupId();
+        //dd($get_id_groupe);
 
         if ($get_id_groupe[0][1] == NULL) {
             $last_id_gropue = 0;
@@ -62,13 +63,12 @@ class GroupeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-          //  dd($form->getData());
-
             $groupeRepository->add($groupe, true);
             
             $this->addFlash('success', "Ajout du nouveau ' ".$groupe-> getNomGroupe()." ' avec code ".$groupe->getCodegroupe()."  reussite!!");
             //return $this->redirectToRoute('app_groupe_index', [], Response::HTTP_SEE_OTHER);
         }
+        //dd($last_id_gropue);
 
         return $this->renderForm('Module_client/groupe/new.html.twig', [
             'groupe' => $groupe,
@@ -98,12 +98,13 @@ class GroupeController extends AbstractController
     #[Route('/{id}/edit', name: 'app_groupe_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Groupe $groupe, GroupeRepository $groupeRepository): Response
     {
+       # dd($groupe);
         $form = $this->createForm(GroupeType::class, $groupe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $groupeRepository->add($groupe, true);
-
+           // dd($groupe);
            // dd($form->getData());
             $this->addFlash('success', "Modification du ' ".$groupe-> getNomGroupe()." ' avec code ' ".$groupe->getCodegroupe()." ' reussite!!");
             return $this->redirectToRoute('app_groupe_index', [], Response::HTTP_SEE_OTHER);

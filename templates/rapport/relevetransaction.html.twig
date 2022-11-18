@@ -1,5 +1,10 @@
+{% extends "base.html.twig" %}
 
-{{ include('header.html.twig') }}
+{% block title %} Rapports releve compte epargne {% endblock %}
+{% block head %}
+    Rapport releve compte epargne
+{% endblock %}
+
 
 {% block body %}
     <div style="display:none;">
@@ -8,19 +13,10 @@
     </div>
     {% if showTable == false %}
 
-        <!-- The Modal -->
-        <div class="modal fade" id="myModal">
-            <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                
-                    <!-- Modal Header -->
-                    <div class="modal-header bg-primary">
                         <h4 class="modal-title text-center"> Rapport releve </h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
+
                     {{ form_start(form) }}
                         <!-- Modal body -->
-                        <div class="modal-body">
                             <h2 style="color:black;">A propos :</h2>
                             <div class="row" style="color:black;">
                                 <div class="col-sm-4">
@@ -51,13 +47,9 @@
                             {{ form_row(form.Filtre) }}
                         </div>
                     {{ form_end(form) }}
-                    
-            </div>
-            </div>
-        </div>
     {% else %}
                
-        <table class="table1 table table-bordered" style="margin-top:25px;">
+        <table class="table1 table table-bordered m-3 p-3">
             <thead class="alert alert-success">
                 <tr>
                     <th>Date Transaction</th>
@@ -100,7 +92,7 @@
     <script src="{{ asset('/api/api_rapport_releve.js') }}" ></script>
 {% endblock %}
 
-{{ include('footer.html.twig') }}
+{# {{ include('footer.html.twig') }} #}
 
 {# {{ include('header.html.twig') }}
 
@@ -200,4 +192,4 @@
 
 {% endblock %}
 
-{{ include('footer.html.twig') }} #} #}
+{{ include('footer.html.twig') }} #}

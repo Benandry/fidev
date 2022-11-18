@@ -9,13 +9,20 @@
             <div class="col-sm-5  jumbotron jumbotron">
                 {{ form_row(form.numeroMobile) }}
                 {{ form_row(form.email) }}
-                <div id="code" style="display:none;">
-                {{ form_row(form.codegroupe) }}
+                <div style="display: none ;">
+                        {{ form_row(form.codegroupe) }}
                 </div>
             </div>
 
             <div class="col-sm-5">
-                </br>{{ form_row(form.Ajouter) }}
+                <div class="row">
+                    <div class="col-3 col-xl-3">
+                        {{ form_row(form.Ajouter) }} 
+                    </div>
+                    <div class="col-auto">
+                        <a href="{{ path('app_groupe_index') }}" class="btn btn-success btn-sm" ><i class="fa fa-book"></i> Voir liste</a>
+                    </div>
+                </div>
             </div>
         </div>
   </div>

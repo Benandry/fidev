@@ -1,9 +1,13 @@
-{{ include('header.html.twig') }}
+{% extends "base.html.twig" %}
+
+{% block title %}  Groupe clients liste rouge {% endblock %}
+{% block head %}
+    Groupe clients liste rouge
+{% endblock %}
 
 {% block body %}
 
-    <a href="{{ path('app_liste_rouge_new') }}" class="btn btn-success"> <i class="fa fa-plus"></i> Ajouter</a>
-    <h2 style="color:black;"> Liste des groupes liste rouge :</h2>
+    <a href="{{ path('app_liste_rouge_new') }}" class="btn btn-primary btn-sm"> <i class="fa fa-plus"></i> Ajouter</a>
         {{ form_start(form) }}
             <div class="row" style="color:black;">
                 <div class="col-sm-2">
@@ -17,8 +21,8 @@
                 </div>
             </div>
         {{ form_end(form) }}<br>
-    <table class="table table-bordered">
-        <thead class="alert alert-success">
+    <table class="table table1 table-bordered">
+        <thead>
             <tr>
                 <th>Date</th>
                 <th>Code Groupe</th>
@@ -46,4 +50,3 @@
 
 {% endblock %}
 
-{{ include('footer.html.twig') }}

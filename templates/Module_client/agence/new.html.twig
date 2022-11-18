@@ -1,12 +1,15 @@
-{{ include('header.html.twig') }}
+{% extends "base.html.twig" %}
+
+{% block title %} Nouveau Agences {% endblock %}
+{% block head %}
+     Nouveau Agences
+{% endblock %}
 
 {% block body %}
 
+    <a href="{{ path('app_agence_index') }}" class="btn btn-primary btn-sm ms-5"><i class="fa fa-eye"></i> Agence existe</a>
 
     {{ include('Module_client/agence/_form.html.twig') }}
 
-    <a href="{{ path('app_agence_index') }}" class="btn btn-success" style="margin-left:300px;"><i class="fa fa-eye"></i> Agence existe</a>
 </div>
 {% endblock %}
-
-{{ include('footer.html.twig') }}

@@ -1,20 +1,27 @@
-{{ include('header.html.twig') }}
+{% extends "base.html.twig" %}
 
+{% block title %} 
+    {% if affiche_tab == false %}
+        Liste du groupe
+    {% else %}
+        Liste du groupe {% if date_1 == true %} jusq'a {{ one_date| date('d-m-Y') }} {% else %} du {{ du| date('d-m-Y') }} au {{ au| date('d-m-Y')  }}{% endif %} 
+    {% endif %}
+{% endblock %}
+{% block head %}
+
+    {% if affiche_tab == false %}
+            Liste du groupe
+        {% else %}
+            Liste du groupe {% if date_1 == true %} jusq'a {{ one_date| date('d-m-Y') }} {% else %} du {{ du| date('d-m-Y') }} au {{ au| date('d-m-Y')  }}{% endif %} 
+        {% endif %}
+    {% endblock %}
 {% block body %}
 
     {% if affiche_tab == false %}
 
 
     <!-- The Modal -->
-    <div class="modal fade" id="myModal">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-            
-                <!-- Modal Header -->
-                <div class="modal-header bg-primary">
                     <h4 class="modal-title text-center">Recherche groupe par date</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
                 {{ form_start(trierGroupe)}}
                     <!-- Modal body -->
                     <div class="modal-body">
@@ -35,9 +42,6 @@
                                     </div>
                                 </div>
                             </div>
-                    </div>
-                    
-                    <!-- Modal footer -->
                     <div class="modal-footer">
                         {{ form_row(trierGroupe.Filtre) }}
                     </div>
@@ -48,14 +52,11 @@
     </div>
 
     {% else %}
-
-
-        <h2 class="text-primary text-center"> Liste du groupe {% if date_1 == true %} jusq'a {{ one_date| date('d-m-Y') }} {% else %} du {{ du| date('d-m-Y') }} au {{ au| date('d-m-Y')  }}{% endif %} </h2>
-            <table class="table1 table alert alert-primary" style="margin-top:25px;">
-            <thead class="alert alert-success">
+            <table class="table1 table m-3 p-3">
+            <thead>
                 <tr>
-                    <th>Date de creation</th>
                     <th>Code Groupe</th>
+                    <th>Date de creation</th>
                     <th>Nom Groupe</th>
                     <th>Adresse Email</th>
                     <th>Nombre Membre</th>
@@ -64,8 +65,8 @@
             <tbody class="jumbotron jumbotron-fluid" style="color:black;">
             {% for Groupe in groupe %}
                     <tr>
+                        <td class="fw-bold">{{ Groupe.codegroupe }}</td>
                         <td>{{ Groupe.dateInscription | date('d-m-Y') }}</td>
-                        <td>{{ Groupe.codegroupe }}</td>
                         <td>{{ Groupe.nomGroupe }}</td>
                         <td>{{ Groupe.email }}</td>
                         <td> {{ Groupe.nombre_par_membre }}</td>
@@ -106,6 +107,3 @@
         </script>
     {% endblock %}
 {% endblock %}
-
-
-{{ include('footer.html.twig') }}

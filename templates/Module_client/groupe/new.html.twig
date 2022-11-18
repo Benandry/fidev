@@ -1,40 +1,25 @@
-{{ include('header.html.twig') }}
+{% extends "base.html.twig" %}
+{% block title %}  Ajout de nouveau groupe {% endblock %}
 
+{% block head %}
+    Ajout de nouveau groupe
+{% endblock %}
 {% block body %}
     {# <a class="btn btn-success" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> Nouveau Groupe</a> #}
 
     {{ include('modal.html.twig') }}
-   
-    <a href="{{ path('app_groupe_index') }}" class="btn btn-success btn-sm" ><i class="fa fa-book"></i> Voir liste</a>
-    <div class="container">
-            <div style="display:none;"> <span id="id_groupe">{{ last_id_gropue }}</span> <span id="id_agence">{{ id_agence }}</span></div>
+    <div class="shadow-sm g-0 p-4">
+        {% for message in app.flashes('success') %}
+        <!-- The Modal -->
+                <strong class="alert alert-success">{{ message }}</strong>
+        {% endfor %}
 
-              {{ include('Module_client/groupe/_form.html.twig') }}
+        <div class="container">
+                <div style="display:none;"> <span id="id_groupe">{{ last_id_gropue }}</span> <span id="id_agence">{{ id_agence }}</span></div>
+
+                {{ include('Module_client/groupe/_form.html.twig') }}
+        </div>
     </div>
+        
 
 {% endblock %}
-{% block javascript %}
-
-        <script>
-                $(document).ready(function(){
-                    
-                    function pad(str, max) {
-                        str = str.toString();
-                       return str.length < max ? pad("0" + str, max) : str;
-                     }
-
-                    {#  Manova an ilay input code Groupe  #}
-                    var id_groupe =parseInt($('#id_groupe').text());
-                    id_groupe++;
-                    {# Agence #}
-                    var id_agence =parseInt($('#id_agence').text());
-                    
-
-                    $('#groupe_codegroupe').val('G'+pad(id_agence.toString(),2)+""+pad(id_groupe.toString(),7));
-                    {# Cacher le champ code client#}
-                    $('#code').attr("style", "display: none");
-                });
-        </script>
-{% endblock %}
-
-{{ include('footer.html.twig') }}

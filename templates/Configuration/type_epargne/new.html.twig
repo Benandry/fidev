@@ -1,8 +1,12 @@
-{{ include('header.html.twig') }}
+{% extends "base.html.twig" %}
+
+{% block title %} ajout type epargne {% endblock %}
+{% block head %}
+   Ajout type epargne
+{% endblock %}
 
 {% block body %}
 
               {{ include('Configuration/type_epargne/_form.html.twig') }}
 {% endblock %}
 
-{{ include('footer.html.twig') }}

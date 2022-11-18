@@ -1,19 +1,24 @@
-{{ include('header.html.twig') }}
-{% block stylesheet %}
-  <style>
-    .suggestion{
-      font-size: 14px;
-    }
-    .suggestion:hover{
-      background-color: cornflowerblue;
-      color: #fff;
-    }
-  </style>
+{% extends "base.html.twig" %}
+
+{% block title %} Nouveau compte epargne du client {{ nom_client }} {% endblock %}
+{% block head %}
+     Nouveau compte epargne du client {{ nom_client }}
 {% endblock %}
 
 {% block body %}
+    <div class="row">
+        <div class="col-12">
+            <p class="fw-bolder"> Code du client : <span> {{ code_client }} </span> </p>
+            <p class="fw-bolder"> Nom du client : <span> {{ nom_client }} </span> </p>
+            <p class="fw-bolder"> Prenom du client : <span> {{ prenom_client }} </span> </p>
+        </div>
+    </div>
               {{ include('Module_epargne/compte_epargne/_form.html.twig') }}
-
+             <div id='info_cli'>
+                <span class="code_client">{{ code_client }}</span>
+                <span class="nom_client">{{ nom_client }}</span>
+                <span class="prenom_client">{{ prenom_client }}</span>
+            </div>
 
       {# /***************Messages succes ******************/#}
       {% for message in app.flashes('success') %}
@@ -35,13 +40,13 @@
             </div>
         {% endfor %}
             
-        <div style="display: none;">
+        <div class="prod_type">
             <p> Text ecrit : <span id="text"> </span> </p>
             <p> Text ecrit : <span id="code"> </span> </p>
         </div>
         
-        <table class="table1 table table-bordered" style="margin-top:50px;">
-            <thead class="alert alert-success">
+        <table class="table table-bordered" style="margin-top:50px;">
+            <thead>
                 <tr>
                     <th>Code client</th>
                     <th>Nom et prenom</th>
@@ -75,134 +80,4 @@
             </tbody>
             {% endfor %}
     </table>
-
-    {% block javascript %}
-      <script>
-        $(document).ready(()=>{
-
-                    
-           
-            $('#compte_epargne_codeep').on('keyup',function(){
-                var code_client = $(this).val();
-                document.getElementById('code').innerHTML = code_client;
-        
-            var type_produit = $('#type_prod').text();
-            var id_produits = $('#id_prod').text();
-            
-            $('#compte_epargne_codeepargne').val(code_client+type_produit+id_produits.padStart(5,0));
-        
-            ///code_client_mddule epargne
-           
-            
-            var url = '/api/code-client/'+code_client
-           
-            $.ajax({
-                url: url,
-                method: "GET",
-                dataType : "json",
-                contentType: "application/json; charset=utf-8",
-                data : JSON.stringify(code_client),
-                success: function(result){
-                    for(let i = 0; i < result.length; i++){
-                        var element = result[i]
-
-                        if(element !== '' ){
-                            console.log(element)
-                            $('#compte_epargne_nom').val(element.nom)
-                            $('#compte_epargne_prenom').val(element.prenom)
-                        }else{
-                            console.log(element)
-                            $('#compte_epargne_nom').val("Pas de client")
-                            $('#compte_epargne_prenom').val("Pas de client")
-                        }
-                           
-                    }
-                },
-                error: function (request, status, error) {
-                    console.log(request.responseText);
-                }
-        
-            });    
-        
-            //alert(url)
-        
-            });
-            
-        
-            $("#compte_epargne_produit").on('change',function(){
-        
-                var url = "/api/individuel/"+$(this).val();
-        
-                $.ajax({
-                    url: url,
-                    method: "GET",
-                    dataType : "json",
-                    contentType: "application/json; charset=utf-8",
-                    data : JSON.stringify($(this).val()),
-                    success: function(result){
-                        for (let i = 0; i < result.length; i++) {
-                        
-                            var element = result[i];
-                            console.log(element);
-                           
-                            document.getElementById('text').innerHTML = "<span id=\'type_prod\'>"+element.TypeProd.toString().padStart(1,0)+"</span><span id=\'id_prod\'>"+element.Produit_id.toString().padStart(4,0)+" </span>";
-                        }
-                
-                    },
-                    error: function (request, status, error) {
-                        console.log(request.responseText);
-                    }
-        
-                });    
-            });
-            //api_suggestion
-            const code_rechercher = document.getElementById('compte_epargne_codeep');
-
-            const url_api = '/api/code-client'
-            code_rechercher.addEventListener('keyup',()=>{
-                const value_input = code_rechercher.value
-                
-                $.ajax({
-                    url: url_api,
-                    method: "GET",
-                    dataType : "json",
-                    contentType: "application/json; charset=utf-8",
-                    data : JSON.stringify(),
-                    success: function(result){
-
-                        const getValue = result.filter(i => i.code.toLocaleLowerCase().includes(value_input.toLocaleLowerCase()))
-
-                        var suggestion = ''
-
-                        if( value_input != '' ){
-                            getValue.forEach(resultItem =>{
-                            
-                            suggestion += `<div class="suggestion">${resultItem.code}</div>`
-                            })
-                        }else{
-                            suggestion = '<div class="suggestion"> Pas de commune</div>'
-                        }
-                        
-                        document.getElementById('commune_suggest').innerHTML = suggestion
-                    
-                
-                    },
-                    error: function (request, status, error) {
-                        console.log(request.responseText);
-                    }
-
-                });    
-            })
-            $(window).on('load',() =>{
-                $('#myModal').modal('show')
-            })
-
-             
-        })
-    </script>
-    {% endblock  %}
-
 {% endblock %}
-
-
-{{ include('footer.html.twig') }}

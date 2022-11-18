@@ -1,140 +1,120 @@
-{% block stylesheet %}
-  <style>
-    .suggestion{
-      font-size: 14px;
-    }
-    .suggestion:hover{
-      background-color: cornflowerblue;
-      color: #fff;
-    }
-  </style>
-{% endblock %}
 {{ form_start(form) }}
-<div class="container" style="color:black;">
-  <span id="user"  style="display: none;">{{ app.user.id }}</span>
-  <br>
-  <h1><a href="{{ path('app_individuel_index') }}" class="btn btn-success btn-sm"><i class="fa fa-list"></i> Listes des clients </a></h1>
-  <!-- Nav tabs -->
-  <ul class="nav nav-pills" role="tablist">
-    <li class="nav-item">
-      <a class="nav-link active" data-toggle="pill" href="#home">Etat Civile</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="pill" href="#menu1">Famille</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="pill" href="#menu2">Adresse</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="pill" href="#menu3">Etude</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="pill" href="#menu4">Groupe</a>
-    </li>
-        <li class="nav-item">
-      <a class="nav-link" data-toggle="pill" href="#menu5">Identite</a>
-    </li>
-        </li>
-  </ul>
 
-  <!-- Tab panes -->
-  <div class="tab-content">
-    <div id="home" class="container tab-pane active row jumbotron jumbotron-fluid"><br>
-      <div class="col-sm-5">
-          {{ form_row(form.photo) }}
-          {{ form_row(form.nom_client) }}
-          {{ form_row(form.prenom_client) }}
-          {{ form_row(form.sexe) }}
-          {{ form_row(form.titre) }}
-      </div>
-      <div class="col-sm-5">
-          {{ form_row(form.date_naissance) }}
-          <span id="age"> </span>
-          {{ form_row(form.lieu_naissance) }}
-          {{ form_row(form.numero_mobile) }}
-      </div>
-      <div class="col-sm-5">
-          {{ form_row(form.profession) }}
-      </div>
-      <div class="col-sm-5">
-          {{ form_row(form.nom_conjoint) }}
-      </div>
-      <div class="col-sm-5">
-          {{ form_row(form.date_inscription) }}
-      </div>
-      <div class="col-sm-5">
-          {{ form_row(form.Agence) }}
-      </div>
-    </div>
-    <div id="menu1" class="container tab-pane fade row jumbotron jumbotron-fluid"><br>
-            <div class="col-sm-5">
-              {{ form_row(form.parent_nom) }}
-              {{ form_row(form.nb_enfant) }}
-              {{ form_row(form.nb_personne_charge) }}
-            </div>
-            <div class="col-sm-5">
-              {{ form_row(form.parent_adresse) }}
-              {{ form_row(form.etatcivile) }}
-            </div>
-    </div>
-    <div id="menu2" class="container tab-pane fade row jumbotron jumbotron-fluid"><br>
-            <div class="col-sm-5">
-              {{ form_row(form.adressephysique) }}
-            </div>
-            <div class="col-sm-5">
-              {{ form_row(form.commune) }}
-              <div id="commune_suggest"></div>
-            </div>
-    </div>
-    <div id="menu3" class="container tab-pane fade row jumbotron jumbotron-fluid"><br>
-            <div class="col-sm-5">
-              {{ form_row(form.etude) }}
-            </div>
-    </div>
+<div class="container mt-2">
+    <ul class="nav nav-tabs">
+      <li class="nav-item"><a href="#civil" class="nav-link active" role="tab" data-bs-toggle="tab">Identite civile</a></li>
+      <li class="nav-item"><a href="#famille" class="nav-link" role="tab" data-bs-toggle="tab">Famille </a></li>
+      <li class="nav-item"><a href="#adresse" class="nav-link" role="tab" data-bs-toggle="tab">Adresse  </a></li>
+      <li class="nav-item"><a href="#groupe" class="nav-link" role="tab" data-bs-toggle="tab">Groupe  </a></li>
+      <li class="nav-item"><a href="#identite" class="nav-link" role="tab" data-bs-toggle="tab">Identite   </a></li>
+    </ul>
 
-        <div id="menu4" class="container tab-pane fade row jumbotron jumbotron-fluid"><br>
-            <div class="col-sm-5">
-          {{ form_row(form.MembreGroupe) }}
-            </div>
-            <div class="col-sm-5">
-          {{ form_row(form.TitreGroupe) }}
-            </div>
-            <div class="col-sm-5">
-          {{ form_row(form.dateadhesion) }}
-            </div>
-    </div>
 
-      <div id="menu5" class="container tab-pane fade row jumbotron jumbotron-fluid"><br>
-        <div class="col-sm-5">
-          {{ form_row(form.TypeIdentite) }}
-          {{ form_row(form.cin) }}
+    <div class="tab-content">
+          <div class="tab-pane active" id="civil">
+               <div class="row border rounded g-0 shadow-sm">
+                    <div class="col-6 col-sm-6 col-md-6 p-4">
+                        {{ form_row(form.photo) }}
+                        {{ form_row(form.nom_client) }}
+                        {{ form_row(form.prenom_client) }}
+                        {{ form_row(form.sexe) }}
+                        {{ form_row(form.titre) }}
+                        {{ form_row(form.date_naissance) }}
+                        <span id="age"> </span>
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-6 p-4">
+                        {{ form_row(form.lieu_naissance) }}
+                        {{ form_row(form.numero_mobile) }}
+                        {{ form_row(form.profession) }}
+                        {{ form_row(form.nom_conjoint) }}
+                        {{ form_row(form.date_inscription) }}
+                        {{ form_row(form.Agence) }}
+                    </div>
+               </div>
           </div>
-          <div class="col-sm-5">
-            {{ form_row(form.datecin) }}
-            {{ form_row(form.dateexpiration) }}
-            {{ form_row(form.lieudelivrance) }}
-            <div id="individuel">
-              {{ form_row(form.codeclient) }}
-            </div>
-            <div class="user-log">
-              {{ form_row(form.user) }}
-            </div>
-           
-            
-          </div> 
+   </div>
 
-            <div class="col-sm-2 mt-5">
-               <h1><a href="{{ path('app_individuel_index') }}" class="btn btn-success"><i class="fa fa-book"></i> Recherhce</a></h1>
-                {{ form_row(form.Sauvegarder) }}
-            </div>
-      </div>
+    <div class="tab-content">
+        <div class="tab-pane" id="famille">
+               <div class="row border rounded g-0 shadow-sm">
+                  <div class="col-6 col-sm-6 col-md-6 p-5">
+                      {{ form_row(form.parent_nom) }}
+                      {{ form_row(form.nb_enfant) }}
+                      {{ form_row(form.nb_personne_charge) }}
+                  </div>
+                  <div class="col-6 col-sm-6 col-md-6 p-5">
+                    {{ form_row(form.parent_adresse) }}
+                    {{ form_row(form.etatcivile) }}
+                  </div>
+              </div>
         </div>
     </div>
 
+    <div class="tab-content">
+        <div class="tab-pane" id="adresse">
+               <div class="row border rounded g-0 shadow-sm">
+                    <div class="col-6 col-sm-6 col-md-6 p-5">
+                            {{ form_row(form.adressephysique) }}
+                            {{ form_row(form.commune) }}
+                          <div id="commune_suggest"></div>
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-6 p-5">
+                       {{ form_row(form.etude) }}
+                    </div>
+              </div>
 
-  </div>
+        </div>
+    </div>
+
+     <div class="tab-content">
+        <div class="tab-pane" id="groupe">
+               <div class="row border rounded g-0 shadow-sm">
+                    <div class="col-4 col-sm-4 col-md-4 p-5">
+                         {{ form_row(form.MembreGroupe) }}
+                    </div>
+                   <div class="col-4 col-sm-4 col-md-4 p-5">
+                          {{ form_row(form.TitreGroupe) }}
+                    </div>
+                    <div class="col-4 col-sm-4 col-md-4 p-5">
+                          {{ form_row(form.dateadhesion) }}
+                    </div>
+              </div>
+
+        </div>
+     </div>
+
+     <div class="tab-content">
+        <div class="tab-pane" id="identite">
+               <div class="row border rounded g-0 shadow-sm">
+                <div class="col-4 col-sm-4 col-md-4 p-5">
+                    {{ form_row(form.TypeIdentite) }}
+                    {{ form_row(form.cin) }}
+                    
+                    {{ form_row(form.datecin) }}
+                    {{ form_row(form.dateexpiration) }}
+                  </div>
+                <div class="col-4 col-sm-4 col-md-4 p-5">
+                    {{ form_row(form.lieudelivrance) }}
+                     <div id="individuel">
+                        {{ form_row(form.codeclient) }}
+                    </div>
+                    <div class="user-log">
+                        {{ form_row(form.user) }}
+                    </div>
+                </div>
+                <div class="col-4 col-sm-4 col-md-4 p-5">
+                    <h1><a href="{{ path('app_individuel_index') }}" class="btn btn-success"><i class="fa fa-book"></i> Recherhce</a></h1>
+                    {{ form_row(form.Sauvegarder) }}
+                </div>
+              </div>
+
+        </div>
+     </div>
+
+
 
 </div>
+
 {% block javascript  %}
     <script src="{{ asset('api/api_individuel_client.js')}}"></script>
 {% endblock %}

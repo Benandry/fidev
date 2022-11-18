@@ -1,10 +1,16 @@
-{{ include('header.html.twig') }}
+{% extends "base.html.twig" %}
 
-{% block body %}
-    <a href="{{ path('app_liste_rouge_index') }}"  class="btn btn-success"><i class="fa fa-user"></i> Individuel</a>
-    <a href="{{ path('app_liste_rougegroupe_new') }}"  class="btn btn-success"><i class="fa fa-group"></i> Groupe</a>
-                {{ include('Module_client/liste_rouge/_form.html.twig') }}
-
+{% block title %} Nouveau clients liste rouge {% endblock %}
+{% block head %}
+     Nouveau clients liste rouge
 {% endblock %}
 
-{{ include('footer.html.twig') }}
+{% block body %}
+
+    <div class="shadow g-0 rounded p-5">
+        <a href="{{ path('app_liste_rouge_index') }}"  class="btn btn-primary btn-sm "><i class="fa fa-user"></i> Individuel</a>
+        <a href="{{ path('app_liste_rougegroupe_index') }}"  class="btn btn-success btn-sm"><i class="fa fa-users"></i> Groupe</a>
+        {{ include('Module_client/liste_rouge/formgroupe.html.twig') }}
+    </div>
+
+{% endblock %}

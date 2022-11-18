@@ -3,7 +3,54 @@
 {% block head %}  Dasboard Fidev  {% endblock %}
 
 {% block body %}
-   <p>
-    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolores est recusandae doloribus, maiores, ipsa dignissimos nulla numquam ex magni velit voluptas. Esse iure nobis quibusdam doloribus nihil beatae, minima nulla!
-   </p>
+
+<div class="container mt-2">
+  <ul class="nav nav-tabs">
+    <li class="nav-item"><a href="#home" class="nav-link active" role="tab" data-bs-toggle="tab">Identite civile</a></li>
+    <li class="nav-item"><a href="#profile" class="nav-link" role="tab" data-bs-toggle="tab">Profile</a></li>
+    <li class="nav-item"><a href="#contact" class="nav-link" role="tab" data-bs-toggle="tab">Contact </a></li>
+   </ul>
+   <div class="tab-content">
+      <div class="tab-pane active" id="home">
+        <div class="row border rounded g-0 shadow-sm">
+          <div class="col p-4">
+            <h2>Home page</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo, omnis architecto similique eaque ratione quos dolore, fugit iste praesentium obcaecati quidem tenetur assumenda minus dolorem? Obcaecati asperiores tenetur quod consequatur.</p>
+
+          </div>
+          <div class="col-auto">
+            <h2>Col aut</h2>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="tab-pane" id="profile">
+        <div class="row border rounded g-0 shadow-sm">
+          <div class="col-12 p-4">
+            <h2>Profile page</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo, omnis architecto similique eaque ratione quos dolore, fugit iste praesentium obcaecati quidem tenetur assumenda minus dolorem? Obcaecati asperiores tenetur quod consequatur.</p>
+            
+          </div>
+        </div>
+
+      </div>
+
+      <div class="tab-pane" id="contact">
+        <div class="row border rounded g-0 shadow-sm">
+          <div class="col p-4">
+            <h2>contact page</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo, omnis architecto similique eaque ratione quos dolore, fugit iste praesentium obcaecati quidem tenetur assumenda minus dolorem? Obcaecati asperiores tenetur quod consequatur.</p>
+            
+          </div>
+          <div class="col-auto">
+            <h1>Col aut</h1>
+          </div>
+        </div>
+
+      </div>
+   </div>
+</div>
+
+
 {% endblock %}

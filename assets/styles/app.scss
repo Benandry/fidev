@@ -1,13 +1,39 @@
 @import './custom/custom';
+@import './custom/tab.scss';
 @import '~bootstrap/scss/bootstrap';
 
 #text-paragraphe{
     display: none;
 }
 
-#inputEmail,#inputPassword,#login,#registration_form_prenom,#registration_form_nom,#registration_form_email,#registration_form_responsabilite,#registration_form_password_first,#registration_form_password_second{
+#inputEmail,
+#inputPassword,
+#login,#registration_form_prenom,
+#registration_form_nom,
+#registration_form_email
+,#registration_form_responsabilite,
+#registration_form_password_first,
+#registration_form_password_second,
+div input
+{
     font-size: small;
     height: 30px;
+}
+div select{
+    font-size: small;
+    height: 30px;
+}
+
+div select option {
+    font-size: 13px;
+}
+
+div label,p,span{
+    font-size: 13px;
+}
+
+.liste{
+    font-size: 13px;
 }
 
 .card{
@@ -18,6 +44,74 @@
     color: #000;
     padding: 2px;
 }
+.sidebar{
+    background-color: #5794f0da;
+}
 .nav-link{
     color: #fff;
+}
+.nav-item{
+    font-size: 13px;
+}
+
+.ms-1 {
+    font-weight: bold;
+    font-size: 15px;
+    color: #fff;
+}
+.ms-1:hover,span .d-sm-inline:hover{
+    color: #000;
+}
+.nav-tabs .nav-link .active{
+    color: #fff;
+    border: 3px solid #5794f0da;
+    background-color:#5794f0da;
+}
+
+.nav-tabs:active .nav-link:active{
+    border: 3px solid #5794f0da;
+    color: #fff;
+    background-color:#5794f0da;
+}
+
+.nav-tabs .nav-link{
+    background-color: #fff;
+    color: #5794f0da;
+    border: 3px solid #5794f0da;
+    margin-left: 3rem;
+    margin-right: 4rem;
+}
+
+.nav-tabs .nav-link:hover{
+    border: 3px solid #5794f0da;
+    color: #fff;
+    background-color:#5794f0da;
+
+}
+
+.suggestion{
+    font-size: 14px;
+}
+.suggestion:hover{
+    background-color: cornflowerblue;
+    color: #fff;
+}
+
+table th,td{
+    font-size: 13px;
+}
+
+thead{
+    background-color: #5794f0da;
+    font-size: 13px;
+}
+tbody,tfoot{
+    font-size: 13px;
+}
+
+p span {
+    font-style: italic;
+}
+#info_cli{
+    display: none;
 }

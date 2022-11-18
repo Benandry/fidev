@@ -1,12 +1,11 @@
-{{ include('header.html.twig') }}
-
+{% extends "base.html.twig" %}
+{% block head %}
+    Modification sur l'information du client ' {{ nom_client }} '
+{% endblock %}
 {% block body %}
-    <h4 class="text-primary"> Modification sur l'information du client ' {{ nom_client }} '</h4>
-
     {{ include('Module_client/individuel/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('app_individuel_index') }}" class="btn btn-primary btn-sm"><i class="fa fa-list"></i>Voir liste </a>
 
 {% endblock %}
 
-{{ include('footer.html.twig') }}

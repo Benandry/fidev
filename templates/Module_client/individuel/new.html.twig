@@ -1,25 +1,12 @@
 {% extends "base.html.twig" %}
+{% block title %}  Ajout de nouveau client {% endblock %}
 {% block head %} Ajout de nouvelle client {% endblock %}
 {% block body %}
 
       {# /***************Messages succes ******************/#}
       {% for message in app.flashes('success') %}
         <!-- The Modal -->
-                <div class="modal fade" id="myModal">
-                        <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                                <!-- Modal body -->
-                                <div class="modal-body">
-                                <strong>{{ message }}</strong>
-                                </div>
-                                
-                                <!-- Modal footer -->
-                                <div class="modal-footer">
-                                <button type="button" class="btn btn-success btn-sm" data-dismiss="modal">OK</button>
-                                </div>
-                        </div>
-                        </div>
-                </div>
+                <strong class="alert alert-success">{{ message }}</strong>
         {% endfor %}
 
         <div style="display:none;"> client <span id="last_client">{{ lastClient }}</span>  <span id="agence_id"> {{ agence_client }} </span></div>
@@ -27,47 +14,4 @@
 
 {% endblock %}
 
-{% block javascript %}
 
-        <script>
-                $(document).ready(function(){
-
-                $(document).ready(function(){
-                        $(window).on('load',()=>{
-                        $('#myModal').modal('show')
-                        })
-                });
-
-
-                        function pad(str, max) {
-                           str = str.toString();
-                          return str.length < max ? pad("0" + str, max) : str;
-                        }
-
-                {#  Manova an ilay input code Client  #}
-                 var last_client =parseInt($('#last_client').text());
-                 last_client++;
-                 pad_last_client = pad(last_client.toString(),7);
-
-
-                {# MAnova an ilay agence   #}
-                var get_agence_id = parseInt($('#agence_id').text());
-                pad_agence_id = pad(get_agence_id.toString(),2);
-                $('#individuelclient_codeclient').val('I'+pad_agence_id+pad_last_client);
-                {# Cacher le champ code  individuel#}
-                $('#individuel').attr("style", "display: none");
-
-                $('#individuelclient_date_naissance').on('change',(e)=>{
-                        var birth_ = e.target.value
-                        var year_birth =parseInt(birth_.slice(0,4))
-                        var year_now = parseInt(new Date().getFullYear())
-                
-                        var age = year_now - year_birth
-                        $('#age').html(age+' ans  ')
-                
-                })
-
-
-                });
-        </script>
-{% endblock %}

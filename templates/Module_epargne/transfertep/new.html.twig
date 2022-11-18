@@ -1,7 +1,11 @@
-{{ include('header.html.twig') }}
+{% extends "base.html.twig" %}
+
+{% block title %} Transfert compte epargne {% endblock %}
+{% block head %}
+    Transfert compte epargne
+{% endblock %}
 
 {% block body %}
-    <h1>transfert</h1>
     <div  style="display:none;">
         <p>Solde dest:<span id="textdest"></span></p>
         <p>nom dest:<span id="nomdest"></span></p>
@@ -20,8 +24,9 @@
 
     {{ include('Module_epargne/transfertep/_form.html.twig') }}
 
-{% endblock %}
-{% block javascript %}
+ {% endblock %}
+
+{# {% block javascript %}
     <script src="{{ asset('/api/api_transfert.js')}}"></script>
 {% endblock %}
-{{ include('footer.html.twig') }}
+{{ include('footer.html.twig') }}  #}

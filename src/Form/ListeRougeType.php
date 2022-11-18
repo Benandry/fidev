@@ -21,10 +21,10 @@ class ListeRougeType extends AbstractType
         $builder
             ->add('dateliste',DateType::class,[
                 'widget'=>'single_text',
-                'label'=>'Date'
+                'label'=>'Date : '
             ])
             ->add('raison',TextType::class,[
-                'label'=>'Raison',
+                'label'=>'Raison : ',
             ])
             ->add('codegroupe',EntityType::class,[
                 'class'=>Groupe::class,
@@ -33,16 +33,16 @@ class ListeRougeType extends AbstractType
                 'attr'=>[
                     'class'=>'hidden'
                 ],
-                'label'=>false,
+                'label'=>"Groupe : ",
                 'mapped'=>false
                 ])
-                ->add('codeclient',EntityType::class,[
+            ->add('codeclient',EntityType::class,[
                 'class'=>Individuelclient::class,
                 'query_builder'=>function (EntityRepository $er){
                     return $er->createQueryBuilder('i');
                 },
                 'choice_label'=>'nom_client',
-                'label'=>'Code Client',
+                'label'=>'Client : ',
                 'by_reference'=>true,
                 'attr'=>[
                     'class'=>'form-control'
@@ -55,7 +55,7 @@ class ListeRougeType extends AbstractType
                 'attr'=>[
                     'class'=>'hidden'
                 ],
-                'label'=>false
+                'label'=> 'Type Client : '
             ])
         ;
     }

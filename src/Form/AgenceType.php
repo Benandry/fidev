@@ -32,7 +32,7 @@ class AgenceType extends AbstractType
             ->add('Save',SubmitType::class,[
                 'label'=>'Sauvegarder',
                 'attr'=>[
-                    'class'=>'btn btn-success',
+                    'class'=>'btn btn-success btn-sm',
                 ]
             ])
         ;

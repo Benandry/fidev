@@ -30,6 +30,7 @@ class GroupeType extends AbstractType
                     'class'=>'form-control',
                 ]
             ])
+
             ->add('email')
             ->add('codegroupe',TextType::class,[
                 'attr'=>[

@@ -1,15 +1,25 @@
-{{ include('header.html.twig') }}
+{% extends "base.html.twig" %}
+{% block title %}
+    groupe
+{% endblock %}
+{% block head %}
+    Listes de groupes
+{% endblock %}
 
 {% block body %}
 
-{{ include('modal.html.twig') }}
-
-    <table class="table1 table">
-        <thead class="alert alert-success">
+    {{ include('modal.html.twig') }}
+    <div class="row m-4">
+        <div class="col-12">
+            <a href="{{ path('app_groupe_new') }}" class="btn btn-primary btn-sm" ><i class="fa fa-plus"></i>Ajouter nouveau </a>
+        </div>
+    </div>
+    <table class="table1 table bordered m-3 p-4">
+        <thead>
             <tr>
                 <th>Code groupe</th>
-                <th>Nom Groupe</th>
                 <th>Date Inscription</th>
+                <th>Nom Groupe</th>
                 <th>Numero Mobile</th>
                 <th>Email</th>
                 <th>actions</th>
@@ -19,20 +29,22 @@
         {% for Groupe in groupes %}
             <tr>
                 <td>{{ Groupe.codegroupe }}</td>
-                <td>{{ Groupe.nomGroupe }}</td>
                 <td>{{ Groupe.dateInscription ? Groupe.dateInscription|date('Y-m-d') : '' }}</td>
+                <td>{{ Groupe.nomGroupe }}</td>
                 <td>{{ Groupe.numeroMobile }}</td>
                 <td>{{ Groupe.email }}</td>
                 <td>
-                    <div class="col-sm-4">
-                        <a href="{{ path('app_groupe_show', {'id': Groupe.id}) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"> Afficher </i></a>
+                  <div class="row">
+                    <div class="col-2 col-sm-2">
+                        <a href="{{ path('app_groupe_show', {'id': Groupe.id}) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
                     </div>
-                    <div class="col-sm-4">
-                        <a href="{{ path('app_groupe_edit', {'id': Groupe.id}) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Editer </a>
+                    <div class="col-sm-2">
+                        <a href="{{ path('app_groupe_edit', {'id': Groupe.id}) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-auto col-sm-auto">
                         {{ include('Module_client/groupe/_delete_form.html.twig') }}
                     </div>
+                  </div>
 
                 </td>
             </tr>
@@ -43,8 +55,4 @@
         {% endfor %}
         </tbody>
     </table>
-    <a href="{{ path('app_groupe_new') }}" class="btn btn-primary btn-sm" ><i class="fa fa-book"></i>Ajouter nouveau </a>
-
 {% endblock %}
-
-{{ include('footer.html.twig') }}

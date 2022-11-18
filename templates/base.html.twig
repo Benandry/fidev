@@ -4,24 +4,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fidev</title>
-    
+    <title>{% block title %}Fidev {% endblock %}</title>
+
         {% block stylesheet %}
             {{ encore_entry_link_tags('app') }}
         {% endblock  %}
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-        
 </head>
 <body>
 
     <div class="container-fluid">
             <div class="row flex-nowrap">
-                <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-primary" >
+                <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 sidebar" >
                     <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
                         <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                            <span class="fs-5 d-none d-sm-inline">Menu du Fidev</span>
+                            <div class="row mt-3">
+                                <img class="img-fluid avatar" src="{{ asset('images/logo.jpg') }}" width="100" alt="AVATAR" style="border-radius: 50%;" >
+                            </div>
                         </a>
                         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start text-white" id="menu">
 
@@ -29,7 +27,7 @@
                             <li>
                                 <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
                                     <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline"> <i class="fa fa-user"></i> Client  <span class="fa fa-chevron-down"></span> </span></a>
-                                <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+                                <ul class="collapse nav flex-column ms-1 ms-3" id="submenu1" data-bs-parent="#menu">
                                     <li class="w-100">
                                         <a href="{{path('app_individuel_new')}}" class="nav-link px-0"> <span class="d-none d-sm-inline"> <i class="fa fa-user"></i> Individuel </span></a>
                                     </li>
@@ -67,14 +65,14 @@
                                     <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline"><i class="fa fa-database"></i>  Epargne <span class="fa fa-chevron-down"></span> </span> </a>
                                 <ul class="collapse show nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
                                     <li class="w-100">
-                                        <a href="{{ path('app_compte_epargne_new') }}" class="nav-link px-0"> <span class="d-none d-sm-inline">  <i class="fa fa-down-left-and-up-right-to-center"></i> Ouvrir un compte </span></a>
+                                        <a href="{{ path('app_new_account_ep') }}" class="nav-link px-0"> <span class="d-none d-sm-inline">  <i class="fa fa-down-left-and-up-right-to-center"></i> Ouvrir un compte </span></a>
                                     </li>
                                     <li class="w-100">
-                                        <a href="{{ path('app_transaction_new') }}" class="nav-link px-0"> <span class="d-none d-sm-inline"> <i class="fa fa-long-arrow-down"></i> Depot epargne </span> </a>
+                                        <a href="{{ path('app_new_depot') }}" class="nav-link px-0"> <span class="d-none d-sm-inline"> <i class="fa fa-long-arrow-down"></i> Depot epargne </span> </a>
                                     </li>
 
                                     <li class="w-100">
-                                        <a href="{{ path('app_transaction_retrait') }}" class="nav-link px-0"> <span class="d-none d-sm-inline"> <i class="fa fa-long-arrow-up"></i> Retrait epargne </span> </a>
+                                        <a href="{{ path('app_new_retrait') }}" class="nav-link px-0"> <span class="d-none d-sm-inline"> <i class="fa fa-long-arrow-up"></i> Retrait epargne </span> </a>
                                     </li>
 
                                     
@@ -103,7 +101,7 @@
                             <!-- Configuration -->
                             <li>
                                 <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                                    <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline"> <i class="fa fa-toolbox"></i> Configuration <span class="fa fa-chevron-down"></span> </span> </a>
+                                    <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline"> <i class="fa fa-toolbox"></i> Configuration <span class="fa fa-chevron-down"></span> </span> </a>
                                 <ul class="collapse show nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
                                     <li class="w-100">
                                         <a href="{{path('app_type_epargne_new')}}"  class="nav-link px-0"> <span class="d-none d-sm-inline"> <i class="fa fa-edit"></i> Type epargne</span></a>
@@ -147,13 +145,13 @@
                         <!-- Deconnection  et inscription  -->
                         <div class="dropdown pb-4">
                             <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                                <img class="img-fluid avatar" src="{{ asset('images/img_avatar.png') }}" width="40" alt="AVATAR" style="border-radius: 50%;" >
                                 <span class="d-none d-sm-inline mx-1">{{ app.user.prenom }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-primary text-small shadow" aria-labelledby="dropdownUser1">
-                                <li><a class="dropdown-item" href="{{path('app_inscription_')}}" > Créer un compte </a></li>
+                                <li><a class="dropdown-item" href="{{path('app_inscription_')}}" > <i class="fa-solid fa-pencil"></i> Créer un compte </a></li>
                                 
-                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" href="#"> <i class="fa-solid fa-user"></i> connectée en tant que <span> {{ app.user.prenom }} </span></a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -166,11 +164,18 @@
                     <div class="col py-3">
                         <div class="row">
                             <div class="col-12 col-md-12 col sm-12">
-                            <h3 class="text-primary m-3">{% block head %}  {% endblock %}</h3>
-                            {% block body %}
-                                
-                            {% endblock %}
-                            
+                                <div class="row"> 
+                                    <h5 class="text-primary m-3">{% block head %}  {% endblock %}</h5>
+                                </div>
+                                <div class="row">
+                                    <hr class="fw-bold">
+                                </div>
+                               
+                                <div class="rounded g-0 shadow-sm p-3">
+                                    {% block body %}
+                                        
+                                    {% endblock %}
+                                </div>
                             </div>
                         </div>
                        
@@ -178,6 +183,8 @@
                 </div>
             </div>
         </div>
-
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
 </body>
 </html>

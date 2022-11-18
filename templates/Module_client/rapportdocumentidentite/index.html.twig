@@ -1,22 +1,27 @@
-{{ include('header.html.twig') }}
+{% extends "base.html.twig" %}
 
+{% block title %} 
+    {% if affiche_table == false %}
+        Liste par document identite 
+    {% else %}
+        Liste des CIN {% if date_1 == true %} jusq'a {{ one_date| date('d-m-Y') }} {% else %} du {{ du| date('d-m-Y') }} au {{ au| date('d-m-Y')  }}{% endif %} 
+    {% endif %}
+{% endblock %}
+{% block head %}
+
+    {% if affiche_table == false %}
+            Liste par document identite 
+        {% else %}
+            Liste paar document {% if date_1 == true %} jusq'a {{ one_date| date('d-m-Y') }} {% else %} du {{ du| date('d-m-Y') }} au {{ au| date('d-m-Y')  }}{% endif %} 
+        {% endif %}
+    {% endblock %}
 {% block body %}
     {% if affiche_table == false %}
 
-    <!-- The Modal -->
-    <div class="modal fade" id="myModal">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-            
-                <!-- Modal Header -->
-                <div class="modal-header bg-primary">
                     <h4 class="modal-title text-center">Recherche par date</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
+
                 {{ form_start(trierDocs) }}
-                    <!-- Modal body -->
-                    <div class="modal-body">
-                    
+
                             <div class="text-center" id="one_date">
                                 <h4 class="text-center"> Date arrêtée </h4>
                                 {{ form_row(trierDocs.one_date_search) }}
@@ -32,30 +37,23 @@
                                         {{ form_row(trierDocs.Date2) }}
                                     </div>
                             </div>
-                    </div>
                     
                     <!-- Modal footer -->
                     <div class="modal-footer">
                         {{ form_row(trierDocs.Filtre) }}
                     </div>
                     {{ form_end(trierDocs) }}
-            </div>
-        </div>
-    </div>
-
     {# /*********Fin modal ************ #}
 
            
                
     {% else %}
-        <h2 class="text-primary text-center">Liste des CIN {% if date_1 == true %} jusq'a {{ one_date| date('d-m-Y') }} {% else %} du {{ du| date('d-m-Y') }} au {{ au| date('d-m-Y')  }}{% endif %} </h2>
-
-        <table class="table1 table" style="margin-top:25px;">
-            <thead class="alert alert-success">
+        <table class="table1 table m-3 p-3">
+            <thead>
                 <tr>
+                    <th>Numero CIN</th>
                     <th>Nom</th>
                     <th>Prenom</th>
-                    <th>Numero CIN</th>
                     <th>Date naissance</th>
                     <th>Lieu de naissance</th>
                     <th>Date de livrance</th>
@@ -66,9 +64,9 @@
                 {% for Individuelclient in documents %}
             <tbody class="jumbotron jumbotron-fluid" style="color:black;">
                     <tr>
+                        <td class="fw-bold">{{ Individuelclient.getCin() }}</td>
                         <td>{{ Individuelclient.getNomclient() }}</td>
                         <td>{{ Individuelclient.getPrenomclient() }}</td>
-                        <td>{{ Individuelclient.getCin() }}</td>
                         <td>{{ Individuelclient.getDatenaissance()| date('d/m/Y') }}</td>
                         <td>{{ Individuelclient.getLieunaissance() }}</td>
                         <td>{{ Individuelclient.getDatecin()| date('d/m/Y') }}</td>
@@ -106,5 +104,3 @@
         </script>
     {% endblock  %}
 {% endblock %}
-
-{{ include('footer.html.twig') }}

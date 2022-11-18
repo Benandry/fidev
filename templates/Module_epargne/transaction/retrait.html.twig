@@ -1,4 +1,9 @@
-{{ include('header.html.twig') }}
+{% extends "base.html.twig" %}
+
+{% block title %} Retrait compte epargne {% endblock %}
+{% block head %}
+    Retrait compte epargne
+{% endblock %}
 
 {% block body %}
 
@@ -10,27 +15,7 @@
      {# /***************Messages succes ******************/#}
     
      {% for message in app.flashes('success') %}
-            <div class="alert text-center alert-success">
-                <!-- The Modal -->
-                <div class="modal fade" id="myModal">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                                <!-- Modal body -->
-                                <div class="modal-body">
-                                    <p class="alert alert-success text-center">
-                                        {{ message }}
-                                    </p>
-                                </div>
-                                
-                                <!-- Modal footer -->
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
-                                </div>
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <strong>{{ message }}</strong>
         {% endfor %}
     {# *************************************#}
 
@@ -77,9 +62,8 @@
 </table>
 
 {% endblock %}
-      <script src="{{ asset('/api/retrait.js')}}"></script>
+      {# <script src="{{ asset('/api/retrait.js')}}"></script> #}
 
-{{ include('footer.html.twig') }}
 
 
 {# {{ include('header.html.twig') }}

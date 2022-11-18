@@ -1,9 +1,11 @@
-{{ include('header.html.twig') }}
+{% extends "base.html.twig" %}
 
+{% block title %}Ajout de nouveau devise {% endblock %}
+{% block head %}
+   Ajout de nouveau devise
+{% endblock %}
 {% block body %}
     
   {{ include('references/devise/_form.html.twig') }}
      
 {% endblock %}
-
-{{ include('footer.html.twig') }}

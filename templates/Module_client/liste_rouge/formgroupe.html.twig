@@ -1,20 +1,21 @@
-{{ include('header.html.twig') }}
 
-{% block body %}
-    <a href="{{ path('app_liste_rougegroupe_index') }}"  class="btn btn-success"><i class="fa fa-search"></i> Recherche</a>
 
-{{ form_start(form) }}
-<div class="row " style="margin-left:250px;">
-    <div class="col-sm-5 jumbotron jumbotron-fluid">
-        {{ form_row(form.dateliste) }}
-        {{ form_row(form.raison) }}
-        {{ form_row(form.codegroupe) }}<br>
-    <button class="btn btn-success">{{ button_label|default('Ajouter') }}</button>
-    </div>
-</div>
-
-{{ form_end(form) }}
-{% endblock %}
-
-{{ include('footer.html.twig') }}
+    {{ form_start(form) }}
+        <div class="row">
+            <div class="col-4  col-sm-4">
+                {{ form_row(form.codeclient) }}
+                {{ form_row(form.raison) }}
+            </div>
+            <div class="col-sm-4 col-4">
+                {{ form_row(form.codegroupe) }}
+                {{ form_row(form.TypeClient) }}
+            </div>
+            <div class="col-sm-4 col-4">
+                {{ form_row(form.dateliste) }}
+            </div>            
+        </div>
+        <div class="row">
+            <button class="btn btn-success btn-sm">{{ button_label|default('Ajouter') }}</button>
+        </div>
+    {{ form_end(form) }}
 

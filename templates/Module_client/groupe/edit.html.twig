@@ -1,9 +1,13 @@
-{{ include('header.html.twig') }}
+{% extends "base.html.twig" %}
+{% block title %}
+    Modification du groupe {{ Groupe.nomGroupe }} 
+{% endblock %}
+{% block head %}
+    Modification du groupe {{ Groupe.nomGroupe }} 
+{% endblock %}
 
 {% block body %}
-<h4 class="text-primary text-center">Modification du {{ Groupe.nomGroupe }}</h4>
+    
     {{ include('Module_client/groupe/_form.html.twig', {'button_label': 'Update'}) }}
 
 {% endblock %}
-
-{{ include('footer.html.twig') }}

@@ -124,7 +124,15 @@ class CompteEpargneController extends AbstractController
     #[Route('/new', name: 'app_compte_epargne_new', methods: ['GET', 'POST'])]
     public function new(Request $request, CompteEpargneRepository $compteEpargneRepository): Response
     {
+
+         // maka anaran client avy amin account
+         $code_client = $request->query->get('code');
+         $nom_client = $request->query->get('nom');
+         $prenom_client = $request->query->get('prenom');
+
+
         // affichage du client du jour
+       
         $comptedujour=$compteEpargneRepository->ClientNow();
 
         //dd($comptedujour);
@@ -145,7 +153,10 @@ class CompteEpargneController extends AbstractController
         return $this->renderForm('Module_epargne/compte_epargne/new.html.twig', [
             'compte_epargne' => $compteEpargne,
             'form' => $form,
-            'comptedujours'=>$comptedujour
+            'comptedujours'=>$comptedujour,
+            'nom_client' =>$nom_client,
+            'code_client' => $code_client,
+            'prenom_client' => $prenom_client
         ]);
     }
 

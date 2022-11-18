@@ -76,7 +76,7 @@ class ListeRougeController extends AbstractController
 
         return $this->renderForm('Module_client/liste_rouge/new.html.twig', [
             'liste_rouge' => $listeRouge,
-            'form123' => $form,
+            'form' => $form,
         ]);
     }
     // groupe

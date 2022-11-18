@@ -1,4 +1,9 @@
-{{ include('header.html.twig') }}
+{% extends "base.html.twig" %}
+
+{% block title %} Depot compte epargne {% endblock %}
+{% block head %}
+    Depot compte epargne
+{% endblock %}
 
 {% block body %}
 
@@ -9,27 +14,7 @@
              {# /***************Messages succes ******************/#}
    
             {% for message in app.flashes('success') %}
-                <div class="alert text-center alert-success">
-                    <!-- The Modal -->
-                    <div class="modal fade" id="myModal">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                    <!-- Modal body -->
-                                    <div class="modal-body">
-                                        <p class="alert alert-success text-center">
-                                            {{ message }}
-                                        </p>
-                                    </div>
-                                    
-                                    <!-- Modal footer -->
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
-                                    </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <strong> {{ message }} </strong>
             {% endfor %} 
     {# *************************************#}
 
@@ -44,7 +29,6 @@
 {% block javascript %}
     <script src="{{ asset('/api/depot.js')}}"></script>
 {% endblock %}
-{{ include('footer.html.twig') }}
 
 
 {# 
@@ -68,7 +52,7 @@
         <div>
             <p> Text ecrit : <span id="text"> </span> </p>
             {# <p> Text ecrit : <span id="code"> </span> </p> #}
-        </div>
+        {# </div> #}
 
 
             {# /***************Messages succes ******************/#}
@@ -125,4 +109,4 @@
         <script src="{{ asset('/api/depot.js')}}"></script>
     {% endblock %}
 {% endblock %}
-{{ include('footer.html.twig') }} #} #}
+{{ include('footer.html.twig') }} #}

@@ -31,7 +31,7 @@ class AgenceController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $agenceRepository->add($agence, true);
-
+            $this->addFlash('success', "Ajout de nouveau agence:  ' ".$agence->getNomAgence() ."  reussite!!");
             return $this->redirectToRoute('app_agence_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -58,6 +58,7 @@ class AgenceController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $agenceRepository->add($agence, true);
 
+            $this->addFlash('success', "Modification agence:  ' ".$agence->getNomAgence() ."  reussite!!");
             return $this->redirectToRoute('app_agence_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -73,7 +74,7 @@ class AgenceController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$agence->getId(), $request->request->get('_token'))) {
             $agenceRepository->remove($agence, true);
         }
-
+        $this->addFlash('success', "Suppression agence:  ' ".$agence->getNomAgence() ."  reussite!!");
         return $this->redirectToRoute('app_agence_index', [], Response::HTTP_SEE_OTHER);
     }
 }

@@ -1,8 +1,10 @@
-{{ include('header.html.twig') }}
+{% extends "base.html.twig" %}
 
+{% block title %} Modification de type epargne : {{ type_epargne.NomTypeEp }}{% endblock %}
+{% block head %}
+   Modification type epargne : {{ type_epargne.NomTypeEp }}
+{% endblock %}
 {% block body %}
     {{ include('Configuration/type_epargne/_form.html.twig', {'button_label': 'Modifier'}) }}
 
 {% endblock %}
-
-{{ include('footer.html.twig') }}

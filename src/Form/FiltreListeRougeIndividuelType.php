@@ -21,7 +21,7 @@ class FiltreListeRougeIndividuelType extends AbstractType
                 ])
             ->add('Filtre',SubmitType::class,[
                 'attr'=>[
-                    'class'=>'btn btn-success'
+                    'class'=>'btn btn-success btn-sm'
                 ]
             ])
         ;

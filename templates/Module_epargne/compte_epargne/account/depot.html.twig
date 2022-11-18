@@ -1,0 +1,43 @@
+{% extends "base.html.twig" %}
+
+{% block head %}
+    Nouveau depot
+{% endblock %}
+
+{% block title %}
+    Nouveau depot
+{% endblock %}
+
+{% block body %}
+       <div class="shadow-sm vh-100 rounded g-0 p-5 m-3">
+        
+            {{ form_start(form) }}
+                <div class="row ms-5">
+                    <div class="col-3 col-sm-3 col-md-3">
+                        {{ form_row(form.compte) }}
+                        <div id="code_client_suggest"></div>
+                    </div>
+                    <div id="nom_prenom">
+                        <div class="col-3 col-sm-3 col-md-3">
+                            {{ form_row(form.nom) }}
+                        </div>
+                        <div class="col-3 col-sm-3 col-md-3">
+                            {{ form_row(form.prenom) }}
+                        </div>
+                    </div>
+
+                    <div class="col-auto col-sm-auto col-md-auto">
+                        <div class="row ms-5 p-4">
+                             <p class="fw-bolder"> Code client : <span id="codeclient"></span></p>
+                            <p class="fw-bolder" >Nom : <span id="nom"></span></p>
+                            <p class="fw-bolder" > Prenom : <span id="prenom"></span></p> 
+                        </div>
+                    </div>
+                </div>
+                <div class="row ms-5">
+                    {{ form_row(form.valider )}}
+                </div>
+
+            {{ form_end(form)}}
+    </div>
+{% endblock %}
